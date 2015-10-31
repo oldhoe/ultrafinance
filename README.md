@@ -2,5 +2,8 @@ ultrafinance
 ============
 Python project for real-time financial data collection, analyzing && backtesting trading strategies.
 
-Project Home: https://code.google.com/p/ultra-finance/
+todolist:
+从通达信文件中获取数据
+增加保存到mangoDB
+
 

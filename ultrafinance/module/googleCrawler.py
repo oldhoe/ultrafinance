@@ -42,13 +42,13 @@ class GoogleCrawler(object):
         self.succeeded = []
 
     def __getOutputDamSetting(self):
-        self.sqlLocation = 'sqlite:///%s' % self.__getOutputSql()
+        self.sqlLocation = 'sqlite://%s' % self.__getOutputSql()
         LOG.info("Sqlite location: %s" % self.sqlLocation)
         return {'db': self.sqlLocation}
 
     def __getOutputSql(self):
-        return path.join("/"
-                         "data",
+        return path.join("/",
+                         pardir + sep + pardir+ sep + "data",
                          "stock.sqlite")
 
     def __getSaveOneSymbol(self, symbol):

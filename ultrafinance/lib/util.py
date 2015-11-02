@@ -9,11 +9,11 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import date
 import time
-from time import gmtime, strftime
+#from time import gmtime, strftime
 
 import logging
 logging.basicConfig(
-        level=logging.DEBUG, format='%(asctime)s%(filename)s[line:%(lineno)d] %(levelname)s %(message)s', datefmt='%a, %d %b %Y %H:%M:%S')
+        level=logging.DEBUG, format='%(asctime)s%(name)s[line:%(lineno)d] %(levelname)s %(message)s', datefmt='%a, %d %b %Y %H:%M:%S')
 
 
 # logging.basicConfig(

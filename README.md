@@ -13,6 +13,8 @@ Changelog
 version 0.1
 2015-11-01 ultrafinance/dam/googleFinance.py 支持python 3
            修复split 'str' does not support the buffer interface
+           替换urllib为requests
+           文件googleCrawler.py中，多写了一个“/”，修改为self.sqlLocation = 'sqlite://%s' % self.__getOutputSql()
 
 
 <!--

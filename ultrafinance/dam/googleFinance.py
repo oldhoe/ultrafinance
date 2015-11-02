@@ -3,7 +3,8 @@ Created on July 31, 2011
 
 @author: ppa
 '''
-import urllib.request, urllib.error, urllib.parse
+#import urllib.request, urllib.error, urllib.parse
+import requests
 from bs4 import BeautifulSoup
 import traceback
 from ultrafinance.lib.util import convertGoogCSVDate
@@ -29,8 +30,18 @@ class GoogleFinance(object):
 
     def __request(self, url):
         try:
-            return urllib.request.urlopen(url)
-        except urllib.error.HTTPError:
+#            访问google需要代理
+            http_proxy  = "http://127.0.0.1:7777"
+            https_proxy  =  "http://127.0.0.1:7777"
+            ftp_proxy    = "127.0.0.1:1080"
+            proxyDict = {
+            	      "http"  : http_proxy,
+            	      "https" : https_proxy,
+            	      "ftp"   : ftp_proxy
+            	    }
+            headers = ''
+            return requests.get(url, headers=headers, proxies=proxyDict)
+        except requests.exceptions.RequestException:
             raise UfException(Errors.NETWORK_400_ERROR, "400 error when connect to Google server")
         except IOError:
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Google server at %s" % url)
@@ -73,23 +84,24 @@ class GoogleFinance(object):
                     raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
                 raise ufExcep
 
-            days = page.readlines()
+            days = page.text.split('\n')
             values = [day.split(',') for day in days]
             # sample values:[['Date', 'Open', 'High', 'Low', 'Close', 'Volume'], \
             #              ['2009-12-31', '112.77', '112.80', '111.39', '111.44', '90637900']...]
             data = []
             for value in values[1:]:
-                date = convertGoogCSVDate(value[0])
-                try:
-                    data.append(Quote(date,
-                                      value[1].strip(),
-                                      value[2].strip(),
-                                      value[3].strip(),
-                                      value[4].strip(),
-                                      value[5].strip(),
-                                      None))
-                except Exception:
-                    LOG.warning("Exception when processing %s at date %s for value %s" % (symbol, date, value))
+                if len(values[0]) == len(value):
+                    date = convertGoogCSVDate(value[0])
+                    try:
+                        data.append(Quote(date,
+                                          value[1].strip(),
+                                          value[2].strip(),
+                                          value[3].strip(),
+                                          value[4].strip(),
+                                          value[5].strip(),
+                                          None))
+                    except Exception:
+                        LOG.warning("Exception when processing %s at date %s for value %s" % (symbol, date, value))
 
             #dateValues = sorted(data, key=itemgetter(0))
             dateValues = sorted(data, key = lambda x: x.time)

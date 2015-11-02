@@ -121,7 +121,7 @@ class GoogleCrawler(object):
 if __name__ == '__main__':
     crawler = GoogleCrawler(["AAPL", "EBAY", "GOOG"], "20151001")
     crawler.getSaveOneSymbol("GOOG")
-    # crawler.getAndSaveSymbols()
+    crawler.getAndSaveSymbols()
     LOG.info("Sqlite location: %s" % crawler.sqlLocation)
     LOG.info("Succeeded: %s" % crawler.succeeded)
     LOG.info("Failed: %s" % crawler.failed)

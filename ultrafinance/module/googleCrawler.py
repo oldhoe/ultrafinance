@@ -9,7 +9,7 @@ Created on Dec 4, 2011
 
 # 根据文件所在目录，增加搜索路径
 import sys
-import os
+#import os
 from os.path import dirname, realpath, sep, pardir
 sys.path.insert(0,dirname(realpath(__file__)) + sep + pardir + sep + pardir)
 
@@ -21,8 +21,6 @@ import time
 
 from threading import Thread
 from threading import Lock
-
-import functools
 
 THREAD_TIMEOUT = 5
 MAX_TRY = 3

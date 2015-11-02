@@ -3,7 +3,7 @@ Created on July 31, 2011
 
 @author: ppa
 '''
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from bs4 import BeautifulSoup
 import traceback
 from ultrafinance.lib.util import convertGoogCSVDate
@@ -29,8 +29,8 @@ class GoogleFinance(object):
 
     def __request(self, url):
         try:
-            return urllib2.urlopen(url)
-        except urllib2.HTTPError:
+            return urllib.request.urlopen(url)
+        except urllib.error.HTTPError:
             raise UfException(Errors.NETWORK_400_ERROR, "400 error when connect to Google server")
         except IOError:
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Google server at %s" % url)

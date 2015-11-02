@@ -3,7 +3,18 @@ Created on Dec 4, 2011
 
 @author: ppa
 '''
+
+# import logging
+# LOG = logging.getLogger(__name__)
+
+# 根据文件所在目录，增加搜索路径
+import sys
+import os
+from os.path import dirname, realpath, sep, pardir
+sys.path.insert(0,dirname(realpath(__file__)) + sep + pardir + sep + pardir)
+
 from ultrafinance.dam.DAMFactory import DAMFactory
+from ultrafinance.lib.util import LOG
 
 from os import path
 import time
@@ -11,9 +22,7 @@ import time
 from threading import Thread
 from threading import Lock
 
-import logging
-LOG = logging.getLogger()
-
+import functools
 
 THREAD_TIMEOUT = 5
 MAX_TRY = 3
@@ -76,6 +85,9 @@ class GoogleCrawler(object):
             LOG.info("Processed %s" % symbol)
             self.succeeded.append(symbol)
 
+    def getSaveOneSymbol(self, symbol):
+        self.__getSaveOneSymbol(symbol)
+
     def getAndSaveSymbols(self):
         ''' get and save data '''
         counter = 0
@@ -109,9 +121,9 @@ class GoogleCrawler(object):
             time.sleep(5)
 
 if __name__ == '__main__':
-    crawler = GoogleCrawler(["AAPL", "EBAY", "GOOG"], "20131101")
-    crawler.getAndSaveSymbols()
-    print("Sqlite location: %s" % crawler.sqlLocation)
-    print("Succeeded: %s" % crawler.succeeded)
-    print("Failed: %s" % crawler.failed)
-
+    crawler = GoogleCrawler(["AAPL", "EBAY", "GOOG"], "20151001")
+    crawler.getSaveOneSymbol("GOOG")
+    # crawler.getAndSaveSymbols()
+    LOG.info("Sqlite location: %s" % crawler.sqlLocation)
+    LOG.info("Succeeded: %s" % crawler.succeeded)
+    LOG.info("Failed: %s" % crawler.failed)

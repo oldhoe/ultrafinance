@@ -11,6 +11,8 @@ from datetime import date
 import time
 #from time import gmtime, strftime
 
+import functools
+
 import logging
 logging.basicConfig(
         level=logging.DEBUG, format='%(asctime)s%(name)s[line:%(lineno)d] %(levelname)s %(message)s', datefmt='%a, %d %b %Y %H:%M:%S')
@@ -22,6 +24,13 @@ logging.basicConfig(
 LOG = logging.getLogger(__name__)
 
 googCSVDateformat = "%d-%b-%y"
+
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('Call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
 
 def importClass(path, moduleName, className = None):
     ''' dynamically import class '''

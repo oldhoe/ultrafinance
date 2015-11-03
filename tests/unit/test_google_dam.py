@@ -5,6 +5,7 @@ Created on Nov 27, 2011
 '''
 import unittest
 from ultrafinance.dam.googleDAM import GoogleDAM
+from ultrafinance.lib.util import *
 
 class testGoogleDam(unittest.TestCase):
 
@@ -14,6 +15,7 @@ class testGoogleDam(unittest.TestCase):
     def tearDown(self):
         pass
 
+    @log
     def testReadQuotes(self):
         dam = GoogleDAM()
         dam.setSymbol('NASDAQ:EBAY')
@@ -34,3 +36,6 @@ class testGoogleDam(unittest.TestCase):
         keyTimeValueDict = dam.readFundamental()
         print(keyTimeValueDict)
         self.assertNotEqual(0, len(keyTimeValueDict))
+
+if __name__ == "__main__":
+    unittest.main()

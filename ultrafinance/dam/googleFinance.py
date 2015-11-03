@@ -195,6 +195,8 @@ class GoogleFinance(object):
 
         start and end is disabled since only 15 days data will show
 
+        sample url: http://www.google.com/finance/getprices?q=EBAY&i=61&p=15&f=d,o,h,l,c,v
+
         @Returns a nested list.
         """
         #TODO, parameter checking

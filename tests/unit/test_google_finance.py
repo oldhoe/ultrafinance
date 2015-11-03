@@ -9,15 +9,6 @@ from ultrafinance.dam.googleFinance import GoogleFinance
 from ultrafinance.lib.errors import UfException
 from ultrafinance.lib.util import *
 
-import functools
-
-def log(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kw):
-        print('Call %s():' % func.__name__)
-        return func(*args, **kw)
-    return wrapper
-
 import logging
 LOG = logging.getLogger(__name__)
 

@@ -10,6 +10,7 @@ import traceback
 from ultrafinance.lib.util import convertGoogCSVDate
 from ultrafinance.model import Quote, Tick
 from ultrafinance.lib.errors import UfException, Errors
+from ultrafinance.lib.util import *
 
 import logging
 LOG = logging.getLogger()
@@ -40,7 +41,10 @@ class GoogleFinance(object):
             	      "ftp"   : ftp_proxy
             	    }
             headers = ''
-            return requests.get(url, headers=headers, proxies=proxyDict)
+            page = requests.get(url, headers=headers, proxies=proxyDict)
+            if page.status_code == 400:
+                raise Errors.NETWORK_400_ERROR
+            return page
         except requests.exceptions.RequestException:
             raise UfException(Errors.NETWORK_400_ERROR, "400 error when connect to Google server")
         except IOError:
@@ -56,7 +60,7 @@ class GoogleFinance(object):
         url = 'http://www.google.com/finance?q=%s' % symbol
         page = self.__request(url)
 
-        soup = BeautifulSoup(page)
+        soup = BeautifulSoup(page.content, 'lxml')
         snapData = soup.find("table", { "class" : "snap-data" })
         if snapData is None:
             raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
@@ -122,14 +126,14 @@ class GoogleFinance(object):
         try:
             url = 'http://www.google.com/finance?q=%s&fstype=ii' % symbol
             try:
-                page = self.__request(url).read()
+                page = self.__request(url)
             except UfException as ufExcep:
                 ##if symol is not right, will get 400
                 if Errors.NETWORK_400_ERROR == ufExcep.getCode:
                     raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
                 raise ufExcep
 
-            bPage = BeautifulSoup(page)
+            bPage = BeautifulSoup(page.content, 'lxml')
             target = bPage.find(id = 'incinterimdiv')
 
             keyTimeValue = {}
@@ -209,13 +213,19 @@ class GoogleFinance(object):
                     raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
                 raise ufExcep
 
-            days = page.readlines()[7:] # first 7 line is document
+            days = page.text.splitlines()[7:] # first 7 line is document
             # sample values:'a1316784600,31.41,31.5,31.4,31.43,150911'
             values = [day.split(',') for day in days]
 
             data = []
+
             for value in values:
-                data.append(Tick(value[0][1:].strip(),
+                if len(value) ==1:
+                    #TODO, 处理时区偏移 TIMEZONE_OFFSET=-240。待研究
+                    LOG.debug('#TODO: {0}'.format(value))
+                else:
+                    # LOG.debug('in progress: {0} in {1} | {2}'.format(len(data), len(values), len(value)))
+                    data.append(Tick(value[0][1:].strip(),
                                  value[4].strip(),
                                  value[2].strip(),
                                  value[3].strip(),

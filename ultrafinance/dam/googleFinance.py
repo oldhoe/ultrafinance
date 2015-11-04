@@ -31,7 +31,7 @@ class GoogleFinance(object):
 
     def __request(self, url):
         try:
-#            访问google需要代理
+            #TODO, 访问google需要代理.代理加入到配置文件
             http_proxy  = "http://127.0.0.1:7777"
             https_proxy  =  "http://127.0.0.1:7777"
             ftp_proxy    = "127.0.0.1:1080"

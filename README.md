@@ -16,6 +16,7 @@ version 1.0.2
            替换urllib为requests
            GoogleFinance中，访问google使用代理模式 http_proxy = "http://127.0.0.1:7777"
            文件googleCrawler.py中，多写了一个“/”，修改为self.sqlLocation = 'sqlite://%s' % self.__getOutputSql()
+           测试/tests/unit/test_google_dam.py，test_google_finance.py
 
 
 <!--

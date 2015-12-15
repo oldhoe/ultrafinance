@@ -3,19 +3,21 @@ Created on Dec 4, 2011
 
 @author: ppa
 '''
-from ultrafinance.dam.DAMFactory import DAMFactory
-from os import path
 import optparse
-
-from threading import Thread
+from os import path
 from threading import Lock
+from threading import Thread
+
+from ultrafinance.dam.DAMFactory import DAMFactory
 
 BATCH_SIZE = 30
 THREAD_TIMEOUT = 5
 MAX_TRY = 3
 
+
 class FundamentalCrawler(object):
     ''' collect fundamental for a list of symbol '''
+
     def __init__(self):
         ''' constructor '''
         self.symbols = []
@@ -29,17 +31,17 @@ class FundamentalCrawler(object):
     def getOutputSql(self):
         ''' output path for sql database'''
         return path.join(path.dirname(path.dirname(path.realpath(__file__))),
-                 "data",
-                 "fundamental.sqlite")
+                         "data",
+                         "fundamental.sqlite")
 
     def getOptions(self):
         ''' crawling data and save to hbase '''
         parser = optparse.OptionParser("Usage: %prog [options]")
-        parser.add_option("-f", "--symbolFile", dest = "symbolFile", type = "string",
-                          help = "file that contains symbols for each line")
-        parser.add_option("-o", "--outputDAM", dest = "outputDAM",
-                          default = 'sql', type = "string",
-                          help = "output dam, e.g. sql|hbase")
+        parser.add_option("-f", "--symbolFile", dest="symbolFile", type="string",
+                          help="file that contains symbols for each line")
+        parser.add_option("-o", "--outputDAM", dest="outputDAM",
+                          default='sql', type="string",
+                          help="output dam, e.g. sql|hbase")
 
         (options, _) = parser.parse_args()
 
@@ -67,7 +69,6 @@ class FundamentalCrawler(object):
             print("Sqlite location: %s" % sqlLocation)
             setting = {'db': sqlLocation}
 
-
         # set google and output dam
         self.googleDAM = DAMFactory.createDAM("google")
         self.outputDAM = DAMFactory.createDAM(options.outputDAM, setting)
@@ -75,9 +76,9 @@ class FundamentalCrawler(object):
     def __getSaveOneSymbol(self, symbol):
         ''' get and save data for one symbol '''
         try:
-            with self.readLock: #dam is not thread safe
+            with self.readLock:  # dam is not thread safe
                 failCount = 0
-                #try several times since it may fail
+                # try several times since it may fail
                 while failCount < MAX_TRY:
                     try:
                         self.googleDAM.setSymbol(symbol)
@@ -91,7 +92,7 @@ class FundamentalCrawler(object):
                 if failCount >= MAX_TRY:
                     raise BaseException("Can't retrive historical data")
 
-            with self.writeLock: #dam is not thread safe
+            with self.writeLock:  # dam is not thread safe
                 self.outputDAM.setSymbol(symbol)
                 self.outputDAM.writeFundamental(keyTimeValueDict)
 
@@ -115,16 +116,16 @@ class FundamentalCrawler(object):
 
             threads = []
             for symbol in symbols:
-                thread = Thread(name = symbol, target = self.__getSaveOneSymbol, args = [symbol])
+                thread = Thread(name=symbol, target=self.__getSaveOneSymbol, args=[symbol])
                 thread.daemon = True
                 thread.start()
 
                 threads.append(thread)
 
             for thread in threads:
-                thread.join(THREAD_TIMEOUT) # no need to block, because thread should complete at last
+                thread.join(THREAD_TIMEOUT)  # no need to block, because thread should complete at last
 
-            #can't start another thread to do commit because for sqlLite, only object for the same thread can be commited
+            # can't start another thread to do commit because for sqlLite, only object for the same thread can be commited
             if 0 == rounds % 3:
                 self.outputDAM.commit()
 
@@ -136,9 +137,9 @@ class FundamentalCrawler(object):
         print("Succeeded: %s" % self.succeeded)
         print("Failed: %s" % self.failed)
 
+
 if __name__ == '__main__':
     crawler = FundamentalCrawler()
     crawler.getOptions()
     crawler.getSaveSymbols()
     crawler.printFailedSucceeded()
-

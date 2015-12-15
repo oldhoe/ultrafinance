@@ -3,21 +3,23 @@ Created on Jan 30, 2011
 
 @author: ppa
 '''
-from xlrd import open_workbook
-from xlwt import Workbook
-from ultrafinance.lib.errors import UfException, Errors
-
+import logging
 from os import path
 
-import logging
+from xlrd import open_workbook
+from xlwt import Workbook
+
+from ultrafinance.lib.errors import UfException, Errors
+
 LOG = logging.getLogger()
+
 
 class ExcelLib(object):
     ''' lib for accessing excel '''
     READ_MODE = 'r'
     WRITE_MODE = 'w'
 
-    def __init__(self, fileName = None, mode = READ_MODE):
+    def __init__(self, fileName=None, mode=READ_MODE):
         ''' constructor '''
         if ExcelLib.READ_MODE == mode:
             self.__operation = ExcelRead(fileName)
@@ -25,7 +27,7 @@ class ExcelLib(object):
             self.__operation = ExcelWrite(fileName)
         else:
             raise UfException(Errors.INVALID_EXCEL_MODE,
-                              "Invalid operation mode, only %s and %s are accepted"\
+                              "Invalid operation mode, only %s and %s are accepted" \
                               % (ExcelLib.READ_MODE, ExcelLib.WRITE_MODE))
 
     def __enter__(self):
@@ -66,6 +68,7 @@ class ExcelLib(object):
         ''' get operation'''
         return self.__operation
 
+
 class ExcelOpertion(object):
     ''' excel operation '''
     DEFAULT_SHEET = "sheet0"
@@ -102,15 +105,17 @@ class ExcelOpertion(object):
         ''' pre action as pre '''
         return
 
+
 class ExcelWrite(ExcelOpertion):
     ''' class to write excel '''
+
     def __init__(self, fileName):
         if path.exists(fileName):
             raise UfException(Errors.FILE_EXIST, "File already exist: %s" % fileName)
 
         self.__fileName = fileName
         self.__workbook = Workbook()
-        self.__sheetNameDict ={}
+        self.__sheetNameDict = {}
         self.__sheet = None
 
     def openSheet(self, name):
@@ -157,6 +162,7 @@ class ExcelWrite(ExcelOpertion):
 
 class ExcelRead(ExcelOpertion):
     ''' class to read excel '''
+
     def __init__(self, fileName):
         ''' constructor '''
         if not path.exists(fileName):
@@ -180,10 +186,11 @@ class ExcelRead(ExcelOpertion):
 
         if abs(row) >= self.__sheet.nrows:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readRow: row number too big: row %s, max %s" % (row, self.__sheet.nrows) )
+                              "Excellib.readRow: row number too big: row %s, max %s" % (row, self.__sheet.nrows))
         if max(abs(startCol), abs(endCol)) > self.__sheet.ncols:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readRow: col number too big: col %s, max %s" % (max(abs(startCol), abs(endCol)), self.sheet.ncols) )
+                              "Excellib.readRow: col number too big: col %s, max %s" % (
+                                  max(abs(startCol), abs(endCol)), self.sheet.ncols))
         if -1 == endCol:
             endCol = self.__sheet.ncols
 
@@ -195,10 +202,11 @@ class ExcelRead(ExcelOpertion):
 
         if abs(col) > self.__sheet.ncols:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readCol: col number too big: col %s, max %s" % (col, self.sheet.ncols) )
+                              "Excellib.readCol: col number too big: col %s, max %s" % (col, self.sheet.ncols))
         if max(abs(startRow), abs(endRow)) > self.__sheet.nrows:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readCol: row number too big: row %s, max %s" % (max(abs(startRow), abs(endRow)), self.sheet.nrows) )
+                              "Excellib.readCol: row number too big: row %s, max %s" % (
+                                  max(abs(startRow), abs(endRow)), self.sheet.nrows))
         if -1 == endRow:
             endRow = self.__sheet.nrows
 

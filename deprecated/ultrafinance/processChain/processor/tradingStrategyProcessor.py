@@ -3,17 +3,20 @@ Created on Feb 26, 2010
 
 @author: ppa
 '''
-from ultrafinance.processChain.baseModule import BaseModule
-from ultrafinance.lib.tradingStrategyFactory import TradingStrategyFactory
+import logging
+
 from ultrafinance.lib.tradingStrategy.automaticInvestmentPlan import adjustFixAmountPerPeriod
 from ultrafinance.lib.tradingStrategy.automaticInvestmentPlan import fixAmountPerPeriod
 from ultrafinance.lib.tradingStrategy.automaticInvestmentPlan import fixAmountPerPeriodWithAddtionWhenDrop
+from ultrafinance.lib.tradingStrategyFactory import TradingStrategyFactory
+from ultrafinance.processChain.baseModule import BaseModule
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class TradingStrategyProcessor(BaseModule):
     ''' Calculate average and standard deviation '''
+
     def __init__(self):
         ''' constructor '''
         super(TradingStrategyProcessor, self).__init__()

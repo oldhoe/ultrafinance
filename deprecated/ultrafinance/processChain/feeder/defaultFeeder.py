@@ -3,13 +3,16 @@ Created on Dec 18, 2010
 
 @author: ppa
 '''
+import logging
+
 from ultrafinance.processChain.baseModule import BaseModule
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class DefaultFeeder(BaseModule):
     ''' Default feeder '''
+
     def __init__(self):
         ''' Constructor '''
         super(DefaultFeeder, self).__init__()
@@ -17,5 +20,5 @@ class DefaultFeeder(BaseModule):
     def execute(self, input):
         ''' preparing data'''
         super(DefaultFeeder, self).execute(input)
-        data = {'defaultStock':('12/18/2010', '$20')}
+        data = {'defaultStock': ('12/18/2010', '$20')}
         return data

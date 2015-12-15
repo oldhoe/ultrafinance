@@ -3,14 +3,14 @@ Created on Nov 27, 2011
 
 @author: ppa
 '''
+import os
 import unittest
 
-import os
-from ultrafinance.model import Tick, Quote
 from ultrafinance.dam.excelDAM import ExcelDAM
+from ultrafinance.model import Tick, Quote
+
 
 class testExcelDAM(unittest.TestCase):
-
     def setUp(self):
         self.targetPath = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'output')
         self.symbol = 'ebay'

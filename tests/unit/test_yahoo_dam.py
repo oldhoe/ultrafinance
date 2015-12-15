@@ -4,10 +4,11 @@ Created on Nov 28, 2011
 @author: ppa
 '''
 import unittest
+
 from ultrafinance.dam.yahooDAM import YahooDAM
 
-class testYahooDAM(unittest.TestCase):
 
+class testYahooDAM(unittest.TestCase):
     def setUp(self):
         pass
 

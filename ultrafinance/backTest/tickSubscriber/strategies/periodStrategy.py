@@ -3,15 +3,18 @@ Created on Dec 25, 2011
 
 @author: ppa
 '''
-from ultrafinance.model import Type, Action, Order
-from ultrafinance.backTest.tickSubscriber.strategies.baseStrategy import BaseStrategy
-from ultrafinance.backTest.constant import CONF_STRATEGY_PERIOD, CONF_INIT_CASH
-
 import logging
+
+from ultrafinance.backTest.constant import CONF_STRATEGY_PERIOD, CONF_INIT_CASH
+from ultrafinance.backTest.tickSubscriber.strategies.baseStrategy import BaseStrategy
+from ultrafinance.model import Type, Action, Order
+
 LOG = logging.getLogger()
+
 
 class PeriodStrategy(BaseStrategy):
     ''' period strategy '''
+
     def __init__(self, configDict):
         ''' constructor '''
         super(PeriodStrategy, self).__init__("periodStrategy")
@@ -19,7 +22,7 @@ class PeriodStrategy(BaseStrategy):
 
         assert int(configDict[CONF_STRATEGY_PERIOD]) >= 1
 
-        self.perAmount = max(1, round(int(configDict[CONF_INIT_CASH]) / 100)) #buy 1/100 per time
+        self.perAmount = max(1, round(int(configDict[CONF_INIT_CASH]) / 100))  # buy 1/100 per time
         self.period = int(configDict[CONF_STRATEGY_PERIOD])
         self.symbols = None
         self.counter = 0
@@ -41,11 +44,9 @@ class PeriodStrategy(BaseStrategy):
         tick = tickDict[symbol]
 
         if self.increaseAndCheckCounter():
-            self.placeOrder(Order(accountId = self.accountId,
-                                  action = Action.BUY,
-                                  type = Type.MARKET,
-                                  symbol = symbol,
-                                  price = tick.close,
-                                  share = self.perAmount / float(tick.close)))
-
-
+            self.placeOrder(Order(accountId=self.accountId,
+                                  action=Action.BUY,
+                                  type=Type.MARKET,
+                                  symbol=symbol,
+                                  price=tick.close,
+                                  share=self.perAmount / float(tick.close)))

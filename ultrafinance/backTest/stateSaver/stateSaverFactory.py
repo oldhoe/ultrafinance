@@ -3,14 +3,17 @@ Created on Nov 6, 2011
 
 @author: ppa
 '''
-from ultrafinance.lib.errors import Errors, UfException
-from ultrafinance.designPattern.singleton import Singleton
-
 import logging
+
+from ultrafinance.designPattern.singleton import Singleton
+from ultrafinance.lib.errors import Errors, UfException
+
 LOG = logging.getLogger()
+
 
 class StateSaverFactory(Singleton):
     ''' factory for output saver '''
+
     @staticmethod
     def createStateSaver(name, setting):
         ''' create state saver '''

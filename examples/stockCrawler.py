@@ -3,19 +3,22 @@ Created on Dec 4, 2011
 
 @author: ppa
 '''
-from ultrafinance.module.googleCrawler import GoogleCrawler
-
-from os import path
 import datetime
-from dateutil.relativedelta import relativedelta
 import optparse
+from os import path
+
+from dateutil.relativedelta import relativedelta
+
+from ultrafinance.module.googleCrawler import GoogleCrawler
 
 BATCH_SIZE = 30
 THREAD_TIMEOUT = 5
 MAX_TRY = 3
 
+
 class StockCrawler(object):
     ''' collect quotes/ticks for a list of symbol '''
+
     def __init__(self):
         ''' constructor '''
         self.symbols = []
@@ -24,11 +27,11 @@ class StockCrawler(object):
     def getOptions(self):
         ''' crawling data and save to hbase '''
         parser = optparse.OptionParser("Usage: %prog [options]")
-        parser.add_option("-f", "--symbolFile", dest = "symbolFile", type = "string",
-                          help = "file that contains symbols for each line")
-        parser.add_option("-s", "--start", dest = "start",
-                          default = 'month', type = "string",
-                          help = "start date, all|month")
+        parser.add_option("-f", "--symbolFile", dest="symbolFile", type="string",
+                          help="file that contains symbols for each line")
+        parser.add_option("-s", "--start", dest="start",
+                          default='month', type="string",
+                          help="start date, all|month")
 
         (options, _) = parser.parse_args()
 
@@ -54,7 +57,7 @@ class StockCrawler(object):
         if 'all' == options.start:
             self.start = '19800101'
         else:
-            self.start = (datetime.datetime.now() + relativedelta(months = -1)).strftime("%Y%m%d")
+            self.start = (datetime.datetime.now() + relativedelta(months=-1)).strftime("%Y%m%d")
         self.end = datetime.datetime.now().strftime("%Y%m%d")
         print("Retrieving quotes start from %s" % self.start)
 
@@ -65,6 +68,7 @@ class StockCrawler(object):
         print("Sqlite location: %s" % googleCrawler.sqlLocation)
         print("Succeeded: %s" % googleCrawler.succeeded)
         print("Failed: %s" % googleCrawler.failed)
+
 
 if __name__ == '__main__':
     crawler = StockCrawler()

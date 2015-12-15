@@ -3,17 +3,21 @@ Created on Nov 6, 2011
 
 @author: ppa
 '''
-from ultrafinance.lib.errors import Errors, UfException
-from ultrafinance.dam.hbaseLib import HBaseLib
-from ultrafinance.backTest.stateSaver import StateSaver
+import logging
+
 from hbase.Hbase import Mutation, ColumnDescriptor
 
-import logging
+from ultrafinance.backTest.stateSaver import StateSaver
+from ultrafinance.dam.hbaseLib import HBaseLib
+from ultrafinance.lib.errors import Errors, UfException
+
 LOG = logging.getLogger()
+
 
 class HbaseSaver(StateSaver):
     ''' hbase saver '''
-    def __init__(self, ip = "localhost", port = 9090):
+
+    def __init__(self, ip="localhost", port=9090):
         ''' constructor '''
         super(HbaseSaver, self).__init__()
         self.__hbase = HBaseLib(ip, port)
@@ -25,7 +29,7 @@ class HbaseSaver(StateSaver):
             self.__hbase.deleteTable(self.tableName)
 
         LOG.debug("create table %s with cols %s" % (self.tableName, cols))
-        self.__hbase.createTable(self.tableName, [ColumnDescriptor(name = str(col), maxVersions = 5) for col in cols])
+        self.__hbase.createTable(self.tableName, [ColumnDescriptor(name=str(col), maxVersions=5) for col in cols])
 
     def read(self, row, col):
         ''' read value with row and col '''
@@ -59,16 +63,17 @@ class HbaseSaver(StateSaver):
         for (row, col), value in self.__writeCache.iteritems():
             self.__hbase.updateRow(self.tableName,
                                    row,
-                                   [Mutation(column = "%s:" % col, value = str(value))])
+                                   [Mutation(column="%s:" % col, value=str(value))])
 
     def setup(self, setting):
         ''' setup '''
         pass
 
+
 if __name__ == '__main__':
     h = HbaseSaver()
     h.tableName = 'unittest_outputSaver'
-    #h.resetCols(['accountValue', '1'])
+    # h.resetCols(['accountValue', '1'])
     for i in range(5):
         h.write('time1', 'accountValue', 10000)
         h.commit()

@@ -3,14 +3,18 @@ Created on Dec 18, 2010
 
 @author: ppa
 '''
+import logging
+
 from ultrafinance.processChain.baseModule import BaseModule
+
 from ultrafinance.lib.plotDateValueDict import PlotDateValueDict
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class PlotYearlyOutputer(BaseModule):
     ''' Default feeder '''
+
     def __init__(self):
         ''' constructor '''
         super(PlotYearlyOutputer, self).__init__()

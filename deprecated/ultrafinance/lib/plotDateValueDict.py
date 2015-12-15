@@ -3,16 +3,21 @@ Created on Jan 3, 2011
 
 @author: ppa
 '''
-from matplotlib import pyplot
+import logging
 from datetime import datetime
+
+from matplotlib import pyplot
+
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class PlotDateValueDict(object):
     ''' plot dict with date value '''
-    def __init__(self, dateValueDict, dateFormat='%Y', lowMargin=0.05, upMargin=0.05, rightMargin=0.05, leftMargin=0.05, betweenMargin=0.05):
+
+    def __init__(self, dateValueDict, dateFormat='%Y', lowMargin=0.05, upMargin=0.05, rightMargin=0.05, leftMargin=0.05,
+                 betweenMargin=0.05):
         ''' constructor '''
         self.dateValueDict = dateValueDict
         self.length = len(dateValueDict.keys())
@@ -23,10 +28,10 @@ class PlotDateValueDict(object):
         self.dateFormat = dateFormat
 
         self.rect = []
-        height =  float(1 - self.lowMargin - self.upMargin - (self.length-1)*betweenMargin)/self.length
+        height = float(1 - self.lowMargin - self.upMargin - (self.length - 1) * betweenMargin) / self.length
         pre = self.lowMargin
         for _ in range(self.length):
-            self.rect.append([self.leftMargin, pre, 1 - self.leftMargin - self.rightMargin , height])
+            self.rect.append([self.leftMargin, pre, 1 - self.leftMargin - self.rightMargin, height])
             pre = pre + height + betweenMargin
 
         pyplot.rc('axes', grid=True)
@@ -47,10 +52,11 @@ class PlotDateValueDict(object):
                     ax = fig.add_axes(self.rect[i], sharex=ax0)
                 i += 1
                 ax.plot_date([datetime.strptime(dateValue.date, self.dateFormat) for dateValue in dateValues],
-                         [dateValue.value for dateValue in dateValues], fmt='b-')
+                             [dateValue.value for dateValue in dateValues], fmt='b-')
                 ax.set_ylabel(label)
-                ax.set_ylim(min([int(dateValue.value) for dateValue in dateValues]) /1.1, max([int(dateValue.value) for dateValue in dateValues]) * 1.1 )
-                #ax.set_ylim(0, 1000)
+                ax.set_ylim(min([int(dateValue.value) for dateValue in dateValues]) / 1.1,
+                            max([int(dateValue.value) for dateValue in dateValues]) * 1.1)
+                # ax.set_ylim(0, 1000)
 
             pyplot.show()
 

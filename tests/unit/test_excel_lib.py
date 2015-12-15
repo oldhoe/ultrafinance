@@ -3,13 +3,13 @@ Created on May 6, 2011
 
 @author: ppa
 '''
+import os
 import unittest
 
-import os
 from ultrafinance.dam.excelLib import ExcelLib
 
-class testExcelLib(unittest.TestCase):
 
+class testExcelLib(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -17,9 +17,10 @@ class testExcelLib(unittest.TestCase):
         pass
 
     def testReadExcel(self):
-        dataSourcePath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'dataSource')
-        with ExcelLib( fileName = os.path.join(dataSourcePath, 'hoursing_interestRate.xls'),
-                       mode = ExcelLib.READ_MODE ) as excel:
+        dataSourcePath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                                      'dataSource')
+        with ExcelLib(fileName=os.path.join(dataSourcePath, 'hoursing_interestRate.xls'),
+                      mode=ExcelLib.READ_MODE) as excel:
             print("sheet numbers: %s" % excel.getOperation().getTotalSheetNumber())
             print("sheetNames %s" % excel.getOperation().getSheetNames())
             excel.openSheet('Data')
@@ -39,8 +40,8 @@ class testExcelLib(unittest.TestCase):
         if os.path.exists(targetFile):
             os.remove(targetFile)
 
-        with ExcelLib(fileName = targetFile,
-                      mode = ExcelLib.WRITE_MODE ) as excel:
+        with ExcelLib(fileName=targetFile,
+                      mode=ExcelLib.WRITE_MODE) as excel:
             excel.openSheet(sheetName)
             excel.writeRow(0, [1, 2, 3, "4", "5"])
 

@@ -3,10 +3,12 @@ Created on Nov 9, 2011
 
 @author: ppa
 '''
+from hbase.Hbase import Mutation, ColumnDescriptor
+
 from ultrafinance.dam.baseDAM import BaseDAM
 from ultrafinance.dam.hbaseLib import HBaseLib
 from ultrafinance.model import Quote, Tick, TICK_FIELDS, QUOTE_FIELDS
-from hbase.Hbase import Mutation, ColumnDescriptor
+
 
 class HBaseDAM(BaseDAM):
     ''' HBase DAO '''
@@ -56,8 +58,8 @@ class HBaseDAM(BaseDAM):
         for quote in quotes:
             self.__hbase.updateRow(self.tableName(HBaseDAM.QUOTE),
                                    quote.time,
-                                   [Mutation(column = "%s:%s" % (HBaseDAM.QUOTE, field),
-                                             value = getattr(quote, field) ) for field in QUOTE_FIELDS])
+                                   [Mutation(column="%s:%s" % (HBaseDAM.QUOTE, field),
+                                             value=getattr(quote, field)) for field in QUOTE_FIELDS])
 
     def readTicks(self, start, end):
         ''' read ticks '''
@@ -73,8 +75,9 @@ class HBaseDAM(BaseDAM):
         for tick in ticks:
             self.__hbase.updateRow(self.tableName(HBaseDAM.TICK),
                                    tick.time,
-                                   [Mutation(column = "%s:%s" % (HBaseDAM.TICK, field),
-                                             value = getattr(tick, field) ) for field in TICK_FIELDS])
+                                   [Mutation(column="%s:%s" % (HBaseDAM.TICK, field),
+                                             value=getattr(tick, field)) for field in TICK_FIELDS])
+
 
 if __name__ == '__main__':
     dam = HBaseDAM()
@@ -82,7 +85,7 @@ if __name__ == '__main__':
     quotes = [Quote(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
               Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
     ticks = [Tick(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213']),
-              Tick(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214'])]
+             Tick(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214'])]
 
     dam.writeQuotes(quotes)
     dam.writeTicks(ticks)

@@ -10,23 +10,24 @@ Created on Dec 4, 2011
 # 根据文件所在目录，增加搜索路径
 import sys
 from os.path import dirname, realpath, sep, pardir
-sys.path.insert(0,dirname(realpath(__file__)) + sep + pardir + sep + pardir)
+
+sys.path.insert(0, dirname(realpath(__file__)) + sep + pardir + sep + pardir)
 
 from ultrafinance.dam.DAMFactory import DAMFactory
 from ultrafinance.lib.util import LOG
-
 from os import path
 import time
-
 from threading import Thread
 from threading import Lock
 
 THREAD_TIMEOUT = 5
 MAX_TRY = 3
 
+
 class GoogleCrawler(object):
     ''' collect quotes/ticks for a list of symbol '''
-    def __init__(self, symbols, start, poolsize = 5):
+
+    def __init__(self, symbols, start, poolsize=5):
         ''' constructor '''
         self.symbols = symbols
         self.sqlLocation = None
@@ -47,16 +48,16 @@ class GoogleCrawler(object):
 
     def __getOutputSql(self):
         return path.join("/",
-                         pardir + sep + pardir+ sep + "data",
+                         pardir + sep + pardir + sep + "data",
                          "stock.sqlite")
 
     def __getSaveOneSymbol(self, symbol):
         ''' get and save data for one symbol '''
         try:
             lastExcp = None
-            with self.readLock: #dam is not thread safe
+            with self.readLock:  # dam is not thread safe
                 failCount = 0
-                #try several times since it may fail
+                # try several times since it may fail
                 while failCount < MAX_TRY:
                     try:
                         self.googleDAM.setSymbol(symbol)
@@ -71,7 +72,7 @@ class GoogleCrawler(object):
                 if failCount >= MAX_TRY:
                     raise BaseException("Can't retrieve historical data %s" % lastExcp)
 
-            with self.writeLock: #dam is not thread safe
+            with self.writeLock:  # dam is not thread safe
                 self.outputDAM.setSymbol(symbol)
                 self.outputDAM.writeQuotes(quotes)
 
@@ -98,16 +99,16 @@ class GoogleCrawler(object):
 
             threads = []
             for symbol in symbols:
-                thread = Thread(name = symbol, target = self.__getSaveOneSymbol, args = [symbol])
+                thread = Thread(name=symbol, target=self.__getSaveOneSymbol, args=[symbol])
                 thread.daemon = True
                 thread.start()
 
                 threads.append(thread)
 
             for thread in threads:
-                thread.join(THREAD_TIMEOUT) # no need to block, because thread should complete at last
+                thread.join(THREAD_TIMEOUT)  # no need to block, because thread should complete at last
 
-            #can't start another thread to do commit because for sqlLite, only object for the same thread can be commited
+            # can't start another thread to do commit because for sqlLite, only object for the same thread can be commited
             if 0 == rounds % 3:
                 self.outputDAM.commit()
 
@@ -116,6 +117,7 @@ class GoogleCrawler(object):
 
             # sleep for 3 second to avoid being blocked by google...
             time.sleep(5)
+
 
 if __name__ == '__main__':
     crawler = GoogleCrawler(["AAPL", "EBAY", "GOOG"], "20150601")

@@ -4,7 +4,9 @@ Created on Apr 29, 2012
 @author: ppa
 '''
 import abc
+
 from ultrafinance.pyTaLib.indicator import stddev, sharpeRatio, mean, rsquared
+
 
 class BaseMetric(object):
     ''' base metric class '''
@@ -20,6 +22,7 @@ class BaseMetric(object):
         ''' print result '''
         return
 
+
 class BasicMetric(BaseMetric):
     ''' basic metrics '''
     MAX_TIME_VALUE = 'maxTimeValue'
@@ -28,20 +31,20 @@ class BasicMetric(BaseMetric):
     STDDEV = 'stddev'
     SRATIO = 'sharpeRatio'
     START_TIME = "startTime"
-    END_TIME="endTime"
-    END_VALUE="endValue"
+    END_TIME = "endTime"
+    END_VALUE = "endValue"
     R_SQUARED = "rSquared"
 
     def __init__(self):
         super(BasicMetric, self).__init__()
         self.result = {BasicMetric.MAX_TIME_VALUE: (None, -1),
                        BasicMetric.MIN_TIME_VALUE: (None, -1),
-                       BasicMetric.STDDEV:-1,
-                       BasicMetric.SRATIO:-1,
-                       BasicMetric.R_SQUARED:-1,
-                       BasicMetric.START_TIME:-1,
-                       BasicMetric.END_TIME:-1,
-                       BasicMetric.END_VALUE:-1}
+                       BasicMetric.STDDEV: -1,
+                       BasicMetric.SRATIO: -1,
+                       BasicMetric.R_SQUARED: -1,
+                       BasicMetric.START_TIME: -1,
+                       BasicMetric.END_TIME: -1,
+                       BasicMetric.END_VALUE: -1}
 
     def calculate(self, timePositions, iTimePositionDict):
         ''' calculate basic metrics '''
@@ -53,9 +56,11 @@ class BasicMetric(BaseMetric):
         maxDrawDownTimeStamp = 0
         maxDrawDownPosition = 0
         for (timeStamp, position) in timePositions:
-            if self.result[BasicMetric.MAX_TIME_VALUE][0] is None or self.result[BasicMetric.MAX_TIME_VALUE][1] < position:
+            if self.result[BasicMetric.MAX_TIME_VALUE][0] is None or self.result[BasicMetric.MAX_TIME_VALUE][
+                1] < position:
                 self.result[BasicMetric.MAX_TIME_VALUE] = timeStamp, position
-            if self.result[BasicMetric.MIN_TIME_VALUE][0] is None or self.result[BasicMetric.MIN_TIME_VALUE][1] > position:
+            if self.result[BasicMetric.MIN_TIME_VALUE][0] is None or self.result[BasicMetric.MIN_TIME_VALUE][
+                1] > position:
                 self.result[BasicMetric.MIN_TIME_VALUE] = timeStamp, position
             if position > lastHigest:
                 lastHigest = position
@@ -72,21 +77,25 @@ class BasicMetric(BaseMetric):
         self.result[BasicMetric.END_VALUE] = timePositions[-1][1]
         self.result[BasicMetric.STDDEV] = stddev([timePosition[1] for timePosition in timePositions])
         self.result[BasicMetric.SRATIO] = sharpeRatio([timePosition[1] for timePosition in timePositions])
-        self.result[BasicMetric.R_SQUARED] = rsquared([tp[1] for tp in timePositions], [iTimePositionDict.get(tp[0], tp[1]) for tp in timePositions])
+        self.result[BasicMetric.R_SQUARED] = rsquared([tp[1] for tp in timePositions],
+                                                      [iTimePositionDict.get(tp[0], tp[1]) for tp in timePositions])
 
         return self.result
 
     def formatResult(self):
         ''' format result '''
         return "Lowest value %.2f at %s; Highest %.2f at %s; %s - %s end values %.1f; %s - %s end values %.1f; Sharpe ratio is %.2f; r squared is %.2f" % \
-            (self.result[BasicMetric.MIN_TIME_VALUE][1], self.result[BasicMetric.MIN_TIME_VALUE][0],
-             self.result[BasicMetric.MAX_TIME_VALUE][1], self.result[BasicMetric.MAX_TIME_VALUE][0],
-             self.result[BasicMetric.START_TIME], self.result[BasicMetric.END_TIME], self.result[BasicMetric.END_VALUE],
-             self.result[BasicMetric.MAX_DRAW_DOWN][1], self.result[BaseMetric.MAX_DRAW_DOWN][0],
-             self.result[BasicMetric.SRATIO], self.result[BasicMetric.R_SQUARED])
+               (self.result[BasicMetric.MIN_TIME_VALUE][1], self.result[BasicMetric.MIN_TIME_VALUE][0],
+                self.result[BasicMetric.MAX_TIME_VALUE][1], self.result[BasicMetric.MAX_TIME_VALUE][0],
+                self.result[BasicMetric.START_TIME], self.result[BasicMetric.END_TIME],
+                self.result[BasicMetric.END_VALUE],
+                self.result[BasicMetric.MAX_DRAW_DOWN][1], self.result[BaseMetric.MAX_DRAW_DOWN][0],
+                self.result[BasicMetric.SRATIO], self.result[BasicMetric.R_SQUARED])
+
 
 class MetricManager(object):
     ''' TODO: make it more generic for more metrics '''
+
     def __init__(self):
         ''' constructor '''
         self.__calculated = {}
@@ -117,12 +126,12 @@ class MetricManager(object):
                 worstSymbol = symbols
                 worstMetric = metric
 
-        output.append("MEAN end value: %.1f, mean sharp ratio: %.2f" % (mean([m[BasicMetric.END_VALUE] for m in self.__calculated.values() if m[BasicMetric.END_VALUE] > 0]),
-                                                                    mean([m[BasicMetric.SRATIO] for m in self.__calculated.values() if m[BasicMetric.SRATIO] > -1])))
+        output.append("MEAN end value: %.1f, mean sharp ratio: %.2f" % (
+            mean([m[BasicMetric.END_VALUE] for m in self.__calculated.values() if m[BasicMetric.END_VALUE] > 0]),
+            mean([m[BasicMetric.SRATIO] for m in self.__calculated.values() if m[BasicMetric.SRATIO] > -1])))
         output.append("Best %s: %s" % (bestSymbol, bestMetric.formatResult()))
         output.append("Worst %s: %s" % (worstSymbol, worstMetric.formatResult()))
         return '\n'.join(output)
-
 
     def getMetrics(self):
         ''' get metrics '''

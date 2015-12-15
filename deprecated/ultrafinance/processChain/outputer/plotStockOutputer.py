@@ -3,16 +3,19 @@ Created on Dec 18, 2010
 
 @author: ppa
 '''
-from ultrafinance.processChain.baseModule import BaseModule
-from matplotlib import pyplot
-from datetime import datetime
-import pylab
-
 import logging
+from datetime import datetime
+
+import pylab
+from matplotlib import pyplot
+from ultrafinance.processChain.baseModule import BaseModule
+
 LOG = logging.getLogger(__name__)
+
 
 class PlotStockOutputer(BaseModule):
     ''' Default feeder '''
+
     def __init__(self):
         ''' constructor '''
         super(PlotStockOutputer, self).__init__()
@@ -20,7 +23,7 @@ class PlotStockOutputer(BaseModule):
     def execute(self, dateValuesDict):
         ''' do output '''
         super(PlotStockOutputer, self).execute(input)
-        #pyplot.ion() # turns interactive mode on
+        # pyplot.ion() # turns interactive mode on
         fig = pylab.figure()
         ax = fig.gca()
 

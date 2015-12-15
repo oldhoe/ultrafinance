@@ -3,15 +3,19 @@ Created on Feb 20, 2011
 
 @author: ppa
 '''
-from matplotlib import pyplot
+import logging
 import math
+
+from matplotlib import pyplot
+
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class PlotPortfolio(object):
     ''' plot portfolio curve. only two are supported '''
+
     def __init__(self, labelReturnDeviations):
         ''' constructor '''
         self.labelReturnDeviations = labelReturnDeviations
@@ -27,10 +31,14 @@ class PlotPortfolio(object):
             portfolio2 = self.labelReturnDeviations[1]
 
             for i in range(100):
-                returns.append(portfolio1['return']*i/100 + portfolio2['return']*(100-i)/100)
-                deviations.append(pow(portfolio1['deviation']*i/100, 2) + pow(portfolio2['deviation']*(100-i)/100, 2) + 2*(i/100)*((100-i)/100)*portfolio1['cov'])
+                returns.append(portfolio1['return'] * i / 100 + portfolio2['return'] * (100 - i) / 100)
+                deviations.append(
+                        pow(portfolio1['deviation'] * i / 100, 2) + pow(portfolio2['deviation'] * (100 - i) / 100,
+                                                                        2) + 2 * (i / 100) * ((100 - i) / 100) *
+                        portfolio1[
+                            'cov'])
 
-            pyplot.plot([math.sqrt(deviation) for deviation in deviations], returns,'b-')
+            pyplot.plot([math.sqrt(deviation) for deviation in deviations], returns, 'b-')
             pyplot.ylabel('Returns')
             pyplot.xlabel('Deviations')
 

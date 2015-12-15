@@ -3,14 +3,17 @@ Created on Dec 18, 2010
 
 @author: ppa
 '''
-import ConfigParser
+import logging
 from os import path
 
-import logging
+import ConfigParser
+
 LOG = logging.getLogger(__name__)
+
 
 class Configuration(object):
     ''' class that handles configuration '''
+
     def __init__(self, configFileName=None):
         ''' Constructor '''
         if configFileName:
@@ -18,7 +21,8 @@ class Configuration(object):
         else:
             self.configFilePath = path.join(path.dirname(path.abspath(__file__)), 'config', 'dev.ini')
 
-        print "Using configure file: %s" % self.configFilePath
+        print
+        "Using configure file: %s" % self.configFilePath
 
     def getConfiguration(self, section):
         ''' load all configuration '''
@@ -44,7 +48,10 @@ class Configuration(object):
     def getAppMain(self):
         ''' get app_main '''
         self.getConfiguration('app_main')
-#app_global = Configuration().getConfiguration("app_main")
+
+
+# app_global = Configuration().getConfiguration("app_main")
 
 if __name__ == '__main__':
-    print Configuration().getOption('app_main', 'feeder')
+    print
+    Configuration().getOption('app_main', 'feeder')

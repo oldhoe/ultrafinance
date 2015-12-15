@@ -12,17 +12,20 @@ When to Sell/Buy to cover:
 
 @author: ppa
 '''
-from ultrafinance.model import Type, Action, Order
-from ultrafinance.backTest.tickSubscriber.strategies.baseStrategy import BaseStrategy
-from ultrafinance.pyTaLib.indicator import ZScore, Momentum
-from ultrafinance.backTest.constant import CONF_START_TRADE_DATE, CONF_BUYING_RATIO
+import logging
 import math
 
-import logging
+from ultrafinance.backTest.constant import CONF_START_TRADE_DATE, CONF_BUYING_RATIO
+from ultrafinance.backTest.tickSubscriber.strategies.baseStrategy import BaseStrategy
+from ultrafinance.model import Type, Action, Order
+from ultrafinance.pyTaLib.indicator import ZScore
+
 LOG = logging.getLogger()
+
 
 class ZscoreMomentumPortfolioStrategy(BaseStrategy):
     ''' period strategy '''
+
     def __init__(self, configDict):
         ''' constructor '''
         super(ZscoreMomentumPortfolioStrategy, self).__init__("zscoreMomentumPortfolioStrategy")
@@ -50,8 +53,10 @@ class ZscoreMomentumPortfolioStrategy(BaseStrategy):
             if symbol in self.__trakers:
                 self.__trakers[symbol].tickUpdate(tick)
 
+
 class OneTraker(object):
     ''' tracker for one stock '''
+
     def __init__(self, symbol, strategy, buyingRatio):
         ''' constructor '''
         self.__symbol = symbol
@@ -70,7 +75,6 @@ class OneTraker(object):
         self.__position = 0
         self.__buyPrice = 0
 
-
     def __getCashToBuyStock(self):
         ''' calculate the amount of money to buy stock '''
         account = self.__strategy.getAccountCopy()
@@ -87,11 +91,11 @@ class OneTraker(object):
             return
 
         share = math.floor(cash / float(tick.close))
-        order = Order(accountId = self.__strategy.accountId,
-                         action = Action.BUY,
-                         type = Type.MARKET,
-                         symbol = self.__symbol,
-                         share = share)
+        order = Order(accountId=self.__strategy.accountId,
+                      action=Action.BUY,
+                      type=Type.MARKET,
+                      symbol=self.__symbol,
+                      share=share)
         if self.__strategy.placeOrder(order):
             self.__position = share
             self.__buyPrice = tick.close
@@ -102,15 +106,14 @@ class OneTraker(object):
             return
 
         share = self.__position
-        order = Order(accountId = self.__strategy.accountId,
-                         action = Action.SELL,
-                         type = Type.MARKET,
-                         symbol = self.__symbol,
-                         share = -share)
+        order = Order(accountId=self.__strategy.accountId,
+                      action=Action.SELL,
+                      type=Type.MARKET,
+                      symbol=self.__symbol,
+                      share=-share)
         if self.__strategy.placeOrder(order):
             self.__position = 0
             self.__buyPrice = 0
-
 
     def orderExecuted(self, orderId):
         ''' call back for executed order '''
@@ -126,7 +129,7 @@ class OneTraker(object):
         priceZscore = self.__priceZscore.getLastValue()
         volumeZscore = self.__volumeZscore.getLastValue()
 
-        #if haven't started, don't do any trading
+        # if haven't started, don't do any trading
         if tick.time <= self.__startDate:
             return
 
@@ -137,11 +140,12 @@ class OneTraker(object):
         if self.__position > 0:
             self.__dayCounter += 1
 
-        if priceZscore > self.__buyThreshold and self.__preZscore and self.__preZscore < self.__buyThreshold and self.__position <= 0 and abs(volumeZscore) > 1:
+        if priceZscore > self.__buyThreshold and self.__preZscore and self.__preZscore < self.__buyThreshold and self.__position <= 0 and abs(
+                volumeZscore) > 1:
             self.__placeBuyOrder(tick)
         elif self.__position > 0:
-            if (self.__dayCounter > self.__dayCounterThreshold and priceZscore < self.__sellThreshold)\
-            or priceZscore < 0 or self.__buyPrice * 0.9 > tick.close:
+            if (self.__dayCounter > self.__dayCounterThreshold and priceZscore < self.__sellThreshold) \
+                    or priceZscore < 0 or self.__buyPrice * 0.9 > tick.close:
                 self.__placeSellOrder(tick)
                 self.__dayCounter = 0
 

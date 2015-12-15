@@ -3,14 +3,16 @@ Created on Jan 18, 2011
 
 @author: ppa
 '''
-import mox
 import unittest
-from ultrafinance.backTest.tickSubscriber import TickSubsriber
-from ultrafinance.dam.baseDAM import BaseDAM
-from ultrafinance.model import Tick
+
+import mox
 
 from ultrafinance.backTest.tickFeeder import TickFeeder
+from ultrafinance.backTest.tickSubscriber import TickSubsriber
+from ultrafinance.dam.baseDAM import BaseDAM
 from ultrafinance.lib.errors import UfException
+from ultrafinance.model import Tick
+
 
 class testTickFeeder(unittest.TestCase):
     def setUp(self):
@@ -58,7 +60,6 @@ class testTickFeeder(unittest.TestCase):
 
         print(symbols)
 
-
     def testValidate_Exception(self):
         sub = self.mock.CreateMock(TickSubsriber)
         sub.subRules().AndReturn(['s3', 'mockRule'])
@@ -83,7 +84,7 @@ class testTickFeeder(unittest.TestCase):
 
         subs = tf.getSubs()
         print(subs)
-        self.assertEquals({sub: {'symbols': ['s1'], 'fail': 0} },
+        self.assertEquals({sub: {'symbols': ['s1'], 'fail': 0}},
                           subs)
 
     def testRegister_Exception(self):
@@ -100,10 +101,10 @@ class testTickFeeder(unittest.TestCase):
     def testInputType(self):
         tf = TickFeeder()
 
-        #invalid type - test assignment
+        # invalid type - test assignment
         self.assertRaises(UfException, tf._TickFeeder__setInputType, 'adafsdf')
 
-        #valid type - test assignment
+        # valid type - test assignment
         tf.inputType = TickFeeder.TICK_TYPE
 
         self.assertEquals(TickFeeder.TICK_TYPE, tf.inputType)
@@ -131,8 +132,7 @@ class testTickFeeder(unittest.TestCase):
         print(timeTicks)
         self.assertEquals({'time1': {'s1': tickTime1Dam1, 's2': tickTime1Dam2},
                            'time2': {'s1': tickTime2Dam1, 's2': tickTime2Dam2}},
-                           timeTicks)
-
+                          timeTicks)
 
     def testIndexTicks_tick(self):
         tickTime1Dam1 = Tick('time1', 'open1', 'high1', 'low1', 'close1', 'volume1')
@@ -157,7 +157,7 @@ class testTickFeeder(unittest.TestCase):
         print(timeTicks)
         self.assertEquals({'time1': {'s1': tickTime1Dam1, 's2': tickTime1Dam2},
                            'time2': {'s1': tickTime2Dam1, 's2': tickTime2Dam2}},
-                           timeTicks)
+                          timeTicks)
 
     def testPubTicks(self):
         sub = self.mock.CreateMock(TickSubsriber)
@@ -168,8 +168,8 @@ class testTickFeeder(unittest.TestCase):
         thread = tf.pubTicks(['ticks'], sub)
         self.mock.VerifyAll()
 
-        print (thread)
+        print(thread)
 
-    #TODO, too lazy to write this one........
+    # TODO, too lazy to write this one........
     def testExecute(self):
         pass

@@ -3,43 +3,56 @@ Created on July 31, 2011
 
 @author: ppa
 '''
-#import urllib.request, urllib.error, urllib.parse
-import requests
-from bs4 import BeautifulSoup
+# import urllib.request, urllib.error, urllib.parse
+import logging
 import traceback
-from ultrafinance.lib.util import convertGoogCSVDate
-from ultrafinance.model import Quote, Tick
+
+import requests
+
 from ultrafinance.lib.errors import UfException, Errors
 from ultrafinance.lib.util import *
+from ultrafinance.model import Quote, Tick
 
-import logging
 LOG = logging.getLogger()
 
+
 class GoogleFinance(object):
-    FIELDS = ['Revenue', 'Other Revenue, Total', 'Total Revenue', 'Cost of Revenue, Total', 'Gross Profit', 'Selling/General/Admin. Expenses, Total',
-              'Research & Development', 'Depreciation/Amortization', 'Interest Expense(Income) - Net Operating', 'Unusual Expense (Income)',
-              'Other Operating Expenses, Total', 'Total Operating Expense', 'Operating Income', 'Interest Income(Expense), Net Non-Operating',
-              'Gain (Loss) on Sale of Assets', 'Gain (Loss) on Sale of Assets', 'Income Before Tax', 'Income After Tax', 'Minority Interest',
-              'Equity In Affiliates', 'Net Income Before Extra. Items', 'Accounting Change', 'Discontinued Operations', 'Extraordinary Item',
-              'Net Income', 'Preferred Dividends', 'Income Available to Common Excl. Extra Items', 'Income Available to Common Incl. Extra Items',
-              'Basic Weighted Average Shares', 'Basic EPS Excluding Extraordinary Items', 'Basic EPS Including Extraordinary Items',
-              'Dilution Adjustment', 'Diluted Weighted Average Shares', 'Diluted EPS Excluding Extraordinary Items', 'Diluted EPS Including Extraordinary Items',
-              'Dividends per Share - Common Stock Primary Issue', 'Gross Dividends - Common Stock', 'Net Income after Stock Based Comp. Expense',
-              'Basic EPS after Stock Based Comp. Expense', 'Diluted EPS after Stock Based Comp. Expense', 'Depreciation, Supplemental',
-              'Total Special Items', 'Normalized Income Before Taxes', 'Effect of Special Items on Income Taxes', 'Income Taxes Ex. Impact of Special Items',
-              'Normalized Income After Taxes', 'Normalized Income Avail to Common', 'Basic Normalized EPS', 'Diluted Normalized EPS']
+    FIELDS = ['Revenue', 'Other Revenue, Total', 'Total Revenue', 'Cost of Revenue, Total', 'Gross Profit',
+              'Selling/General/Admin. Expenses, Total',
+              'Research & Development', 'Depreciation/Amortization', 'Interest Expense(Income) - Net Operating',
+              'Unusual Expense (Income)',
+              'Other Operating Expenses, Total', 'Total Operating Expense', 'Operating Income',
+              'Interest Income(Expense), Net Non-Operating',
+              'Gain (Loss) on Sale of Assets', 'Gain (Loss) on Sale of Assets', 'Income Before Tax', 'Income After Tax',
+              'Minority Interest',
+              'Equity In Affiliates', 'Net Income Before Extra. Items', 'Accounting Change', 'Discontinued Operations',
+              'Extraordinary Item',
+              'Net Income', 'Preferred Dividends', 'Income Available to Common Excl. Extra Items',
+              'Income Available to Common Incl. Extra Items',
+              'Basic Weighted Average Shares', 'Basic EPS Excluding Extraordinary Items',
+              'Basic EPS Including Extraordinary Items',
+              'Dilution Adjustment', 'Diluted Weighted Average Shares', 'Diluted EPS Excluding Extraordinary Items',
+              'Diluted EPS Including Extraordinary Items',
+              'Dividends per Share - Common Stock Primary Issue', 'Gross Dividends - Common Stock',
+              'Net Income after Stock Based Comp. Expense',
+              'Basic EPS after Stock Based Comp. Expense', 'Diluted EPS after Stock Based Comp. Expense',
+              'Depreciation, Supplemental',
+              'Total Special Items', 'Normalized Income Before Taxes', 'Effect of Special Items on Income Taxes',
+              'Income Taxes Ex. Impact of Special Items',
+              'Normalized Income After Taxes', 'Normalized Income Avail to Common', 'Basic Normalized EPS',
+              'Diluted Normalized EPS']
 
     def __request(self, url):
         try:
-            #TODO, 访问google需要代理.代理加入到配置文件
-            http_proxy  = "http://127.0.0.1:7777"
-            https_proxy  =  "http://127.0.0.1:7777"
-            ftp_proxy    = "127.0.0.1:1080"
+            # TODO, 访问google需要代理.代理加入到配置文件
+            http_proxy = "http://127.0.0.1:7777"
+            https_proxy = "http://127.0.0.1:7777"
+            ftp_proxy = "127.0.0.1:1080"
             proxyDict = {
-            	      "http"  : http_proxy,
-            	      "https" : https_proxy,
-            	      "ftp"   : ftp_proxy
-            	    }
+                "http": http_proxy,
+                "https": https_proxy,
+                "ftp": ftp_proxy
+            }
             headers = ''
             page = requests.get(url, headers=headers, proxies=proxyDict)
             if page.status_code == 400:
@@ -50,7 +63,8 @@ class GoogleFinance(object):
         except IOError:
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Google server at %s" % url)
         except Exception:
-            raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in GoogleFinance.__request %s" % traceback.format_exc())
+            raise UfException(Errors.UNKNOWN_ERROR,
+                              "Unknown Error in GoogleFinance.__request %s" % traceback.format_exc())
 
     def getAll(self, symbol):
         """
@@ -61,7 +75,7 @@ class GoogleFinance(object):
         page = self.__request(url)
 
         soup = BeautifulSoup(page.content, 'lxml')
-        snapData = soup.find("table", { "class" : "snap-data" })
+        snapData = soup.find("table", {"class": "snap-data"})
         if snapData is None:
             raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
         data = {}
@@ -79,7 +93,8 @@ class GoogleFinance(object):
         Returns a nested list.
         """
         try:
-            url = 'http://www.google.com/finance/historical?q=%s&startdate=%s&enddate=%s&output=csv' % (symbol, start, end)
+            url = 'http://www.google.com/finance/historical?q=%s&startdate=%s&enddate=%s&output=csv' % (
+                symbol, start, end)
             try:
                 page = self.__request(url)
             except UfException as ufExcep:
@@ -107,14 +122,15 @@ class GoogleFinance(object):
                     except Exception:
                         LOG.warning("Exception when processing %s at date %s for value %s" % (symbol, date, value))
 
-            #dateValues = sorted(data, key=itemgetter(0))
-            dateValues = sorted(data, key = lambda x: x.time)
+            # dateValues = sorted(data, key=itemgetter(0))
+            dateValues = sorted(data, key=lambda x: x.time)
             return dateValues
 
         except BaseException:
-            raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
-        #sample output
-        #[stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            raise UfException(Errors.UNKNOWN_ERROR,
+                              "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
+            # sample output
+            # [stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
 
     def getFinancials(self, symbol):
         """
@@ -134,10 +150,10 @@ class GoogleFinance(object):
                 raise ufExcep
 
             bPage = BeautifulSoup(page.content, 'lxml')
-            target = bPage.find(id = 'incinterimdiv')
+            target = bPage.find(id='incinterimdiv')
 
             keyTimeValue = {}
-            #ugly do...while
+            # ugly do...while
             i = 0
             while True:
                 self._parseTarget(target, keyTimeValue)
@@ -145,7 +161,7 @@ class GoogleFinance(object):
                 if i < 5:
                     i += 1
                     target = target.nextSibling
-                    #ugly beautiful soap...
+                    # ugly beautiful soap...
                     if '\n' == target:
                         target = target.nextSibling
                 else:
@@ -154,7 +170,8 @@ class GoogleFinance(object):
             return keyTimeValue
 
         except BaseException:
-            raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
+            raise UfException(Errors.UNKNOWN_ERROR,
+                              "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
 
     def _parseTarget(self, target, keyTimeValue):
         ''' parse table for get financial '''
@@ -199,13 +216,13 @@ class GoogleFinance(object):
 
         @Returns a nested list.
         """
-        #TODO, parameter checking
+        # TODO, parameter checking
         try:
-            #start = string2EpochTime(start)
-            #end = string2EpochTime(end)
-            #period = end - start
+            # start = string2EpochTime(start)
+            # end = string2EpochTime(end)
+            # period = end - start
             period = 15
-            #url = 'http://www.google.com/finance/getprices?q=%s&i=%s&p=%sd&f=d,o,h,l,c,v&ts=%s' % (symbol, interval, period, start)
+            # url = 'http://www.google.com/finance/getprices?q=%s&i=%s&p=%sd&f=d,o,h,l,c,v&ts=%s' % (symbol, interval, period, start)
             url = 'http://www.google.com/finance/getprices?q=%s&i=61&p=%sd&f=d,o,h,l,c,v' % (symbol, period)
             try:
                 page = self.__request(url)
@@ -215,28 +232,29 @@ class GoogleFinance(object):
                     raise UfException(Errors.STOCK_SYMBOL_ERROR, "Can find data for stock %s, symbol error?" % symbol)
                 raise ufExcep
 
-            days = page.text.splitlines()[7:] # first 7 line is document
+            days = page.text.splitlines()[7:]  # first 7 line is document
             # sample values:'a1316784600,31.41,31.5,31.4,31.43,150911'
             values = [day.split(',') for day in days]
 
             data = []
 
             for value in values:
-                if len(value) ==1:
-                    #TODO, 处理时区偏移 TIMEZONE_OFFSET=-240。待研究
+                if len(value) == 1:
+                    # TODO, 处理时区偏移 TIMEZONE_OFFSET=-240。待研究
                     LOG.debug('#TODO: {0}'.format(value))
                 else:
                     # LOG.debug('in progress: {0} in {1} | {2}'.format(len(data), len(values), len(value)))
                     data.append(Tick(value[0][1:].strip(),
-                                 value[4].strip(),
-                                 value[2].strip(),
-                                 value[3].strip(),
-                                 value[1].strip(),
-                                 value[5].strip()))
+                                     value[4].strip(),
+                                     value[2].strip(),
+                                     value[3].strip(),
+                                     value[1].strip(),
+                                     value[5].strip()))
 
             return data
 
         except BaseException:
-            raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in GoogleFinance.getTicks %s" % traceback.format_exc())
-        #sample output
-        #[stockDaylyData(date='1316784600', open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            raise UfException(Errors.UNKNOWN_ERROR,
+                              "Unknown Error in GoogleFinance.getTicks %s" % traceback.format_exc())
+            # sample output
+            # [stockDaylyData(date='1316784600', open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]

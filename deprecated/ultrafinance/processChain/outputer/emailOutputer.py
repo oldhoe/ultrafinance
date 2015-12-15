@@ -3,17 +3,19 @@ Created on Dec 19, 2010
 
 @author: ppa
 '''
-from ultrafinance.processChain.baseModule import BaseModule
+import json
+import logging
+import smtplib
 
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
-import json, smtplib
+from ultrafinance.processChain.baseModule import BaseModule
 
-import logging
 LOG = logging.getLogger(__name__)
 
 gmail_user = "your@gmail.com"
 gmail_pwd = "your_password"
+
 
 def mail(to, text):
     msg = MIMEMultipart()
@@ -31,8 +33,10 @@ def mail(to, text):
     # Should be mailServer.quit(), but that crashes...
     mailServer.close()
 
+
 class EmailOutputer(BaseModule):
     ''' Default feeder '''
+
     def __init__(self):
         ''' constructor '''
         super(EmailOutputer, self).__init__()
@@ -40,6 +44,7 @@ class EmailOutputer(BaseModule):
     def execute(self, input):
         ''' do output'''
         super(EmailOutputer, self).execute(input)
-        print 'sending email'
+        print
+        'sending email'
         mail("des@gmail.com", json.dumps(input))
         return None

@@ -3,17 +3,18 @@ Created on Nov 6, 2011
 
 @author: ppa
 '''
-from ultrafinance.lib.errors import UfException, Errors
+import logging
+import time
+import traceback
 from threading import Thread
 
 from ultrafinance.backTest.appGlobal import appGlobal
-from ultrafinance.backTest.constant import TRADE_TYPE, TICK, QUOTE
 from ultrafinance.backTest.constant import STATE_SAVER_INDEX_PRICE
+from ultrafinance.backTest.constant import TRADE_TYPE, TICK, QUOTE
+from ultrafinance.lib.errors import UfException, Errors
 
-import traceback
-import time
-import logging
 LOG = logging.getLogger()
+
 
 class TickFeeder(object):
     ''' constructor
@@ -21,8 +22,9 @@ class TickFeeder(object):
         threadMaxFails indicates how many times thread for a subscriber can timeout,
         if it exceeds, them unregister that subscriber
     '''
-    def __init__(self, intervalTimeout = 2, start = 0, end = None):
-        self.__subs = {} # securityIds: sub
+
+    def __init__(self, intervalTimeout=2, start=0, end=None):
+        self.__subs = {}  # securityIds: sub
         self.__symbols = []
         self.__indexSymbol = None
         self.__dam = None
@@ -44,7 +46,6 @@ class TickFeeder(object):
     def clearUpdateTick(self):
         ''' clear current ticks '''
         self.__updatedTick = None
-
 
     def _getSymbolTicksDict(self, symbols):
         ''' get ticks from one dam'''
@@ -71,8 +72,8 @@ class TickFeeder(object):
             LOG.warn("Interrupted by user  when loading ticks for %s" % self.__symbols)
             raise ki
         except BaseException as excp:
-            LOG.warn("Unknown exception when loading ticks for %s: except %s, traceback %s" % (self.__symbols, excp, traceback.format_exc(8)))
-
+            LOG.warn("Unknown exception when loading ticks for %s: except %s, traceback %s" % (
+                self.__symbols, excp, traceback.format_exc(8)))
 
     def __loadIndex(self):
         ''' generate timeTicksDict based on source DAM'''
@@ -84,7 +85,8 @@ class TickFeeder(object):
             LOG.warn("Interrupted by user  when loading ticks for %s" % self.__indexSymbol)
             raise ki
         except BaseException as excp:
-            LOG.warn("Unknown exception when loading ticks for %s: except %s, traceback %s" % (self.__indexSymbol, excp, traceback.format_exc(8)))
+            LOG.warn("Unknown exception when loading ticks for %s: except %s, traceback %s" % (
+                self.__indexSymbol, excp, traceback.format_exc(8)))
 
         return {}
 
@@ -97,7 +99,7 @@ class TickFeeder(object):
             self._freshTradingCenter(self.timeTicksDict[timeStamp])
 
             self._freshUpdatedTick(timeStamp, self.timeTicksDict[timeStamp])
-            #self._updateHistory(timeStamp, self.timeTicksDict[timeStamp], self.indexTicksDict.get(timeStamp))
+            # self._updateHistory(timeStamp, self.timeTicksDict[timeStamp], self.indexTicksDict.get(timeStamp))
 
             while self.__updatedTick:
                 time.sleep(0)
@@ -125,7 +127,7 @@ class TickFeeder(object):
                     for symbol in symbolDict.keys():
                         self.saver.write(time, STATE_SAVER_INDEX_PRICE, symbolDict[symbol].close)
                         self.iTimePositionDict[time] = symbolDict[symbol].close
-                        break # should only have one benchmark
+                        break  # should only have one benchmark
 
 
         except Exception as ex:
@@ -139,14 +141,13 @@ class TickFeeder(object):
         ''' set symbols '''
         self.__indexSymbol = indexSymbol
 
-
     def setDam(self, dam):
         ''' set source dam '''
         self.__dam = dam
 
     def pubTicks(self, ticks, sub):
         ''' publish ticks to sub '''
-        thread = Thread(target = sub.doConsume, args = (ticks,))
+        thread = Thread(target=sub.doConsume, args=(ticks,))
         thread.setDaemon(False)
         thread.start()
         return thread

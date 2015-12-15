@@ -9,14 +9,17 @@ sample usage:
 >>> print YahooFinance.get_price('GOOG')
 529.46
 '''
-import urllib
+import logging
 import traceback
+import urllib
 from operator import itemgetter
+
 from ultrafinance.lib.dataType import StockDailyType
+
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class YahooFinance(object):
     def __request(self, symbol, stat):
@@ -26,7 +29,8 @@ class YahooFinance(object):
         except IOError:
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Yahoo server")
         except BaseException:
-            raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in YahooFinance.__request %s" % traceback.format_exc())
+            raise UfException(Errors.UNKNOWN_ERROR,
+                              "Unknown Error in YahooFinance.__request %s" % traceback.format_exc())
 
     def get_all(self, symbol):
         """
@@ -129,14 +133,14 @@ class YahooFinance(object):
             end_date = str(end_date).replace('-', '')
 
             url = 'http://ichart.yahoo.com/table.csv?s=%s&' % symbol + \
-                'd=%s&' % str(int(end_date[4:6]) - 1) + \
-                'e=%s&' % str(int(end_date[6:8])) + \
-                'f=%s&' % str(int(end_date[0:4])) + \
-                'g=d&' + \
-                'a=%s&' % str(int(start_date[4:6]) - 1) + \
-                'b=%s&' % str(int(start_date[6:8])) + \
-                'c=%s&' % str(int(start_date[0:4])) + \
-                'ignore=.csv'
+                  'd=%s&' % str(int(end_date[4:6]) - 1) + \
+                  'e=%s&' % str(int(end_date[6:8])) + \
+                  'f=%s&' % str(int(end_date[0:4])) + \
+                  'g=d&' + \
+                  'a=%s&' % str(int(start_date[4:6]) - 1) + \
+                  'b=%s&' % str(int(start_date[6:8])) + \
+                  'c=%s&' % str(int(start_date[0:4])) + \
+                  'ignore=.csv'
             days = urllib.urlopen(url).readlines()
             values = [day[:-2].split(',') for day in days]
             # sample values:[['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Clos'], \
@@ -152,5 +156,5 @@ class YahooFinance(object):
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Yahoo server")
         except BaseException as excep:
             raise UfException(Errors.UNKNOWN_ERROR, "Unknown Error in YahooFinance.getHistoricalPrices %s" % excep)
-        #sample output
-        #[stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose='111.6'))...]
+            # sample output
+            # [stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose='111.6'))...]

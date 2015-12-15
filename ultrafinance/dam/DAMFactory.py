@@ -6,10 +6,12 @@ Created on Nov 9, 2011
 
 from ultrafinance.lib.errors import Errors, UfException
 
+
 class DAMFactory(object):
     ''' DAM factory '''
+
     @staticmethod
-    def createDAM(damType, settings = None):
+    def createDAM(damType, settings=None):
         ''' create DAM '''
         if 'yahoo' == damType:
             from ultrafinance.dam.yahooDAM import YahooDAM
@@ -26,6 +28,9 @@ class DAMFactory(object):
         elif 'sql' == damType:
             from ultrafinance.dam.sqlDAM import SqlDAM
             dam = SqlDAM()
+        elif 'mongo' == damType:
+            from ultrafinance.dam.mongoDAM import mongoDAM
+            dam = mongoDAM()
         else:
             raise UfException(Errors.INVALID_DAM_TYPE,
                               "DAM type is invalid %s" % damType)
@@ -36,4 +41,4 @@ class DAMFactory(object):
     @staticmethod
     def getAvailableTypes():
         ''' return all available types '''
-        return ['yahoo', 'google', 'excel', 'hbase', 'sql']
+        return ['yahoo', 'google', 'excel', 'hbase', 'sql', 'mongo']

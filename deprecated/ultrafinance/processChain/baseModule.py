@@ -4,12 +4,15 @@ Created on Dec 18, 2010
 @author: ppa
 '''
 import abc
+import logging
 from threading import Thread
+
 from pydispatch.dispatcher import send
+
 from ultrafinance.lib.util import deCapitalize
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class BaseModule(object):
     '''
@@ -29,7 +32,8 @@ class BaseModule(object):
     def after(self):
         ''' operation for cleaing up(e.g. close connection, database ...) '''
         signal = deCapitalize(self.__class__.__name__)
-        print 'send out signal %s' % signal
+        print
+        'send out signal %s' % signal
         send(signal, self, input=self.output)
 
     def execute(self, input):
@@ -38,7 +42,9 @@ class BaseModule(object):
 
     def run(self, input):
         ''' full execution'''
-        print 'running %s' % self.__class__.__name__
+        print
+        'running %s' % self.__class__.__name__
+
         def runFunc(input):
             self.before()
             self.output = self.execute(input)

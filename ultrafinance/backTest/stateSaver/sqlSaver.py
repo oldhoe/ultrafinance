@@ -3,25 +3,25 @@ Created on Mar 1, 2011
 
 @author: ppa
 '''
-from ultrafinance.lib.errors import Errors, UfException
-from ultrafinance.backTest.stateSaver import StateSaver
-from ultrafinance.model import Order
+import json
+import logging
+import sys
 
 from sqlalchemy import Table, Column, Integer, String, create_engine, MetaData, and_, select
 from sqlalchemy.ext.declarative import declarative_base
 
 from ultrafinance.backTest.constant import *
+from ultrafinance.backTest.stateSaver import StateSaver
+from ultrafinance.model import Order
 
-import sys
-import json
-
-import logging
 LOG = logging.getLogger()
 
 Base = declarative_base()
 
+
 class BackTestResult(object):
     ''' back test result class '''
+
     def __init__(self, time, account, holdingValue, indexPrice, updateOrders, placedOrders):
         ''' constructor '''
         self.time = time
@@ -40,16 +40,17 @@ class BackTestResult(object):
                            STATE_SAVER_UPDATED_ORDERS: [json.loads(str(order)) for order in self.updateOrders],
                            STATE_SAVER_PLACED_ORDERS: [json.loads(str(order)) for order in self.placedOrders]})
 
+
 class SqlSaver(StateSaver):
     ''' sql saver '''
-    RESULT_COLUMNS = [Column('time', Integer, primary_key = True),
+    RESULT_COLUMNS = [Column('time', Integer, primary_key=True),
                       Column(STATE_SAVER_ACCOUNT, String(40)),
                       Column(STATE_SAVER_INDEX_PRICE, String(40)),
                       Column(STATE_SAVER_UPDATED_ORDERS, String(200)),
                       Column(STATE_SAVER_HOLDING_VALUE, String(40)),
                       Column(STATE_SAVER_PLACED_ORDERS, String(200))]
 
-    METRICS_COLUMNS = [Column('metric', String(40), primary_key = True),
+    METRICS_COLUMNS = [Column('metric', String(40), primary_key=True),
                        Column('value', String(40))]
 
     RESULT_TABLE = None
@@ -57,12 +58,12 @@ class SqlSaver(StateSaver):
 
     def __init__(self):
         ''' constructor '''
-        #__writeCache:
-        #{
-        #"timestamp" : {"field1": 'value',
+        # __writeCache:
+        # {
+        # "timestamp" : {"field1": 'value',
         #               "field1": 'value',
         #               "field1": 'value'}
-        #}
+        # }
         super(SqlSaver, self).__init__()
         self.__writeCache = {}
         self.__metrics = []
@@ -74,7 +75,7 @@ class SqlSaver(StateSaver):
         ''' setup '''
         if 'db' in setting:
             self.db = setting['db']
-            self.engine = create_engine(setting['db'], echo = False)
+            self.engine = create_engine(setting['db'], echo=False)
             self.metadata = MetaData(self.engine)
             self.__constructTableIfNotExist()
 
@@ -92,17 +93,17 @@ class SqlSaver(StateSaver):
 
     def __resetResultTable(self):
         ''' reset result table '''
-        SqlSaver.RESULT_TABLE.drop(self.engine, checkfirst = True)
+        SqlSaver.RESULT_TABLE.drop(self.engine, checkfirst=True)
 
         LOG.info("create db %s with cols %s" % (self.db, SqlSaver.RESULT_COLUMNS))
-        SqlSaver.RESULT_TABLE.create(self.engine, checkfirst = True)
+        SqlSaver.RESULT_TABLE.create(self.engine, checkfirst=True)
 
     def __resetMetricsTable(self):
         ''' reset result table '''
-        SqlSaver.METRICS_TABLE.drop(self.engine, checkfirst = True)
+        SqlSaver.METRICS_TABLE.drop(self.engine, checkfirst=True)
 
         LOG.info("create db %s with cols %s" % (self.db, SqlSaver.METRICS_COLUMNS))
-        SqlSaver.METRICS_TABLE.create(self.engine, checkfirst = True)
+        SqlSaver.METRICS_TABLE.create(self.engine, checkfirst=True)
 
     def getStates(self, start, end):
         ''' read value for a col  '''
@@ -114,9 +115,9 @@ class SqlSaver(StateSaver):
 
         conn = self.engine.connect()
         rows = conn.execute(select([SqlSaver.RESULT_TABLE]).where(and_(SqlSaver.RESULT_TABLE.c.time >= int(start),
-                                                                  SqlSaver.RESULT_TABLE.c.time < int(end))))
+                                                                       SqlSaver.RESULT_TABLE.c.time < int(end))))
 
-        #return [self.__tupleToResult(row) for row in rows]
+        # return [self.__tupleToResult(row) for row in rows]
         ret = []
         for row in rows:
             ret.append({"time": row['time'],
@@ -135,8 +136,10 @@ class SqlSaver(StateSaver):
                                   row[STATE_SAVER_ACCOUNT],
                                   row[STATE_SAVER_HOLDING_VALUE],
                                   row[STATE_SAVER_INDEX_PRICE],
-                                  [Order.fromStr(orderString) for orderString in json.loads(row[STATE_SAVER_UPDATED_ORDERS])],
-                                  [Order.fromStr(orderString) for orderString in json.loads(row[STATE_SAVER_PLACED_ORDERS])])
+                                  [Order.fromStr(orderString) for orderString in
+                                   json.loads(row[STATE_SAVER_UPDATED_ORDERS])],
+                                  [Order.fromStr(orderString) for orderString in
+                                   json.loads(row[STATE_SAVER_PLACED_ORDERS])])
         except Exception as ex:
             LOG.error("Unknown exception doing __tupleToResult in sqlSaver " + str(ex) + " --row-- " + str(row))
             return BackTestResult('-1', '-1', '-1', '-1', '[]', '[]')
@@ -157,8 +160,7 @@ class SqlSaver(StateSaver):
 
     def __sqlToResult(self, row):
         ''' convert row result '''
-        return (row.time, )
-
+        return (row.time,)
 
     def write(self, timestamp, col, value):
         ''' write value with row and col '''
@@ -170,7 +172,8 @@ class SqlSaver(StateSaver):
             self.__writeCache[timestamp] = {}
         self.__writeCache[timestamp][col] = value
 
-    def writeMetrics(self, startDate, endDate, lowestValue, highestValue, sharpeRatio, maxDrawDown, rSquared, endValue, endHoldings):
+    def writeMetrics(self, startDate, endDate, lowestValue, highestValue, sharpeRatio, maxDrawDown, rSquared, endValue,
+                     endHoldings):
         ''' write metrics '''
         self.__metrics.append({'metric': STATE_SAVER_METRICS_START_DATE, 'value': str(startDate)})
         self.__metrics.append({'metric': STATE_SAVER_METRICS_END_DATE, 'value': str(endDate)})
@@ -181,7 +184,6 @@ class SqlSaver(StateSaver):
         self.__metrics.append({'metric': STATE_SAVER_METRICS_R_SQUARED, 'value': str(rSquared)})
         self.__metrics.append({'metric': "endValue", 'value': str(endValue)})
         self.__metrics.append({'metric': "endHoldings", 'value': json.dumps(self.__convertHoldingsToList(endHoldings))})
-
 
     def __convertHoldingsToList(self, holding):
         ''' convert holding to dict'''
@@ -231,10 +233,11 @@ class SqlSaver(StateSaver):
             self.__metrics = []
         LOG.info("committed table result at %s" % self.db)
 
+
 def listTableNames(db):
     ''' list names of tables '''
     try:
-        engine = create_engine(db, echo = False)
+        engine = create_engine(db, echo=False)
         metadata = MetaData()
         metadata.reflect(engine)
         return metadata.tables.keys()
@@ -243,13 +246,11 @@ def listTableNames(db):
         return []
 
 
-
-
 if __name__ == '__main__':
     for i in range(2):
         s = SqlSaver()
         s.setup({'db': 'sqlite:////data/test_output' + str(i) + '.sqlite'})
-        #h.resetCols(['accountValue', '1'])
+        # h.resetCols(['accountValue', '1'])
         for i in range(5):
             s.write(123456, STATE_SAVER_HOLDING_VALUE, 10000)
             s.write(123456, STATE_SAVER_ACCOUNT, 12312312)
@@ -258,4 +259,5 @@ if __name__ == '__main__':
             s.writeMetrics(2010, 2013, 1, 100, 10, 0.1, 0.1, 123123, {})
             s.commit()
 
-        print listTableNames("sqlite:////data/test_output" + str(i) + ".sqlite")
+        print
+        listTableNames("sqlite:////data/test_output" + str(i) + ".sqlite")

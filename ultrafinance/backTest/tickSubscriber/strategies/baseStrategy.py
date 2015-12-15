@@ -4,12 +4,14 @@ Created on Dec 25, 2011
 @author: ppa
 '''
 import abc
+import logging
+
+from ultrafinance.backTest.constant import EVENT_TICK_UPDATE, EVENT_ORDER_EXECUTED
 from ultrafinance.backTest.tickSubscriber import TickSubsriber
 from ultrafinance.lib.errors import Errors, UfException
-from ultrafinance.backTest.constant import EVENT_TICK_UPDATE, EVENT_ORDER_EXECUTED
 
-import logging
 LOG = logging.getLogger()
+
 
 class BaseStrategy(TickSubsriber):
     ''' trading center '''
@@ -26,7 +28,6 @@ class BaseStrategy(TickSubsriber):
         self.indexHelper = None
         self.history = None
         self.accountManager = None
-
 
     def subRules(self):
         ''' override function '''

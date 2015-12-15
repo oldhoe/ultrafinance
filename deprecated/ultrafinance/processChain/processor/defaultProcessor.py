@@ -3,10 +3,12 @@ Created on Dec 18, 2010
 
 @author: ppa
 '''
+import logging
+
 from ultrafinance.processChain.baseModule import BaseModule
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class DefaultProcessor(BaseModule):
     def __init__(self):

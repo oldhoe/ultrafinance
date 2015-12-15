@@ -113,17 +113,20 @@ own risk.
 
 import threading
 
+
 class SingletonException(Exception):
     pass
+
 
 _stSingletons = set()
 _lockForSingletons = threading.RLock()
 _lockForSingletonCreation = threading.RLock()
 
+
 def _createSingletonInstance(cls, lstArgs, dctKwArgs):
     _lockForSingletonCreation.acquire()
     try:
-        if cls._isInstantiated(): # some other thread got here first
+        if cls._isInstantiated():  # some other thread got here first
             return
 
         instance = cls.__new__(cls)
@@ -139,6 +142,7 @@ def _createSingletonInstance(cls, lstArgs, dctKwArgs):
     finally:
         _lockForSingletonCreation.release()
 
+
 def _addSingleton(cls):
     _lockForSingletons.acquire()
     try:
@@ -146,6 +150,7 @@ def _addSingleton(cls):
         _stSingletons.add(cls)
     finally:
         _lockForSingletons.release()
+
 
 def _removeSingleton(cls):
     _lockForSingletons.acquire()
@@ -155,6 +160,7 @@ def _removeSingleton(cls):
     finally:
         _lockForSingletons.release()
 
+
 class MetaSingleton(type):
     def __new__(self, strName, tupBases, dct):
         if dct.has_key('__new__'):
@@ -163,6 +169,7 @@ class MetaSingleton(type):
 
     def __call__(self, *lstArgs, **dictArgs):
         raise SingletonException, 'Singletons may only be instantiated through getInstance()'
+
 
 class Singleton(object):
     __metaclass__ = MetaSingleton
@@ -180,12 +187,14 @@ class Singleton(object):
             _createSingletonInstance(cls, lstArgs, dctKwArgs)
 
         return cls.cInstance
+
     getInstance = classmethod(getInstance)
 
     def _isInstantiated(cls):
         # Don't use hasattr(cls, 'cInstance'), because that screws things up if there is a singleton that
         # extends another singleton.  hasattr looks in the base class if it doesn't find in subclass.
         return 'cInstance' in cls.__dict__
+
     _isInstantiated = classmethod(_isInstantiated)
 
     # This can be handy for public use also
@@ -212,7 +221,9 @@ class Singleton(object):
             for baseClass in cls.__bases__:
                 if issubclass(baseClass, Singleton):
                     baseClass._forgetClassInstanceReferenceForTesting()
+
     _forgetClassInstanceReferenceForTesting = classmethod(_forgetClassInstanceReferenceForTesting)
+
 
 def forgetAllSingletons():
     '''This is useful in tests, since it is hard to know which singletons need to be cleared to make a test work.'''

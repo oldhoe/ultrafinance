@@ -3,21 +3,21 @@ Created on Sep 27, 2011
 
 @author: ppa
 '''
-import sys
+import logging
 
-from thrift import Thrift
-from thrift.transport import TSocket, TTransport
-from thrift.protocol import TBinaryProtocol
 from hbase import ttypes
 from hbase.Hbase import Client, ColumnDescriptor, Mutation
+from thrift.protocol import TBinaryProtocol
+from thrift.transport import TSocket, TTransport
 
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class HBaseClient:
     ''' Hbase client '''
+
     def __init__(self):
         transport = TSocket.TSocket('localhost', 9090)
         transport = TTransport.TBufferedTransport(transport)
@@ -82,8 +82,8 @@ class HBaseClient:
 
         row = self.__client.scannerGet(scanner)
         while row:
-          ret.append(row[0])
-          row = self.__client.scannerGet(scanner)
+            ret.append(row[0])
+            row = self.__client.scannerGet(scanner)
 
         return ret
 
@@ -95,39 +95,47 @@ class HBaseClient:
 if __name__ == '__main__':
     h = HBaseClient()
 
-    #delete all exiting tables
+    # delete all exiting tables
     for tName in h.getTableNames():
-        print "deleting %s" % tName
+        print
+        "deleting %s" % tName
         h.deleteTable(tName)
 
     assert not h.getTableNames()
 
-    #create table
+    # create table
     tName = 'testTable'
 
-
     h.createTable(tName, [ColumnDescriptor(name='col1', maxVersions=5), ColumnDescriptor(name='col2', maxVersions=5)])
-    print h.getTableNames()
+    print
+    h.getTableNames()
     assert h.getTableNames()
 
-    print "column families in %s" %(tName)
-    print h.getColumnDescriptors(tName)
+    print
+    "column families in %s" % (tName)
+    print
+    h.getColumnDescriptors(tName)
 
-    #updateRow
+    # updateRow
     h.updateRows(tName, "bar", [Mutation(column="col1:bar", value='12345'), Mutation(column="col2:", value="67890")])
     h.updateRows(tName, "foo", [Mutation(column="col1:foo", value='12345')])
-    print h.getRow(tName, 'bar')
-    print h.getRow(tName, 'foo')
+    print
+    h.getRow(tName, 'bar')
+    print
+    h.getRow(tName, 'foo')
 
-    #scan table
+    # scan table
     rows = h.scanTable(tName, columns=["col1", "col2"])
-    print rows
+    print
+    rows
     assert 2 == len(rows)
 
     rows = h.scanTable(tName, columns=["col1", "col2"], startRow="foo")
-    print rows
+    print
+    rows
     assert 1 == len(rows)
 
     rows = h.scanTable(tName, columns=["col1", "col2"], endRow="foo")
-    print rows
+    print
+    rows
     assert 1 == len(rows)

@@ -3,16 +3,21 @@ Created on Jan 3, 2011
 
 @author: ppa
 '''
-from matplotlib import pyplot
+import logging
 from datetime import datetime
+
+from matplotlib import pyplot
+
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger()
+
 
 class PlotDateValueDict(object):
     ''' plot dict with date value '''
-    def __init__(self, dateValueDict, dateFormat = '%Y%m%d', lowMargin = 0.05, upMargin = 0.05, rightMargin = 0.05, leftMargin = 0.05, betweenMargin = 0.05):
+
+    def __init__(self, dateValueDict, dateFormat='%Y%m%d', lowMargin=0.05, upMargin=0.05, rightMargin=0.05,
+                 leftMargin=0.05, betweenMargin=0.05):
         ''' constructor '''
         self.dateValueDict = dateValueDict
         self.length = len(dateValueDict.keys())
@@ -26,11 +31,11 @@ class PlotDateValueDict(object):
         height = float(1 - self.lowMargin - self.upMargin - (self.length - 1) * betweenMargin) / self.length
         pre = self.lowMargin
         for _ in range(self.length):
-            self.rect.append([self.leftMargin, pre, 1 - self.leftMargin - self.rightMargin , height])
+            self.rect.append([self.leftMargin, pre, 1 - self.leftMargin - self.rightMargin, height])
             pre = pre + height + betweenMargin
 
-        pyplot.rc('axes', grid = True)
-        pyplot.rc('grid', color = '0.75', linestyle = '-', linewidth = 0.5)
+        pyplot.rc('axes', grid=True)
+        pyplot.rc('grid', color='0.75', linestyle='-', linewidth=0.5)
 
     def plot(self):
         ''' plot dataValue '''
@@ -44,15 +49,16 @@ class PlotDateValueDict(object):
                     ax = fig.add_axes(self.rect[i])
                     ax0 = ax
                 else:
-                    ax = fig.add_axes(self.rect[i], sharex = ax0)
+                    ax = fig.add_axes(self.rect[i], sharex=ax0)
                 i += 1
                 ax.plot_date([datetime.strptime(dateValue[0], self.dateFormat) for dateValue in dateValues],
-                             [dateValue[1] for dateValue in dateValues], fmt = 'b-')
+                             [dateValue[1] for dateValue in dateValues], fmt='b-')
                 ax.set_ylabel(label)
-                ax.set_ylim(min([int(dateValue[1]) for dateValue in dateValues]) / 1.1, max([int(dateValue[1]) for dateValue in dateValues]) * 1.1)
-                #ax.set_ylim(0, 1000)
+                ax.set_ylim(min([int(dateValue[1]) for dateValue in dateValues]) / 1.1,
+                            max([int(dateValue[1]) for dateValue in dateValues]) * 1.1)
+                # ax.set_ylim(0, 1000)
 
-            #pyplot.legend()
+            # pyplot.legend()
             pyplot.show()
 
         except UfException as excep:

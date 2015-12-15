@@ -3,14 +3,18 @@ Created on Jan 30, 2011
 
 @author: ppa
 '''
+import logging
+
 from xlrd import open_workbook
+
 from ultrafinance.lib.errors import UfException, Errors
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class ExcelLib():
     ''' lib for aceesing excel '''
+
     def __init__(self, fileName=None, sheetNumber=0, sheetName=None):
         '''
         constructor
@@ -21,7 +25,7 @@ class ExcelLib():
         if fileName is not None:
             self.book = open_workbook(fileName)
             self.sheet = self.book.sheet_by_name(sheetName) if sheetName \
-                         else self.book.sheet_by_index(sheetNumber)
+                else self.book.sheet_by_index(sheetNumber)
 
     def __enter__(self):
         '''
@@ -36,7 +40,7 @@ class ExcelLib():
 
     def openSheet(self, sheetNumber=0, sheetName=None):
         self.sheet = self.book.sheet_by_name(sheetName) if sheetName \
-                     else self.book.sheet_by_index(sheetNumber)
+            else self.book.sheet_by_index(sheetNumber)
 
     @staticmethod
     def getTotalSheetNumber(fileName):
@@ -52,10 +56,11 @@ class ExcelLib():
     def readRow(self, rowNumber, startCol=0, endCol=-1):
         if abs(rowNumber) >= self.sheet.nrows:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readRow: row number too big: row %s, max %s" % (rowNumber, self.sheet.nrows) )
+                              "Excellib.readRow: row number too big: row %s, max %s" % (rowNumber, self.sheet.nrows))
         if max(abs(startCol), abs(endCol)) > self.sheet.ncols:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readRow: col number too big: col %s, max %s" % (max(abs(startCol), abs(endCol)), self.sheet.ncols) )
+                              "Excellib.readRow: col number too big: col %s, max %s" % (
+                                  max(abs(startCol), abs(endCol)), self.sheet.ncols))
         if -1 == endCol:
             endCol = self.sheet.ncols
 
@@ -64,10 +69,11 @@ class ExcelLib():
     def readCol(self, colNumber, startRow=0, endRow=-1):
         if abs(colNumber) > self.sheet.ncols:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readCol: col number too big: col %s, max %s" % (colNumber, self.sheet.ncols) )
+                              "Excellib.readCol: col number too big: col %s, max %s" % (colNumber, self.sheet.ncols))
         if max(abs(startRow), abs(endRow)) > self.sheet.nrows:
             raise UfException(Errors.INDEX_RANGE_ERROR,
-                              "Excellib.readCol: row number too big: row %s, max %s" % (max(abs(startRow), abs(endRow)), self.sheet.nrows) )
+                              "Excellib.readCol: row number too big: row %s, max %s" % (
+                                  max(abs(startRow), abs(endRow)), self.sheet.nrows))
         if -1 == endRow:
             endRow = self.sheet.nrows
 

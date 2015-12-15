@@ -4,8 +4,9 @@ Created on Nov 6, 2011
 @author: ppa
 '''
 import abc
-import uuid
 import threading
+import uuid
+
 
 class TickSubsriber(object):
     ''' tick subscriber '''

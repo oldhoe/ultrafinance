@@ -4,15 +4,16 @@ Created on July 4, 2011
 @author: ppa
 copied from http://da44en.wordpress.com/2002/11/22/using-distutils/
 '''
+import os
 from distutils.core import Command
-from unittest import TextTestRunner, TestLoader
 from glob import glob
 from os.path import splitext, basename, join as pjoin
-import os
+from unittest import TextTestRunner, TestLoader
+
 
 class TestCommand(Command):
     ''' test command for setup.py '''
-    user_options = [ ]
+    user_options = []
 
     def initialize_options(self):
         self._dir = os.getcwd()
@@ -28,20 +29,21 @@ class TestCommand(Command):
         for t in glob(pjoin(self._dir, 'tests', 'unit', '*.py')):
             if not t.endswith('__init__.py'):
                 testfiles.append('.'.join(
-                    ['tests', 'unit', splitext(basename(t))[0]])
+                        ['tests', 'unit', splitext(basename(t))[0]])
                 )
 
         print('Running tests: %s' % testfiles)
         tests = TestLoader().loadTestsFromNames(testfiles)
-        t = TextTestRunner(verbosity = 1)
+        t = TextTestRunner(verbosity=1)
         t.run(tests)
+
 
 class CleanCommand(Command):
     ''' clean command for setup.py '''
-    user_options = [ ]
+    user_options = []
 
     def initialize_options(self):
-        self._clean_me = [ ]
+        self._clean_me = []
         for root, _, files in os.walk('.'):
             for f in files:
                 if f.endswith('.pyc'):

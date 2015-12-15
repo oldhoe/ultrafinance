@@ -1,7 +1,6 @@
 ''' ultraFinance lib '''
-import os, sys
-
 import logging
+
 LOG = logging.getLogger(__name__)
 
 '''

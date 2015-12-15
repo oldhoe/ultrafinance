@@ -3,20 +3,23 @@ Created on Mar 20, 2011
 
 @author: ppa
 '''
-from datetime import date
-from xlwt import Workbook
+import logging
 import time
 import traceback
+from datetime import date
+
+from ultrafinance.lib.yahooFinance import YahooFinance
+from xlwt import Workbook
 
 from ultrafinance.lib.errors import UfException, Errors
-from ultrafinance.lib.yahooFinance import YahooFinance
 
-import logging
 LOG = logging.getLogger(__name__)
+
 
 class HistoricalDataStorage():
     ''' class that store historical data from Yahoo finance '''
-    def __init__(self, outputPrefix, startDate = '1900-01-01', endDate = date.today()):
+
+    def __init__(self, outputPrefix, startDate='1900-01-01', endDate=date.today()):
         ''' constructor '''
         self.__outputPrefix = outputPrefix
         self.__startDate = startDate
@@ -24,30 +27,34 @@ class HistoricalDataStorage():
 
     def buildExls(self, stocks, div=1):
         ''' get a list of stock data and store '''
-        print "BuildExls %s, div %s" % (stocks, div)
+        print
+        "BuildExls %s, div %s" % (stocks, div)
 
         if div < 1:
             raise UfException(Errors.INDEX_RANGE_ERROR, "div need to be at least 1, %s are given" % div)
 
         for i in range(div):
             workbook = Workbook()
-            stocksToProcess = stocks[i * len(stocks)/div: (i+1) * len(stocks)/div]
+            stocksToProcess = stocks[i * len(stocks) / div: (i + 1) * len(stocks) / div]
             for stock in stocksToProcess:
                 try:
                     self.__buildExl(stock, workbook)
                 except Exception:
-                    print "failed buildExl for stock %s: %s" % (stock, traceback.print_exc())
+                    print
+                    "failed buildExl for stock %s: %s" % (stock, traceback.print_exc())
 
-                #sleep for 2 seconds, or Yahoo server will throw exception
+                # sleep for 2 seconds, or Yahoo server will throw exception
                 time.sleep(2)
 
             fileName = '%s%d.xls' % (self.__outputPrefix, i)
-            print "Saved %s to %s" % (stocksToProcess, fileName)
+            print
+            "Saved %s to %s" % (stocksToProcess, fileName)
             workbook.save(fileName)
 
     def buildExlsFromFile(self, fileName, div=1):
         ''' read a file with stock names, get data and store'''
-        print "buildExlsFromFile %s, div %s" % (fileName, div)
+        print
+        "buildExlsFromFile %s, div %s" % (fileName, div)
 
         f = open(fileName)
         lines = [line.rstrip() for line in f]
@@ -58,7 +65,7 @@ class HistoricalDataStorage():
         try:
             ws = workbook.add_sheet(stock)
 
-            #get data
+            # get data
             yahooFinance = YahooFinance()
             allData = yahooFinance.getHistoricalPrices(stock, self.__startDate, self.__endDate)
             for col, field in enumerate(['date', 'open', 'high', 'low', 'close', 'volume', 'adjClose']):
@@ -66,7 +73,7 @@ class HistoricalDataStorage():
 
             for row, data in enumerate(allData):
                 for col, field in enumerate(['date', 'open', 'high', 'low', 'close', 'volume', 'adjClose']):
-                    ws.write(row+1, col, getattr(data, field) )
+                    ws.write(row + 1, col, getattr(data, field))
 
         except UfException as excp:
             raise excp

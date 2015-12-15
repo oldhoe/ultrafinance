@@ -3,11 +3,13 @@ Created on Nov 6, 2011
 
 @author: ppa
 '''
-from ultrafinance.lib.errors import Errors, UfException
 import abc
-
 import logging
+
+from ultrafinance.lib.errors import Errors, UfException
+
 LOG = logging.getLogger()
+
 
 class StateSaver(object):
     ''' state saver '''

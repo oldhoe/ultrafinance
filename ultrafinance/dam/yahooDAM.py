@@ -3,11 +3,13 @@ Created on Nov 9, 2011
 
 @author: ppa
 '''
+import logging
+
 from ultrafinance.dam.baseDAM import BaseDAM
 from ultrafinance.dam.yahooFinance import YahooFinance
 
-import logging
 LOG = logging.getLogger()
+
 
 class YahooDAM(BaseDAM):
     ''' Yahoo DAM '''

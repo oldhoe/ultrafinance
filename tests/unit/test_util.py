@@ -3,18 +3,21 @@ Created on Jan 08, 2012
 
 @author: ppa
 '''
-import unittest
 import os
+import unittest
 
 from ultrafinance.lib.util import capitalize, importClass
+
 
 class Test_util(object):
     ''' test class for importClass test '''
     pass
 
+
 class Class1(object):
     ''' test class for importClass test '''
     pass
+
 
 class testUtil(unittest.TestCase):
     def setUp(self):

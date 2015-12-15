@@ -5,15 +5,18 @@ Created on Nov 6, 2011
 '''
 import json
 from collections import namedtuple
+
 from ultrafinance.lib.errors import UfException, Errors
 
 # namedtuple are used to handle data getting from csv or internet
 TICK_FIELDS = ['time', 'open', 'high', 'low', 'close', 'volume']
-#QUOTE_FIELDS = ['time', 'open', 'high', 'low', 'close', 'volume', 'adjClose']
+# QUOTE_FIELDS = ['time', 'open', 'high', 'low', 'close', 'volume', 'adjClose']
 QUOTE_FIELDS = ['time', 'close', 'volume', 'low', 'high']
+
 
 class Tick(object):
     ''' tick class '''
+
     def __init__(self, time, open, high, low, close, volume):
         ''' constructor '''
         self.time = time
@@ -39,6 +42,7 @@ class Tick(object):
         return Tick(d['time'], d['open'], d['high'],
                     d['low'], d['close'], d['volume'], d['adjClose'])
 
+
 """
 class Quote(object):
     ''' tick class '''
@@ -60,8 +64,11 @@ class Quote(object):
                      d.get('low'), d['close'], d.get('volume'), d.get('adjClose'))
 
 """
+
+
 class Quote(object):
     ''' tick class '''
+
     def __init__(self, time, open, high, low, close, volume, adjClose):
         ''' constructor '''
         self.time = time
@@ -89,9 +96,12 @@ class Quote(object):
         return Quote(d['time'], d['open'], d['high'],
                      d['low'], d['close'], d['volume'], d['adjClose'])
 
-#Tick = namedtuple('Tick', ' '.join(TICK_FIELDS))
+
+# Tick = namedtuple('Tick', ' '.join(TICK_FIELDS))
 TupleQuote = namedtuple('Quote', ' '.join(QUOTE_FIELDS))
-#DateValue = namedtuple('DateValue', 'date, value')
+
+
+# DateValue = namedtuple('DateValue', 'date, value')
 
 class Action(object):
     ''' action class '''
@@ -112,7 +122,7 @@ class Type(object):
     ''' type class '''
     MARKET = 'market'
     STOP = 'stop'
-    LIMIT = 'limit' # not support yet
+    LIMIT = 'limit'  # not support yet
 
     @staticmethod
     def validate(type):
@@ -128,8 +138,8 @@ class Order(object):
     FILLED = 'filled'
     CANCELED = 'canceled'
 
-    def __init__(self, accountId, action, type, symbol, share, price = None, orderId = None,
-                 status = OPEN, filledTime = None, executedTime = None):
+    def __init__(self, accountId, action, type, symbol, share, price=None, orderId=None,
+                 status=OPEN, filledTime=None, executedTime=None):
         ''' constructor '''
         self.__action = Action.validate(action)
         self.__type = Type.validate(type)
@@ -185,8 +195,9 @@ class Order(object):
 
     def __str__(self):
         ''' override buildin function '''
-        return json.dumps({'accountId': str(self.accountId), 'action': self.__action, 'type': self.__type, 'symbol': self.symbol,
-                           'price': self.price, 'share': self.share, 'orderId': str(self.orderId), 'status': self.status})
+        return json.dumps(
+                {'accountId': str(self.accountId), 'action': self.__action, 'type': self.__type, 'symbol': self.symbol,
+                 'price': self.price, 'share': self.share, 'orderId': str(self.orderId), 'status': self.status})
 
     @staticmethod
     def fromStr(string):
@@ -194,7 +205,6 @@ class Order(object):
         d = json.loads(string)
         return Order(d['accountId'], d['action'], d['type'], d['symbol'], d['share'], d.get('price'),
                      d.get('orderId'), d.get('status'), d.get('filledTime'), d.get('executedTime'))
-
 
     type = property(getType, setType)
     action = property(getAction, setAction)

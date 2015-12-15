@@ -3,15 +3,16 @@ Created on Nov 9, 2011
 
 @author: ppa
 '''
-from ultrafinance.dam.baseDAM import BaseDAM
-from ultrafinance.dam.excelLib import ExcelLib
-from ultrafinance.model import TICK_FIELDS, QUOTE_FIELDS, Quote, Tick
-from ultrafinance.lib.errors import UfException, Errors
-
+import logging
 from os import path
 
-import logging
+from ultrafinance.dam.baseDAM import BaseDAM
+from ultrafinance.dam.excelLib import ExcelLib
+from ultrafinance.lib.errors import UfException, Errors
+from ultrafinance.model import TICK_FIELDS, QUOTE_FIELDS, Quote, Tick
+
 LOG = logging.getLogger()
+
 
 class ExcelDAM(BaseDAM):
     ''' Excel DAO '''
@@ -24,7 +25,7 @@ class ExcelDAM(BaseDAM):
         self.__dir = None
 
     def targetPath(self, kind):
-        return path.join(self.__dir, "%s-%s.xls" % (self.symbol, kind) )
+        return path.join(self.__dir, "%s-%s.xls" % (self.symbol, kind))
 
     def __findRange(self, excelLib, start, end):
         ''' return low and high as excel range '''
@@ -50,10 +51,10 @@ class ExcelDAM(BaseDAM):
         ''' read data '''
         ret = []
         if not path.exists(targetPath):
-            LOG.error("Target file doesn't exist: %s" % path.abspath(targetPath) )
+            LOG.error("Target file doesn't exist: %s" % path.abspath(targetPath))
             return ret
 
-        with ExcelLib(fileName = targetPath, mode = ExcelLib.READ_MODE) as excel:
+        with ExcelLib(fileName=targetPath, mode=ExcelLib.READ_MODE) as excel:
             low, high = self.__findRange(excel, start, end)
 
             for index in range(low, high + 1):
@@ -64,13 +65,13 @@ class ExcelDAM(BaseDAM):
     def __writeData(self, targetPath, fields, rows):
         ''' write data '''
         if path.exists(targetPath):
-            LOG.error("Target file exists: %s" % path.abspath(targetPath) )
-            raise UfException(Errors.FILE_EXIST, "can't write to a existing file") #because xlwt doesn't support it
+            LOG.error("Target file exists: %s" % path.abspath(targetPath))
+            raise UfException(Errors.FILE_EXIST, "can't write to a existing file")  # because xlwt doesn't support it
 
-        with ExcelLib(fileName = targetPath, mode = ExcelLib.WRITE_MODE) as excel:
+        with ExcelLib(fileName=targetPath, mode=ExcelLib.WRITE_MODE) as excel:
             excel.writeRow(0, fields)
             for index, row in enumerate(rows):
-                excel.writeRow(index+1, row)
+                excel.writeRow(index + 1, row)
 
     def readQuotes(self, start, end):
         ''' read quotes '''
@@ -85,7 +86,7 @@ class ExcelDAM(BaseDAM):
 
     def readTicks(self, start, end):
         ''' read ticks '''
-        ticks =  self.__readData(self.targetPath(ExcelDAM.TICK), start, end)
+        ticks = self.__readData(self.targetPath(ExcelDAM.TICK), start, end)
         return [Tick(*tick) for tick in ticks]
 
     def writeTicks(self, ticks):

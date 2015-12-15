@@ -3,11 +3,13 @@ Created on Nov 9, 2011
 
 @author: ppa
 '''
+import logging
+
 from ultrafinance.dam.baseDAM import BaseDAM
 from ultrafinance.dam.googleFinance import GoogleFinance
 
-import logging
 LOG = logging.getLogger()
+
 
 class GoogleDAM(BaseDAM):
     ''' Google DAO '''

@@ -3,18 +3,21 @@ Created on Jan 30, 2010
 
 @author: ppa
 '''
-from ultrafinance.lib.excelLib import ExcelLib
-from ultrafinance.processChain.baseModule import BaseModule
-from ultrafinance.lib.dataType import DateValueType
+import logging
 from os.path import join
 
-import logging
+from ultrafinance.lib.dataType import DateValueType
+from ultrafinance.lib.excelLib import ExcelLib
+from ultrafinance.processChain.baseModule import BaseModule
+
 LOG = logging.getLogger(__name__)
+
 
 class ExcelDataFeeder(BaseModule):
     '''
     feeder that get stock, hoursing and interest rate from excel
     '''
+
     def __init__(self):
         ''' Constructor '''
         super(ExcelDataFeeder, self).__init__()
@@ -41,9 +44,13 @@ class ExcelDataFeeder(BaseModule):
         ret = {'stock': self.stockData, 'hoursing': self.hoursingData, 'interest': self.interestData}
         return ret
 
+
 if __name__ == '__main__':
     feeder = ExcelDataFeeder()
     feeder.execute("")
-    print feeder.hoursingData
-    print feeder.interestData
-    print feeder.stockData
+    print
+    feeder.hoursingData
+    print
+    feeder.interestData
+    print
+    feeder.stockData

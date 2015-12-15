@@ -7,6 +7,7 @@ import unittest
 
 from ultrafinance.lib.plotDateValueDict import PlotDateValueDict
 
+
 class testPlotDateValueDict(unittest.TestCase):
     def setUp(self):
         pass

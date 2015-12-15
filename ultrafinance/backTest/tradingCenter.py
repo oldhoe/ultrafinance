@@ -3,26 +3,29 @@ Created on Dec 18, 2011
 
 @author: ppa
 '''
-from ultrafinance.model import Action, Type, Order
-from ultrafinance.lib.errors import Errors, UfException
-import uuid
-import time
-
 import logging
+import time
+import uuid
+
+from ultrafinance.lib.errors import Errors, UfException
+from ultrafinance.model import Action, Type, Order
+
 LOG = logging.getLogger()
+
 
 class TradingCenter(object):
     '''
     trading center
     Note: set metricNames before adding accounts
     '''
+
     def __init__(self):
         ''' constructor '''
         self.accountManager = None
-        self.__openOrders = {} #SAMPLE: {"EBAY": {orderId1: order1, orderId2: order2}}
-        self.__closedOrders = {} #SAMPLE {"EBAY": [order1, order2]}
-        self.__updatedOrder = {} #SAMPLE {"EBAY": [order1, order2]}
-        self.__placedOrder = {} #SAMPLE {"EBAY": [order1, order2]}
+        self.__openOrders = {}  # SAMPLE: {"EBAY": {orderId1: order1, orderId2: order2}}
+        self.__closedOrders = {}  # SAMPLE {"EBAY": [order1, order2]}
+        self.__updatedOrder = {}  # SAMPLE {"EBAY": [order1, order2]}
+        self.__placedOrder = {}  # SAMPLE {"EBAY": [order1, order2]}
         self.__lastTickDict = None
 
     def getUpdatedOrder(self):
@@ -50,14 +53,16 @@ class TradingCenter(object):
         else:
             msg = account.validate(order, tick)
 
-            #valid order with current market price
+            # valid order with current market price
             if msg is None and order.symbol in self.__lastTickDict:
                 closePrice = self.__lastTickDict[order.symbol].close
                 if Action.SELL == order.action and Type.STOP == order.type and order.price > closePrice:
-                    msg = "Sell stop order price %s shouldn't be higher than market price %s" % (order.price, closePrice)
+                    msg = "Sell stop order price %s shouldn't be higher than market price %s" % (
+                        order.price, closePrice)
 
                 elif Action.BUY_TO_COVER == order.action and Type.STOP == order.type and order.price < closePrice:
-                    msg = "Buy to cover stop order price %s shouldn't be higher than market price %s" % (order.price, closePrice)
+                    msg = "Buy to cover stop order price %s shouldn't be higher than market price %s" % (
+                        order.price, closePrice)
 
         return msg
 
@@ -101,24 +106,24 @@ class TradingCenter(object):
             return
 
         if orderId not in self.__openOrders[symbol]:
-            LOG.warn("Can't cancel order %s because there is no open orders for order id %s with symbol %s" % (orderId, orderId, symbol))
+            LOG.warn("Can't cancel order %s because there is no open orders for order id %s with symbol %s" % (
+                orderId, orderId, symbol))
             return
 
-        #TODO cancel the order and update history
+        # TODO cancel the order and update history
         del self.__openOrders[symbol][orderId]
 
-        #if no open orders left for that symbol, remove it
+        # if no open orders left for that symbol, remove it
         if not len(self.__openOrders[symbol]):
             del self.__openOrders[symbol]
 
         LOG.debug("Order canceled: %s" % orderId)
 
-
     def cancelAllOpenOrders(self):
         ''' cancel all open order '''
         for symbol, orderIdAndOrderDict in self.__openOrders.items():
             for orderId, order in orderIdAndOrderDict.values():
-                order.status = Order.CANCELED #change order state
+                order.status = Order.CANCELED  # change order state
                 self.__closedOrders[orderId] = order
 
             del self.__openOrders[symbol]
@@ -134,31 +139,32 @@ class TradingCenter(object):
         for symbol, tick in tickDict.iteritems():
             LOG.debug("_checkAndExecuteOrders symbol %s with tick %s, price %s" % (symbol, tick.time, tick.close))
             if symbol not in self.__openOrders:
-                LOG.debug("_checkAndExecuteOrders no open orders for symbol %s with tick %s, price %s" % (symbol, tick.time, tick.close))
+                LOG.debug("_checkAndExecuteOrders no open orders for symbol %s with tick %s, price %s" % (
+                    symbol, tick.time, tick.close))
                 continue
 
             for order in self.__openOrders[symbol].values():
                 if self.isOrderMet(tick, order):
                     self.__executeOrder(tick, order)
 
-
     def __checkAndExecuteOrder(self, order):
         ''' check and execute one order '''
         tick = self.__lastTickDict.get(order.symbol)
         if tick is None:
-            LOG.debug("_checkAndExecuteOrder no open orders for symbol %s with tick %s, price %s" % (order.symbol, tick.time, tick.close))
+            LOG.debug("_checkAndExecuteOrder no open orders for symbol %s with tick %s, price %s" % (
+                order.symbol, tick.time, tick.close))
             return
 
         if self.isOrderMet(tick, order):
             self.__executeOrder(tick, order)
-
 
     def __executeOrder(self, tick, order):
         ''' execute an order '''
         account = self.accountManager.getAccount(order.accountId)
         if not account:
             raise UfException(Errors.INVALID_ACCOUNT,
-                              ''' Account is invalid with accountId %s for order %s''' % (order.accountId, order.orderId))
+                              ''' Account is invalid with accountId %s for order %s''' % (
+                                  order.accountId, order.orderId))
         else:
             LOG.debug("executing order %s" % order)
             try:
@@ -174,7 +180,6 @@ class TradingCenter(object):
             del self.__openOrders[order.symbol][order.orderId]
             if not len(self.__openOrders[order.symbol]):
                 del self.__openOrders[order.symbol]
-
 
     def isOrderMet(self, tick, order):
         ''' whether order can be execute or not '''

@@ -9,6 +9,8 @@ from unittest import TestCase
 from ultrafinance.dam.mongoDAM import MongoDAM
 from ultrafinance.model import Tick, Quote
 
+import ultrafinance.dam.googleDAM
+
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -147,3 +149,25 @@ for d in tb:
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol("test")
         dam.dropCollection('quotes')
+
+    def test_ReadQuotesFromGooglewriteQuotes(self):
+        damGoogle = ultrafinance.dam.googleDAM.GoogleDAM()
+        symbol = 'NASDAQ:EBAY'
+        # symbol = 'SHA:600000'
+        damGoogle.setSymbol(symbol)
+        start = '20131111'
+        endDate = '20131231'
+        data = damGoogle.readQuotes(start, endDate)
+
+        dam = MongoDAM()
+        dam.setup('mongodb://127.0.0.1', 'testdb')
+        dam.setSymbol(symbol)
+
+        quotes = data
+        dam.writeQuotes(quotes)
+        data = damGoogle.readQuotes(start, endDate)
+        quotes = data
+        dam.writeQuotes(quotes)
+        # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
+        print([str(quote) for quote in dam.readQuotes(0, None)])
+

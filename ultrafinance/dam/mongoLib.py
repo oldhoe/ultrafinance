@@ -17,6 +17,7 @@ QUOTEMONGO_FIELDS = ['symbol', 'time', 'close', 'volume', 'low', 'high']
 class QuoteMongos(object):
     '''
     QuoteMongo集合
+    todo 返回排序的quotes list
     '''
     __tablename__ = 'quotes'
 
@@ -50,7 +51,7 @@ class QuoteMongos(object):
     def append(self, Quotes):
         for q in Quotes:
             self._append(q)
-        self.quoteDistinctByDelete(self.quotes, self.idfun)
+        self.quoteUniqueByDelete(self.quotes, self.getKey)
 
     def _append(self, quote):
         if not (quote in self.quotes):
@@ -60,7 +61,7 @@ class QuoteMongos(object):
 
     def extend(self,Quotes):
         self.quotes.extend(Quotes)
-        # self.quotes = self.quoteDistinct(self.quotes, self.idfun)
+        self.quoteUniqueByDelete(self.quotes, self.getKey)
 
     def insert(self, i= None, quote = None):
         if not(quote in self.quotes):
@@ -71,23 +72,23 @@ class QuoteMongos(object):
             self.remove(quote)
 
     @staticmethod
-    def idfun(x):
+    def getKey(x):
         return x.time
 
     @staticmethod
-    def quoteDistinct(quotes, idfun=None):
+    def quoteUnique(quotes, quoteKey=None):
         '''
         order preserving
         :param quotes: 原列表
-        :param idfun: 列表比较函数
+        :param quoteKey: 列表比较函数
         :return: 返回无重复值的列表
         '''
-        if idfun is None:
+        if quoteKey is None:
             def idfun(x): return x
         seen = {}
         result = []
         for item in quotes:
-            marker = idfun(item)
+            marker = quoteKey(item)
             # in old Python versions:
             # if seen.has_key(marker)
             # but in new ones:
@@ -97,18 +98,18 @@ class QuoteMongos(object):
         return result
 
     @staticmethod
-    def quoteDistinctByDelete(quotes, idfun=None):
+    def quoteUniqueByDelete(quotes, quoteKey=None):
         '''
         order preserving
         :param quotes: 原列表
-        :param idfun: 列表比较函数
+        :param quoteKey: 列表比较函数
         :return: 返回无重复值的列表
         '''
-        if idfun is None:
+        if quoteKey is None:
             def idfun(x): return x
         seen = {}
         for item in reversed(quotes):
-            marker = idfun(item)
+            marker = quoteKey(item)
             # in old Python versions:
             # if seen.has_key(marker)
             # but in new ones:

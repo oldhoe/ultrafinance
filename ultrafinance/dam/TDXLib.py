@@ -5,9 +5,16 @@ Created on Sat Nov  7 11:25:43 2015
 @author: pchaos
 """
 import logging
+import os
+import struct
 from os import path
 from os.path import sep
 
+import time
+
+from xlrd import open_workbook
+
+from ultrafinance.model import Quote, Tick, TupleQuote
 from ultrafinance.lib.errors import UfException, Errors
 
 LOG = logging.getLogger()
@@ -21,7 +28,7 @@ class TDXLib(object):
     def __init__(self, basePath='', symbols=None, mode=READ_MODE):
         ''' constructor '''
         if TDXLib.READ_MODE == mode:
-            self.__operation = TDXRead(symbols)
+            self.__operation = TDXRead(basePath, symbols)
         elif TDXLib.WRITE_MODE == mode:
             self.__operation = TDXWrite(symbols)
         else:
@@ -39,13 +46,13 @@ class TDXLib(object):
         self.__operation.post()
         return
 
-    def openSheet(self, name):
-        ''' open a sheet by name '''
-        self.__operation.open(name)
-
     def getOperation(self):
         ''' get operation'''
         return self.__operation
+
+    def read(self, start, end):
+        return self.__operation.read(start, end)
+
 
 
 class TDXOpertion(object):
@@ -89,19 +96,34 @@ class TDXRead(TDXOpertion):
     ''' class to read TDX file '''
     america_path = sep + "ds" + sep + "lday" + sep
     # on linux : /sh/lday ; on windows : \sh\lday
-    sh_path = sep + "sh" + sep + "lday" + sep
+    sh_path = "sh" + sep + "lday" + sep
     # on linux : /sz/ldayreadCell
-    sz_path = sep + "sz" + sep + "lday" + sep
+    sz_path = "sz" + sep + "lday" + sep
 
-    def __init__(self, fileName):
+    def __init__(self, basePath, symbol):
         ''' constructor '''
+        fileName = self.getfileName(basePath, symbol)
         if not path.exists(fileName):
             raise UfException(Errors.FILE_NOT_EXIST, "File doesn't exist: %s" % fileName)
+        self.__file = fileName
 
-        self.__book = open_workbook(fileName)
-        self.__sheet = None
+    def getfileName(self, basePath, symbol):
+        '''
+        根据不同的代码返回相应的目录+文件
+        :param basePath: 数据跟目录
+        :param symbol: 股票代码
+        :return: 文件全路径+文件名
+        '''
+        pt = None
+        if symbol[0] == '6':
+            pt = os.path.join(basePath, self.sh_path)
+            fileName = 'sh{0}.day'.format(symbol)
+        else:
+            pt = os.path.join(basePath, self.sz_path)
+            fileName = 'sz{0}.day'.format(symbol)
+        return os.path.join(pt, fileName)
 
-    def change_path(pval, pname='tdxpath'):
+    def change_path(self, pval, pname='tdxpath'):
         global tdxpath
         if pname == 'tdxpath':
             tdxpath = pval
@@ -114,7 +136,7 @@ class TDXRead(TDXOpertion):
         if pname == 'sz_path':
             sz_path = pval
 
-    def parse_time_reverse(ft):
+    def parse_time_reverse(self, ft):
         # 418x turn into 20101007
         s = ft
         s = (s + 10956) * 86400
@@ -124,7 +146,7 @@ class TDXRead(TDXOpertion):
         s = int(s)
         return s
 
-    def parse_time(ft):
+    def parse_time(self, ft):
         # 20101007 turn into 418x
         s = str(ft)
         s = time.strptime(s, '%Y%m%d')
@@ -134,7 +156,7 @@ class TDXRead(TDXOpertion):
         s = int(s)
         return s
 
-    def get_dayline_by_fid(str_fid='sh000001', restrictSize=0):
+    def get_dayline_by_fid(self, str_fid='sh000001', restrictSize=0):
 
         str_fid = str_fid.replace('.day', '')
 
@@ -161,7 +183,7 @@ class TDXRead(TDXOpertion):
             rd = f.read(32)
             if not rd: break
             # print i, len(rd)
-            st = struct.unpack(str_tdx_dayline_format, rd)
+            st = struct.unpack(str_tdx_daylineBaseException_format, rd)
             # print st
 
             q = libqda_struct.fdaydata()
@@ -179,3 +201,16 @@ class TDXRead(TDXOpertion):
         return dayline
 
         f.close()
+
+    def read(self, start, end):
+        datalist = []
+        with open(self.__file, 'rb') as f:
+            text = f.read()
+            startpos = 0
+            total_length = len(text)
+            while startpos < total_length:
+                mydate, open_price, high, low, close, amount, vol, reservation = struct.unpack("iiiiifii", text[startpos:startpos + 32])
+                if start <= mydate <= end:
+                    datalist.append(Quote(mydate, open_price, high, low, close, vol, None))
+                startpos += 32
+        return datalist

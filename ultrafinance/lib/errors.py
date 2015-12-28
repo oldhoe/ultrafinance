@@ -48,6 +48,7 @@ class Errors(object):
     INVALID_EXCEL_MODE = 802
 
     INVALID_TDX_MODE = 852
+    INVALID_TDX_PATH = 853
 
     # trading error
     INVALID_ACCOUNT = 901

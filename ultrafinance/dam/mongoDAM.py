@@ -180,7 +180,9 @@ class MongoDAM(BaseDAM):
         return [self.__sqlToTick(row) for row in rows]
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        '''
+        write quotes
+        '''
         # self.saveToMongo([self.__quoteToMongo(quote) for quote in quotes])
         collection = self.getTable(quotes[0])
         qm = QuoteMongos(self.symbol)

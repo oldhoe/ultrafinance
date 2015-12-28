@@ -4,6 +4,7 @@ Created on Thu Nov  5 23:42:53 2015
 
 @author: pchaos
 """
+import os
 
 from ultrafinance.dam.baseDAM import BaseDAM
 from ultrafinance.dam.TDXLib import TDXLib
@@ -50,19 +51,14 @@ class TDXDAM(BaseDAM):
 
         return low, high
 
-    def __readData(self, targetPath, start, end):
+    def __readData(self, basePath, start, end):
         ''' read data '''
         ret = []
-        if not path.exists(targetPath):
-            LOG.error("Target file doesn't exist: %s" % path.abspath(targetPath))
+        if not path.exists(basePath):
+            LOG.error("Target file doesn't exist: %s" % path.abspath(basePath))
             return ret
-
-        with TDXLib(fileName=targetPath, mode=TDXLib.READ_MODE) as excel:
-            low, high = self.__findRange(excel, start, end)
-
-            for index in range(low, high + 1):
-                ret.append(excel.readRow(index))
-
+        with TDXLib(basePath, self.__symbol, TDXLib.READ_MODE) as TDX:
+           ret = TDX.read(start, end)
         return ret
 
     def __writeData(self, targetPath, fields, rows):
@@ -78,8 +74,10 @@ class TDXDAM(BaseDAM):
 
     def readQuotes(self, start, end):
         ''' read quotes '''
-        quotes = self.__readData(self.targetPath(TDXDAM.QUOTE), start, end)
-        return [Quote(*quote) for quote in quotes]
+        startInt = int(start)
+        endInt = int(end)
+        quotes = self.__readData(self.__dir, startInt, endInt)
+        return quotes
 
     def writeQuotes(self, quotes):
         ''' write quotes '''
@@ -100,4 +98,12 @@ class TDXDAM(BaseDAM):
 
     def setDir(self, path):
         ''' set dir '''
-        self.__dir = path
+        if os.path.exists(path):
+            self.__dir = path
+        else:
+            raise UfException(Errors.INVALID_TDX_PATH, "通达信路径错误！\n{0}".format(path))
+
+
+    def setSymbol(self, symbol):
+        ''' set symbol '''
+        self.__symbol = symbol

@@ -211,6 +211,7 @@ class TDXRead(TDXOpertion):
             while startpos < total_length:
                 mydate, open_price, high, low, close, amount, vol, reservation = struct.unpack("iiiiifii", text[startpos:startpos + 32])
                 if start <= mydate <= end:
+                    # todo Quote对象内部使用的是浮点数，改成整数
                     datalist.append(Quote(mydate, open_price, high, low, close, vol, None))
                 startpos += 32
         return datalist

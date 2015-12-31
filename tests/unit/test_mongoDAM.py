@@ -122,15 +122,24 @@ for d in tb:
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol("test")
 
-        quotes = [Quote(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
-                  Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
+        # quotes = [Quote(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
+        #           Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
+        # dam.writeQuotes(quotes)
+        # quotes = [Quote(*['1320676210', '32.59', '32.59', '32.58', '32.58', '65213', None]),
+        #           Quote(*['1320676211', '32.60', '32.60', '32.59', '32.59', '65214', None]),
+        #           Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
+        # dam.writeQuotes(quotes)
+        # # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
+        # LOG.debug([str(quote) for quote in dam.readQuotes(0, None)])
+
+        dam.setSymbol("testNew")
+        quotes = [Quote(*[20130101, 3259, 3259, 3258, 3258, 65213, None]),
+                  Quote(*[20130102, 3260, 3260, 3259, 3259, 65214, None])]
         dam.writeQuotes(quotes)
-        quotes = [Quote(*['1320676210', '32.59', '32.59', '32.58', '32.58', '65213', None]),
-                  Quote(*['1320676211', '32.60', '32.60', '32.59', '32.59', '65214', None]),
-                  Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
+        quotes = [Quote(*[20130101, 3259, 3259, 3258, 3258, 65213, None]),
+                  Quote(*[20130111, 3260, 3260, 3259, 3259, 65214, None]),
+                  Quote(*[20130112, 3260, 3260, 3259, 3259, 65214, None])]
         dam.writeQuotes(quotes)
-        # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
-        print([str(quote) for quote in dam.readQuotes(0, None)])
 
     def test_writeTicks(self):
         self.fail()

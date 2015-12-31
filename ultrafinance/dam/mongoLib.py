@@ -114,9 +114,18 @@ class QuoteMongos(object):
             # if seen.has_key(marker)
             # but in new ones:
             if marker in seen:
-                quotes.remove(item)
+                seen[marker] += 1
             else:
                 seen[marker] = 1
+        for item in reversed(quotes):
+            marker = quoteKey(item)
+            # in old Python versions:
+            # if seen.has_key(marker)
+            # but in new ones:
+            if seen[marker] > 1:
+                # seen[marker] += 1
+                quotes.remove(item)
+                seen[marker] -= 1
 
 class QuoteMongo(object):
     __tablename__ = 'quotes'

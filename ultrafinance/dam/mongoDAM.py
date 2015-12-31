@@ -186,7 +186,7 @@ class MongoDAM(BaseDAM):
         # self.saveToMongo([self.__quoteToMongo(quote) for quote in quotes])
         collection = self.getTable(quotes[0])
         qm = QuoteMongos(self.symbol)
-        qm.extend(quotes)
+        qm.append(quotes)
         self.saveToMongo(collection, qm)
 
     def writeTicks(self, ticks):

@@ -112,13 +112,7 @@ class GoogleFinance(object):
                 if len(values[0]) == len(value):
                     date = convertGoogCSVDate(value[0])
                     try:
-                        data.append(Quote(date,
-                                          value[1].strip(),
-                                          value[2].strip(),
-                                          value[3].strip(),
-                                          value[4].strip(),
-                                          value[5].strip(),
-                                          None))
+                        data.append(self._valueToQuote(date, value))
                     except Exception:
                         LOG.warning("Exception when processing %s at date %s for value %s" % (symbol, date, value))
 
@@ -131,6 +125,15 @@ class GoogleFinance(object):
                               "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
             # sample output
             # [stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+
+    def _valueToQuote(self, date, value):
+        open = 0 if ("-" == value[1].strip()) else int(float(value[1].strip())*100)
+        high = 0 if ("-" == value[2].strip()) else int(float(value[2].strip())*100)
+        low = 0 if ("-" == value[3].strip()) else int(float(value[3].strip())*100)
+        close = 0 if ("-" == value[4].strip()) else int(float(value[4].strip())*100)
+        volume = int(value[5].strip())
+        adjClose = None
+        return Quote(int(date), open, high, low,  close, volume, adjClose)
 
     def getFinancials(self, symbol):
         """

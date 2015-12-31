@@ -71,13 +71,23 @@ class Quote(object):
 
     def __init__(self, time, open, high, low, close, volume, adjClose):
         ''' constructor '''
-        self.time = time
-        self.open = 0 if ("-" == open) else float(open)
-        self.high = 0 if ("-" == high) else float(high)
-        self.low = 0 if ("-" == low) else float(low)
-        self.close = 0 if ("-" == close) else float(close)
-        self.volume = int(volume)
-        self.adjClose = adjClose
+        if type(open) == str:
+            # 价格为文本，需要转换（google数据）
+            self.time = time
+            self.open = 0 if ("-" == open) else float(open)
+            self.high = 0 if ("-" == high) else float(high)
+            self.low = 0 if ("-" == low) else float(low)
+            self.close = 0 if ("-" == close) else float(close)
+            self.volume = int(volume)
+            self.adjClose = adjClose
+        else:
+            self.time = time
+            self.open = open
+            self.high = high
+            self.low = low
+            self.close = close
+            self.volume = volume
+            self.adjClose = adjClose
 
     def __str__(self):
         ''' convert to string '''

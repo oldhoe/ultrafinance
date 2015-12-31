@@ -10,6 +10,7 @@ from unittest import TestCase
 
 import dam
 from ultrafinance.dam.TDXDAM import TDXDAM
+from ultrafinance.dam.mongoDAM import MongoDAM
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -31,12 +32,35 @@ class TestTDXDAM(TestCase):
         self.assertNotEqual(0, len(dir))
 
     def test_readQuotes(self):
+        symbol= '600177'
         dam = TDXDAM()
         dam.setDir('./data')
-        dam.setSymbol('600177')
-        data = dam.readQuotes('20131101', '20131115')
+        dam.setSymbol(symbol)
+        start = 20131101
+        end = 20131115
+        data = dam.readQuotes(start, end)
         LOG.debug([str(q) for q in data])
         self.assertNotEqual(0, len(data))
+        #数据数量不可能大于相隔日期
+        self.assertTrue(len(data) <= end - start + 1, '数据数量太大！')
+
+    def test_readQuotesAndWriteQuotesToMongo(self):
+        symbol= '600177'
+        dam = TDXDAM()
+        dam.setDir('./data')
+        dam.setSymbol(symbol)
+        data = dam.readQuotes('20131101', '20131231')
+        LOG.debug([str(q) for q in data])
+        self.assertNotEqual(0, len(data))
+
+        dam = MongoDAM()
+        dam.setup('mongodb://127.0.0.1', 'testdb')
+        dam.setSymbol(symbol)
+
+        quotes = data
+        dam.writeQuotes(quotes)
+        # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
+        print([str(quote) for quote in dam.readQuotes(0, None)])
 
     def test_writeQuotes(self):
         self.fail()

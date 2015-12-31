@@ -78,8 +78,10 @@ class MongoDAM(BaseDAM):
         return QuoteMongo(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
                           quote.adjClose)
 
-    def readQuotes(self, start, end):
+    def readQuotes(self, start = None, end = None):
         ''' read quotes '''
+        if start is None:
+            start = 0
         if end is None:
             end = sys.maxsize
         if self.symbol is None:
@@ -89,7 +91,7 @@ class MongoDAM(BaseDAM):
         if mg is None:
             return None
         else:
-            return self.__listToQuotes(mg['quotes'])
+            return self.__listToQuotes(mg['quotes'], start, end)
 
     def __findBySymbol(self):
         '''
@@ -101,10 +103,16 @@ class MongoDAM(BaseDAM):
         mg = collection.find_one(query)
         return mg
 
-    def __listToQuotes(self, quoteList):
+    def __listToQuotes(self, quoteList, start, end):
+        '''
+        将数据列表转换为Quote列表
+        :param quoteList: 数据列表
+        :return: 转换成Quote列表
+        '''
         quotes = []
         for q in quoteList:
-            quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
+            if start <= q['time'] <= end:
+                quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
         return quotes
 
     def readTupleQuotes(self, start, end):
@@ -335,5 +343,10 @@ class MongoDAM(BaseDAM):
                 pass
 
     def dropCollection(self, collectionName):
+        '''
+        删除collection
+        :param collectionName: 需要删除collection的名称
+        :return:
+        '''
         collection = self.db[collectionName]
         collection.drop()

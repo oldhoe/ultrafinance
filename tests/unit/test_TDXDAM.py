@@ -34,7 +34,7 @@ class TestTDXDAM(TestCase):
         dam = TDXDAM()
         dam.setDir('./data')
         dam.setSymbol('600177')
-        data = dam.readQuotes('20131101', '20131110')
+        data = dam.readQuotes('20131101', '20131115')
         LOG.debug([str(q) for q in data])
         self.assertNotEqual(0, len(data))
 

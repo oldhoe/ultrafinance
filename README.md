@@ -9,6 +9,11 @@ todolist:
 
 ============
 Changelog
+version 1.0.5
+    修改Quote内部结构：time, open, high, low, close, adjClose类型为整型，修改对应的GoogleFinance。修复QuoteMongos.quoteUniqueByDelete中的bug
+
+version 1.0.4
+    增加保存到mangoDB
 
 version 1.0.3
     增加通达信类文件

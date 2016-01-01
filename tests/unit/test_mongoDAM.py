@@ -8,9 +8,8 @@ import os
 from unittest import TestCase
 from ultrafinance.dam.mongoDAM import MongoDAM
 from ultrafinance.model import Tick, Quote
-
 import ultrafinance.dam.googleDAM
-
+from random import randint
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -77,6 +76,7 @@ for d in tb:
     print(d)
 
     '''
+
     def setUp(self):
         self.symbol = 'ebay'
 
@@ -99,11 +99,15 @@ for d in tb:
 
     def test_readQuotes(self):
         dam = MongoDAM()
-        dam.setup('mongodb://127.0.0.1')
-        dam.setSymbol('test')
-        data = dam.readQuotes('20131101', '20131110')
+        dam.setup('mongodb://127.0.0.1', 'testdb')
+        dam.setSymbol('600177')
+        data = dam.readQuotes(20131101, 20131110)
         print([str(q) for q in data])
-        self.assertNotEqual(0, len(data))
+        len1 = len(data)
+        self.assertNotEqual(0, len1)
+        data = dam.readQuotes(20131101)
+        self.assertTrue(len(data) > len1)
+
 
     def test_readTupleQuotes(self):
         self.fail()
@@ -120,8 +124,6 @@ for d in tb:
     def test_writeQuotes(self):
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
-        dam.setSymbol("test")
-
         dam.setSymbol("testNew")
         quotes = [Quote(*[20130101, 3259, 3259, 3258, 3258, 65213, None]),
                   Quote(*[20130102, 3260, 3260, 3259, 3259, 65214, None])]
@@ -131,6 +133,16 @@ for d in tb:
                   Quote(*[20130112, 3260, 3260, 3259, 3259, 65214, None])]
         dam.writeQuotes(quotes)
         LOG.debug([str(quote) for quote in dam.readQuotes(0, None)])
+
+    def test_deleteQuotes(self):
+        self.test_writeQuotes()
+        dam = MongoDAM()
+        dam.setup('mongodb://127.0.0.1', 'testdb')
+        dam.setSymbol("testNew")
+        data = dam.readQuotes('20131101', '20131110')
+        quotes = []
+        quotes.append(data[randint(0, len(data) - 1)])
+        dam.deleteQuotes(quotes)
 
     def test_writeTicks(self):
         self.fail()
@@ -170,4 +182,3 @@ for d in tb:
         dam.writeQuotes(quotes)
         # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
         print([str(quote) for quote in dam.readQuotes(0, None)])
-

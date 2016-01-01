@@ -12,6 +12,7 @@ from os.path import sep
 
 import time
 
+import sys
 from xlrd import open_workbook
 
 from ultrafinance.model import Quote, Tick, TupleQuote
@@ -52,8 +53,6 @@ class TDXLib(object):
 
     def read(self, start, end):
         return self.__operation.read(start, end)
-
-
 
 class TDXOpertion(object):
     ''' TDX operation '''
@@ -204,6 +203,10 @@ class TDXRead(TDXOpertion):
 
     def read(self, start, end):
         datalist = []
+        if start is None:
+            start = 0
+        if end is None:
+            end = sys.maxsize
         with open(self.__file, 'rb') as f:
             text = f.read()
             startpos = 0

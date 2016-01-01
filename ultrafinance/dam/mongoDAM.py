@@ -80,10 +80,6 @@ class MongoDAM(BaseDAM):
 
     def readQuotes(self, start = None, end = None):
         ''' read quotes '''
-        if start is None:
-            start = 0
-        if end is None:
-            end = sys.maxsize
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []
@@ -103,12 +99,16 @@ class MongoDAM(BaseDAM):
         mg = collection.find_one(query)
         return mg
 
-    def __listToQuotes(self, quoteList, start, end):
+    def __listToQuotes(self, quoteList, start = None, end = None):
         '''
         将数据列表转换为Quote列表
         :param quoteList: 数据列表
         :return: 转换成Quote列表
         '''
+        if start is None:
+            start = 0
+        if end is None:
+            end = sys.maxsize
         quotes = []
         for q in quoteList:
             if start <= q['time'] <= end:
@@ -191,11 +191,11 @@ class MongoDAM(BaseDAM):
         '''
         write quotes
         '''
-        # self.saveToMongo([self.__quoteToMongo(quote) for quote in quotes])
+        # self.saveQuotesToMongo([self.__quoteToMongo(quote) for quote in quotes])
         collection = self.getTable(quotes[0])
         qm = QuoteMongos(self.symbol)
         qm.extend(quotes)
-        self.saveToMongo(collection, qm)
+        self.saveQuotesToMongo(collection, qm)
 
     def writeTicks(self, ticks):
         ''' write ticks '''
@@ -272,7 +272,7 @@ class MongoDAM(BaseDAM):
         table = self.db[qm.getTableName()]
         return table
 
-    def saveToMongo(self, collection, quoteMongos, CRUDmode='insert'):
+    def saveQuotesToMongo(self, collection, quoteMongos, CRUDmode='insert'):
         '''
         保存dataFrame到mongoDB
         CRUDmode='insert': 插入
@@ -350,3 +350,15 @@ class MongoDAM(BaseDAM):
         '''
         collection = self.db[collectionName]
         collection.drop()
+
+    def deleteQuotes(self, quotes):
+        oldQuotes = self.readQuotes()
+
+        collection = self.getTable(quotes[0])
+        qm = QuoteMongos(self.symbol)
+        qm.extend(oldQuotes)
+        self.saveQuotesToMongo(collection, qm, 'delete')
+        qm.remove(quotes)
+
+        self.saveQuotesToMongo(collection, qm)
+

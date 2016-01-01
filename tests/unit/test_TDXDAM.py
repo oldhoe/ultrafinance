@@ -45,22 +45,30 @@ class TestTDXDAM(TestCase):
         self.assertTrue(len(data) <= end - start + 1, '数据数量太大！')
 
     def test_readQuotesAndWriteQuotesToMongo(self):
-        symbol= '600177'
+        symbol= '600401'
+        start = 20141101
+        end = 20141231
+        data = self._readQuotesAndWriteQuotesToMongo(symbol, end, start)
+        start = None
+        end = None
+        data1 = self._readQuotesAndWriteQuotesToMongo(symbol, end, start)
+        self.assertTrue(len(data1) >= len(data), '{0} data must be error!'.format(symbol))
+
+    def _readQuotesAndWriteQuotesToMongo(self, symbol, end, start):
         dam = TDXDAM()
         dam.setDir('./data')
         dam.setSymbol(symbol)
-        data = dam.readQuotes('20131101', '20131231')
+        data = dam.readQuotes(start, end)
         LOG.debug([str(q) for q in data])
         self.assertNotEqual(0, len(data))
-
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol(symbol)
-
         quotes = data
         dam.writeQuotes(quotes)
         # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
         print([str(quote) for quote in dam.readQuotes(0, None)])
+        return data
 
     def test_writeQuotes(self):
         self.fail()

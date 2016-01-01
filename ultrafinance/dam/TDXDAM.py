@@ -74,8 +74,12 @@ class TDXDAM(BaseDAM):
 
     def readQuotes(self, start, end):
         ''' read quotes '''
-        startInt = int(start)
-        endInt = int(end)
+        if type(start) == str:
+            startInt = int(start)
+            endInt = int(end)
+        else:
+            startInt = start
+            endInt = end
         quotes = self.__readData(self.__dir, startInt, endInt)
         return quotes
 

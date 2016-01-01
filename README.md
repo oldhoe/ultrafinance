@@ -4,14 +4,20 @@ Python project for real-time financial data collection, analyzing && backtesting
 
 ============
 todolist:
-从通达信文件中获取数据
-增加保存到mangoDB
+解压缩单独通达信日线 五日线文件，倒入mongoDB
+数据地址： http://www.tdx.com.cn/list_66_69.html
+import zipfile,os.path
+with zipfile.ZipFile('shlday.zip') as zf:
+    for member in zf.infolist():
+        words = member.filename.split('/')
+        print(words)
 
 ============
 Changelog
 version 1.0.5
     修改Quote内部结构：time, open, high, low, close, adjClose类型为整型，修改对应的GoogleFinance。修复QuoteMongos.quoteUniqueByDelete中的bug
     修改MongoDAM.readQuotes返回数据逻辑
+    修复TDXRead.read逻辑错误
 
 version 1.0.4
     增加保存到mangoDB

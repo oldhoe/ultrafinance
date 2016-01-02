@@ -7,7 +7,7 @@ from setuptools import setup
 
 from setupCommand import TestCommand, CleanCommand
 
-version = '1.0.2'
+version = '1.0.5'
 
 setup(name='ultrafinance',
       version=version,

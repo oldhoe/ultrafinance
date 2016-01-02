@@ -129,8 +129,8 @@ for d in tb:
                   Quote(*[20130102, 3260, 3260, 3259, 3259, 65214, None])]
         dam.writeQuotes(quotes)
         quotes = [Quote(*[20130101, 3333, 4444, 5555, 6666, 65213, None]),
-                  Quote(*[20130111, 3260, 3260, 3259, 3259, 65214, None]),
-                  Quote(*[20130112, 3260, 3260, 3259, 3259, 65214, None])]
+                  Quote(*[20130111, 3011, 3012, 3013, 3014, 65214, None]),
+                  Quote(*[20130112, 3012, 3013, 3014, 3259, 65214, None])]
         dam.writeQuotes(quotes)
         LOG.debug([str(quote) for quote in dam.readQuotes(0, None)])
 
@@ -139,7 +139,7 @@ for d in tb:
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol("testNew")
-        data = dam.readQuotes('20131101', '20131110')
+        data = dam.readQuotes('20130101', '20131110')
         quotes = []
         quotes.append(data[randint(0, len(data) - 1)])
         dam.deleteQuotes(quotes)

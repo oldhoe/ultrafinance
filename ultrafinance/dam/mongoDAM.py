@@ -83,6 +83,10 @@ class MongoDAM(BaseDAM):
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []
+        if type(start) == str:
+            start = int(start)
+        if type(end) == str:
+            end = int(end)
         mg = self.__findBySymbol()
         if mg is None:
             return None
@@ -298,10 +302,9 @@ class MongoDAM(BaseDAM):
 
         elif CRUDmode.lower() == 'delete':
             # 删除操作
-            for item in quoteMongos:
-                result = collection.find_one_and_delete({'code': item['code']})
-                LOG.info('Write {1} find_and_modify:{0}'.format(
-                        result.inserted_id, collection.name))
+            result = collection.find_one_and_delete({'symbol': quoteMongos.symbol})
+            LOG.info('Write {1} find_and_modify:{0}'.format(
+                    result, collection.name))
         else:
             # todo raise exception
             result = None

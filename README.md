@@ -11,6 +11,11 @@ with zipfile.ZipFile('shlday.zip') as zf:
     for member in zf.infolist():
         words = member.filename.split('/')
         print(words)
+import os
+import shutil
+with zipfile.ZipFile('shlday.zip') as z:
+    with z.open(icon[1]) as zf, open(os.path.join(tDir, os.path.basename(icon[1])), 'wb') as f:
+        shutil.copyfileobj(zf, f)
 
 ============
 Changelog

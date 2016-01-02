@@ -67,35 +67,26 @@ class QuoteMongos(object):
         if not(quote in self.quotes):
             self.quotes.insert(i, quote)
 
-    def remove(self, quote):
-        if quote in self.quotes:
-            self.remove(quote)
+    def remove(self, quoteList):
+        for q in quoteList:
+            self._remove(q, self.getKey)
 
     @staticmethod
     def getKey(x):
         return x.time
 
-    @staticmethod
-    def quoteUnique(quotes, quoteKey=None):
+    def _remove(self, quote, quoteKey=None):
         '''
-        order preserving
-        :param quotes: 原列表
-        :param quoteKey: 列表比较函数
-        :return: 返回无重复值的列表
+        
+        :param quoteKey: 
+        :return: 
         '''
         if quoteKey is None:
             def idfun(x): return x
-        seen = {}
-        result = []
-        for item in quotes:
-            marker = quoteKey(item)
-            # in old Python versions:
-            # if seen.has_key(marker)
-            # but in new ones:
-            if marker in seen: continue
-            seen[marker] = 1
-            result.append(item)
-        return result
+        for item in reversed(self.quotes):
+            if quoteKey(quote) == quoteKey(item):
+                assert isinstance(item, object)
+                self.quotes.remove(item)
 
     @staticmethod
     def quoteUniqueByDelete(quotes, quoteKey=None):

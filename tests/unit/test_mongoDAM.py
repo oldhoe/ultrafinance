@@ -8,7 +8,7 @@ import os
 from unittest import TestCase
 from ultrafinance.dam.mongoDAM import MongoDAM
 from ultrafinance.model import Tick, Quote
-import ultrafinance.dam.googleDAM
+from ultrafinance.dam.googleDAM import GoogleDAM
 from random import randint
 import logging
 
@@ -100,11 +100,12 @@ for d in tb:
     def test_readQuotes(self):
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
+        # dam.setup('mongodb://127.0.0.1')
         dam.setSymbol('600177')
         data = dam.readQuotes(20131101, 20131110)
-        print([str(q) for q in data])
         len1 = len(data)
         self.assertNotEqual(0, len1)
+        print([q for q in data])
         data = dam.readQuotes(20131101)
         self.assertTrue(len(data) > len1)
 
@@ -163,21 +164,23 @@ for d in tb:
         dam.dropCollection('quotes')
 
     def test_ReadQuotesFromGoogleAndWriteQuotes(self):
-        damGoogle = ultrafinance.dam.googleDAM.GoogleDAM()
+        damGoogle = GoogleDAM()
         symbol = 'NASDAQ:EBAY'
         # symbol = 'SHA:600000'
         damGoogle.setSymbol(symbol)
-        start = '20131111'
-        endDate = '20131231'
-        data = damGoogle.readQuotes(start, endDate)
-
+        start = '20141111'
+        end = '20141211'
+        data = damGoogle.readQuotes(start, end)
+        len1 = len(data)
+        self.assertNotEqual(0, len1, 'read equal to 0')
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol(symbol)
 
         quotes = data
         dam.writeQuotes(quotes)
-        data = damGoogle.readQuotes(start, endDate)
+        end = '20141231'
+        data = damGoogle.readQuotes(start, end)
         quotes = data
         dam.writeQuotes(quotes)
         # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])

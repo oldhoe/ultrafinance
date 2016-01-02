@@ -73,9 +73,31 @@ def splitByComma(inputString):
 
 def convertGoogCSVDate(googCSVDate):
     ''' convert date 25-Jul-2010 to 20100725'''
-    d = str(datetime.strptime(googCSVDate, googCSVDateformat).date())
-    return d.replace("-", "")
+    # googCSVDateformat = "%d-%b-%y"
+    # d = datetime.strptime(googCSVDate, googCSVDateformat)
+    # d = str(d.date())
+    # return d.replace("-", "")
+    struct_time = time.strptime(googCSVDate, googCSVDateformat)
+    return '{0}{1}{2}'.format(struct_time.tm_year, struct_time.tm_mon, struct_time.tm_mday)
+    # return convert_date(googCSVDate, googCSVDateformat, '%Y%m%d')
 
+def convert_date(string, in_format, out_format):
+    '''
+    Helper method to convert a string date in format dd MMM YYYY to YYYY-MM-DD
+    year = convert_date('2011-01-01', '%Y-%m-%d', '%Y')
+    '''
+
+    if hasattr(datetime, 'strptime'):
+        strptime = datetime.strptime
+    else:
+        strptime = lambda date_string, format: datetime(*(time.strptime(date_string, format)[0:6]))
+
+    try:
+        a = strptime(string, in_format).strftime(out_format)
+    except Exception:
+        print('Date conversion failed: %s' % Exception)
+        return None
+    return a
 
 def findPatthen(page, pList):
     datas = [BeautifulSoup(page)]

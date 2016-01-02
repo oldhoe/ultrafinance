@@ -21,7 +21,7 @@ LOG = logging.getLogger()
 
 class MongoDAM(BaseDAM):
     '''
-    SQL DAM
+    Mongo DAM
     '''
 
     def __init__(self):
@@ -79,19 +79,34 @@ class MongoDAM(BaseDAM):
                           quote.adjClose)
 
     def readQuotes(self, start = None, end = None):
-        ''' read quotes '''
+        '''
+        read quotes
+        :param start: 开始日期，例如： 20151201
+        :param end: 截至日期，例如： 20151231
+        :return: 返回股票价格列表
+            # sample values:[['Date', 'Open', 'High', 'Low', 'Close', 'Volume'], \
+            #              ['20091231', '11277', '11280', '11139', '11144', '90637900']...]
+        '''
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []
-        if type(start) == str:
-            start = int(start)
-        if type(end) == str:
-            end = int(end)
+        end, start = self.__chkTime(end, start)
         mg = self.__findBySymbol()
         if mg is None:
             return None
         else:
             return self.__listToQuotes(mg['quotes'], start, end)
+
+    def __chkTime(self, end, start):
+        if type(start) == str:
+            start = int(start)
+        if type(end) == str:
+            end = int(end)
+        if start is None:
+            start = 0
+        if end is None:
+            end = sys.maxsize
+        return end, start
 
     def __findBySymbol(self):
         '''
@@ -108,16 +123,15 @@ class MongoDAM(BaseDAM):
         将数据列表转换为Quote列表
         :param quoteList: 数据列表
         :return: 转换成Quote列表
+           [time, open, high, low, close, volume, adjClose]\
         '''
-        if start is None:
-            start = 0
-        if end is None:
-            end = sys.maxsize
+        end, start = self.__chkTime(end, start)
         quotes = []
         for q in quoteList:
             if start <= q['time'] <= end:
                 quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
-        return quotes
+        sortQuotes = sorted(quotes, key=lambda x: x.time)
+        return sortQuotes
 
     def readTupleQuotes(self, start, end):
         ''' read quotes as tuple '''

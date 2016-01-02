@@ -17,6 +17,9 @@ with zipfile.ZipFile('shlday.zip') as z:
     with z.open(icon[1]) as zf, open(os.path.join(tDir, os.path.basename(icon[1])), 'wb') as f:
         shutil.copyfileobj(zf, f)
 
+计算股票ma并保存
+自选股从通达信中读取，保存到mongoDB
+
 ============
 Changelog
 version 1.0.5

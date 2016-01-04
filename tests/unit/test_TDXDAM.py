@@ -45,7 +45,7 @@ class TestTDXDAM(TestCase):
         self.assertTrue(len(data) <= end - start + 1, '数据数量太大！')
 
     def test_readQuotesAndWriteQuotesToMongo(self):
-        symbol= '600401'
+        symbol= '600177'
         start = 20141101
         end = 20141231
         data = self._readQuotesAndWriteQuotesToMongo(symbol, end, start)

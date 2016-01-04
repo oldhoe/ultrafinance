@@ -9,8 +9,8 @@ from collections import namedtuple
 from ultrafinance.lib.errors import UfException, Errors
 
 # namedtuple are used to handle data getting from csv or internet
-TICK_FIELDS = ['time', 'open', 'high', 'low', 'close', 'volume']
-# QUOTE_FIELDS = ['time', 'open', 'high', 'low', 'close', 'volume', 'adjClose']
+TICK_FIELDS = ['time', 'read', 'high', 'low', 'close', 'volume']
+# QUOTE_FIELDS = ['time', 'read', 'high', 'low', 'close', 'volume', 'adjClose']
 QUOTE_FIELDS = ['time', 'close', 'volume', 'low', 'high']
 
 
@@ -29,7 +29,7 @@ class Tick(object):
     def __str__(self):
         ''' convert to string '''
         return json.dumps({"time": self.time,
-                           "open": self.open,
+                           "read": self.open,
                            "high": self.high,
                            "low": self.low,
                            "close": self.close,
@@ -39,14 +39,14 @@ class Tick(object):
     def fromStr(string):
         ''' convert from string'''
         d = json.loads(string)
-        return Tick(d['time'], d['open'], d['high'],
+        return Tick(d['time'], d['read'], d['high'],
                     d['low'], d['close'], d['volume'], d['adjClose'])
 
 
 """
 class Quote(object):
     ''' tick class '''
-    def __init__(self, time, open, high, low, close, volume, adjClose):
+    def __init__(self, time, read, high, low, close, volume, adjClose):
         ''' constructor '''
         self.time = time
         self.close = float(close)
@@ -60,7 +60,7 @@ class Quote(object):
     def fromStr(string):
         ''' convert from string'''
         d = json.loads(string)
-        return Quote(d['time'], d.get('open'), d.get('high'),
+        return Quote(d['time'], d.get('read'), d.get('high'),
                      d.get('low'), d['close'], d.get('volume'), d.get('adjClose'))
 
 """
@@ -92,7 +92,7 @@ class Quote(object):
     def __str__(self):
         ''' convert to string '''
         return json.dumps({"time": self.time,
-                           "open": self.open,
+                           "read": self.open,
                            "high": self.high,
                            "low": self.low,
                            "close": self.close,
@@ -103,7 +103,7 @@ class Quote(object):
     def fromStr(string):
         ''' convert from string'''
         d = json.loads(string)
-        return Quote(d['time'], d['open'], d['high'],
+        return Quote(d['time'], d['read'], d['high'],
                      d['low'], d['close'], d['volume'], d['adjClose'])
 
 
@@ -144,7 +144,7 @@ class Type(object):
 
 class Order(object):
     ''' order class'''
-    OPEN = 'open'
+    OPEN = 'read'
     FILLED = 'filled'
     CANCELED = 'canceled'
 

@@ -7,16 +7,22 @@ Created on Sat Nov  7 11:25:43 2015
 import logging
 import os
 import struct
+import tempfile
+import threading
+import zipfile
 from os import path
 from os.path import sep
 
 import time
 
 import sys
+
+import subprocess
 from xlrd import open_workbook
 
 from ultrafinance.model import Quote, Tick, TupleQuote
 from ultrafinance.lib.errors import UfException, Errors
+from ultrafinance.designPattern.singleton import Singleton
 
 LOG = logging.getLogger()
 
@@ -59,7 +65,7 @@ class TDXOpertion(object):
     DEFAULT_START_DATE = 20100101
 
     def open(self, name):
-        ''' open sheet '''
+        ''' read sheet '''
         raise UfException(Errors.UNDEFINED_METHOD, "openSheet function is not defined")
 
     def post(self):
@@ -103,6 +109,8 @@ class TDXRead(TDXOpertion):
         ''' constructor '''
         fileName = self.getfileName(basePath, symbol)
         if not path.exists(fileName):
+            # 找不到通达信数据文件
+
             raise UfException(Errors.FILE_NOT_EXIST, "File doesn't exist: %s" % fileName)
         self.__file = fileName
 
@@ -218,3 +226,226 @@ class TDXRead(TDXOpertion):
                     datalist.append(Quote(mydate, open_price, high, low, close, vol, None))
                 startpos += 32
         return datalist
+
+class TDXSource(Singleton):
+    '''
+    通达信数据源
+    从http://www.tdx.com.cn/list_66_69.html下载相应的数据：
+    上证常见指数日线、深证常见指数日线、上证所有证券日线、深证所有证券日线、上证所有证券5分钟线、深证所有证券5分钟线
+    '''
+    sourceList = [{'name':'shlday','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/shlday.zip'} # 上证所有证券日线
+                ,{'name':'szlday','url':'http://www.tdx.com.cn/products/data/data/vipdoc/szlday.zip'} # 深证所有证券日线
+                ,{'name':'sh5fz','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sh5fz.zip'} #上证所有证券5分钟线
+                ,{'name':'sz5fz','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sz5fz.zip'} # 深证所有证券5分钟线
+                ]
+
+    sh_path = "sh" + sep + "lday" + sep
+    sh_min5_path = "sh" + sep + "fzline" + sep
+    # on linux : /sz/lday
+    sz_path = "sz" + sep + "lday" + sep
+    sz_min5_path = "sz" + sep + "fzline" + sep
+
+    def runShell(self, command, timeout = 5):
+        # proz http://www.tdx.com.cn/products/data/data/shzsday.zip -P /tmp/
+        with open(os.devnull, 'w') as fnull:
+            result=subprocess.call(command, shell=True,stdout=fnull,stderr=fnull, timeout= timeout)
+            if result:
+                return False
+            else:
+                return True
+
+    def download(self, name = 'shlday', timeout = 500):
+        '''
+        使用shell下载数据
+        :param name: 要下载的名称
+        :param timeout:超时秒数
+        :return: True下载成功, Fasle 下载失败
+            fileName 下载文件名
+        '''
+        tmpPath = tempfile.gettempdir()
+        fileName = os.path.join(tmpPath, name + '.zip')
+        if os.path.exists(fileName):
+            # 已存在下载的文件
+            # todo 文件超过24小时，则重新下载
+            return True, fileName
+        url = self.getUrl(name)
+        if url is not None:
+            # 使用proz多线程下载，也可以使用wget
+            command = 'proz {0} -P {1}'.format(url, tmpPath)
+            LOG.info('runShell:{0}'.format(command))
+            return self.runShell(command, timeout), fileName
+        else:
+            # url 为空
+            return False, fileName
+
+    def getUrl(self, downloadName):
+        '''
+        根据name属性返回url地址
+        :param downloadName:
+        :return: name对应的url，没有对应则返回None
+        '''
+        url = None
+        for item in self.sourceList:
+            if item['name'] == downloadName:
+                url = item['url']
+                break
+        if url is None:
+            LOG.info('downloadName: {0} not found url.'.format(downloadName))
+        return url
+
+    def extract(self, symbol= '', ktype = 'D', targetPath = ''):
+        '''
+        获取股票代码、周期对应的文件
+        :param symbol: 股票代码 例如: 'sh000001', 'sz000001'
+        :param ktype: 数据周期
+            ktype='D':获取周k线数据 默认值
+            ktype='W':获取周k线数据
+            ktype='M':获取月k线数据
+            ktype='5':获取5分钟k线数据
+            ktype='15':获取15分钟k线数据
+            ktype='30':获取30分钟k线数据
+            ktype='60':获取60分钟k线数据
+        :return: 返回文件名
+                 当返回N时，表示不成功
+        '''
+        symbol = symbol.lower()
+        downloadName = self.getDownloadnameBySymbol(symbol, ktype)
+        result, downloadZipName = self.download(downloadName)
+        fileNameResult  = None
+        if result:
+            # 已下载数据包
+            fileName = self.getTargetFileName(symbol, ktype, targetPath)
+            filePath, f = os.path.split(fileName)
+            archive = zipfile.ZipFile(downloadZipName)
+            for file in archive.namelist():
+                if file.startswith(symbol):
+                    archive.extract(file, filePath)
+            if os.path.exists(fileName):
+                fileNameResult = fileName
+        # 删除old Files
+        self.deleteFileOfACertainAge(filePath)
+        return fileNameResult
+
+    def getTargetFileName(self, symbol, ktype, targetPath = ''):
+        ktype = ktype.upper()
+        fileSuffix = ''
+        if ktype in 'DWM':
+            #日线数据
+            fileSuffix = '.day'
+        else:
+            # 五分钟数据
+            fileSuffix = '.lc5'
+        subFolder = ''
+        symbol = symbol.lower()
+        if 'sh' in symbol:
+            if fileSuffix == '.day':
+                subFolder = self.sh_path
+            elif fileSuffix == '.lc5':
+                subFolder = self.sh_min5_path
+        elif 'sz' in symbol:
+            if fileSuffix == '.day':
+                subFolder = self.sz_path
+            elif fileSuffix == '.lc5':
+                subFolder = self.sz_min5_path
+        else:
+            pass
+        if len(targetPath) == 0:
+            fileName = os.path.join(os.path.join(tempfile.gettempdir(), subFolder), symbol + fileSuffix)
+        else:
+            fileName = os.path.join(os.path.join(targetPath, subFolder), symbol + fileSuffix)
+        return fileName
+
+    def getDownloadnameBySymbol(self, symbol, ktype='D'):
+        '''
+        根据股票代码、周期返回对应的要下载的名称
+        :param symbol:
+        :param ktype:
+        :return:
+        '''
+        downloadName = ''
+        symbol = symbol.lower()
+        if 'sh' in symbol:
+            downloadName = 'sh'
+        elif 'sz' in symbol:
+            downloadName = 'sz'
+        else:
+            pass
+        ktype = ktype.upper()
+        if ktype in 'DWM':
+            #日线数据
+            downloadName += 'lday'
+        else:
+            # 五分钟数据
+            downloadName += '5fz'
+        return downloadName
+
+    def beeps(self, times = 1, freq = 1600):
+        if sys.platform == 'linux':
+            command = '( speaker-test -t sine -f {0} )& pid=$! ; sleep 0.1s ; kill -9 $pid'.format(freq)
+            i = 0
+            while i < times:
+                i +=1
+                self.runShell(command)
+                if i +1 < times:
+                    time.sleep(0.025)
+
+    def delays(self, times =1, yesOrNo = True):
+        delaySec = 1
+        if yesOrNo:
+            time.sleep(delaySec * times)
+
+    # @staticmethod
+    def deleteFileOfACertainAge(self, filePath, seconds= 300):
+        '''
+        删除目录filePath中seconds秒前的文件
+        :param filePath: 目录
+        :param seconds: 秒
+        :return:
+        '''
+        ago = time.time() - seconds
+        for somefile in os.listdir(filePath):
+            filename = os.path.join(filePath, somefile)
+            st=os.stat(filename)
+            mtime=st.st_mtime
+            if mtime < ago:
+                os.remove(filename)
+
+
+class Command(object):
+    '''
+    command = Command("echo 'Process started'; sleep 2; echo 'Process finished'")
+    command.run(timeout=3)
+    command.run(timeout=1)
+    The output of this snippet in my machine is:
+
+        Thread started
+        Process started
+        Process finished
+        Thread finished
+        0
+        Thread started
+        Process started
+        Terminating process
+        Thread finished
+        -15
+    '''
+    def __init__(self, cmd):
+        self.cmd = cmd
+        self.process = None
+
+    def run(self, timeout):
+        def target():
+            LOG.info('Thread started')
+            self.process = subprocess.Popen(self.cmd, shell=True)
+            self.process.communicate()
+            LOG.info('Thread finished')
+
+        thread = threading.Thread(target=target)
+        thread.start()
+
+        thread.join(timeout)
+        if thread.is_alive():
+            LOG.info('Terminating process')
+            self.process.terminate()
+            thread.join()
+        LOG.info(self.process.returncode)

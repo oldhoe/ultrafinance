@@ -73,7 +73,6 @@ def splitByComma(inputString):
 
 def convertGoogCSVDate(googCSVDate):
     ''' convert date 25-Jul-2010 to 20100725'''
-    # googCSVDateformat = "%d-%b-%y"
     # d = datetime.strptime(googCSVDate, googCSVDateformat)
     # d = str(d.date())
     # return d.replace("-", "")

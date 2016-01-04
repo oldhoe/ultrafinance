@@ -46,16 +46,16 @@ class MongoNumpyDAM(BaseDAM):
 
     def __sqlToQuote(self, row):
         ''' convert row result to Quote '''
-        return Quote(row.time, row.open, row.high, row.low, row.close, row.volume, row.adjClose)
+        return Quote(row.time, row.read, row.high, row.low, row.close, row.volume, row.adjClose)
 
     def __quoteToMongo(self, quote):
         ''' convert tick to QuoteSql '''
-        return QuoteMongo(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
+        return QuoteMongo(self.symbol, quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume,
                           quote.adjClose)
 
     def __quoteToMongos(self, quote):
         ''' convert tick to QuoteSql '''
-        return QuoteMongo(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
+        return QuoteMongo(self.symbol, quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume,
                           quote.adjClose)
 
     def readQuotes(self, start = None, end = None):
@@ -96,7 +96,7 @@ class MongoNumpyDAM(BaseDAM):
         quotes = []
         for q in quoteList:
             if start <= q['time'] <= end:
-                quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
+                quotes.append(Quote(q['time'], q['read'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
         return quotes
 
     def writeQuotes(self, quotes):

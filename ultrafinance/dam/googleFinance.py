@@ -124,7 +124,7 @@ class GoogleFinance(object):
             raise UfException(Errors.UNKNOWN_ERROR,
                               "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
             # sample output
-            # [stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            # [stockDaylyData(date='2010-01-04, read='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
 
     def _valueToQuote(self, date, value):
         open = 0 if ("-" == value[1].strip()) else int(float(value[1].strip())*100)
@@ -260,4 +260,4 @@ class GoogleFinance(object):
             raise UfException(Errors.UNKNOWN_ERROR,
                               "Unknown Error in GoogleFinance.getTicks %s" % traceback.format_exc())
             # sample output
-            # [stockDaylyData(date='1316784600', open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            # [stockDaylyData(date='1316784600', read='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]

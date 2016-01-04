@@ -132,9 +132,9 @@ def _createSingletonInstance(cls, lstArgs, dctKwArgs):
         instance = cls.__new__(cls)
         try:
             instance.__init__(*lstArgs, **dctKwArgs)
-        except TypeError, e:
+        except TypeError as e:
             if str(e).find('__init__() takes') != -1:
-                raise SingletonException, 'If the singleton requires __init__ args, supply them on first call to getInstance().'
+                raise SingletonException('If the singleton requires __init__ args, supply them on first call to getInstance().')
             else:
                 raise
         cls.cInstance = instance
@@ -164,11 +164,11 @@ def _removeSingleton(cls):
 class MetaSingleton(type):
     def __new__(self, strName, tupBases, dct):
         if dct.has_key('__new__'):
-            raise SingletonException, 'Can not override __new__ in a Singleton'
+            raise SingletonException('Can not override __new__ in a Singleton')
         return super(MetaSingleton, self).__new__(self, strName, tupBases, dct)
 
     def __call__(self, *lstArgs, **dictArgs):
-        raise SingletonException, 'Singletons may only be instantiated through getInstance()'
+        raise SingletonException('Singletons may only be instantiated through getInstance()')
 
 
 class Singleton(object):
@@ -182,7 +182,7 @@ class Singleton(object):
         """
         if cls._isInstantiated():
             if (lstArgs or dctKwArgs) and not hasattr(cls, 'ignoreSubsequent'):
-                raise SingletonException, 'Singleton already instantiated, but getInstance() called with args.'
+                raise SingletonException('Singleton already instantiated, but getInstance() called with args.')
         else:
             _createSingletonInstance(cls, lstArgs, dctKwArgs)
 

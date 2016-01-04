@@ -41,7 +41,7 @@ quotes[0]
 for quote in quotes:
 print(quote)
 
-mq =[QuoteMongo('testsymbol', quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume, quote.adjClose) for quote in quotes]
+mq =[QuoteMongo('testsymbol', quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume, quote.adjClose) for quote in quotes]
 mq
 
 a = mq[0]

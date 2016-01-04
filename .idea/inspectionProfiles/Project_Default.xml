@@ -11,5 +11,20 @@
         </value>
       </option>
     </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="dam.TDXLib.Singleton" />
+          <option value="dam.TDXLib.parse_time" />
+          <option value="dam.TDXLib.libqda_struct" />
+          <option value="dam.TDXLib.str_tdx_daylineBaseException_format" />
+          <option value="dam.TDXLib.sz_path" />
+          <option value="dam.TDXLib.sh_path" />
+          <option value="dam.TDXLib.TDXWrite.__sheetNameDict" />
+          <option value="dam.TDXLib.TDXWrite.__workbook" />
+          <option value="dam.TDXLib.TDXWrite.read" />
+        </list>
+      </option>
+    </inspection_tool>
   </profile>
 </component>

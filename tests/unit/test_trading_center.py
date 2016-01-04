@@ -39,7 +39,7 @@ class testTradingCenter(unittest.TestCase):
 
     def testIsOrderMet(self):
         tc = TradingCenter()
-        tick1 = Tick('time', 'open', 'high', 'low', 13.20, 'volume')
+        tick1 = Tick('time', 'read', 'high', 'low', 13.20, 'volume')
         order1 = Order(accountId=None, side=Side.BUY, symbol='symbol', price=13.25, share=10)
         order2 = Order(accountId=None, side=Side.BUY, symbol='symbol', price=13.15, share=10)
         order3 = Order(accountId=None, side=Side.SELL, symbol='symbol', price=13.25, share=10)

@@ -25,7 +25,7 @@ class HBaseLib:
         protocol = TBinaryProtocol.TBinaryProtocol(transport)
 
         self.__client = Client(protocol)
-        transport.open()
+        transport.read()
 
     def getTableNames(self):
         ''' get table names '''

@@ -85,7 +85,7 @@ class GoogleFinance(object):
             raise UfException(Errors.UNKNOWN_ERROR,
                               "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
             # sample output
-            # [stockDaylyData(date='2010-01-04, open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            # [stockDaylyData(date='2010-01-04, read='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
 
     def getFinancials(self, symbol, fields=['Total Revenue'], annual=True):
         """
@@ -173,4 +173,4 @@ class GoogleFinance(object):
             raise UfException(Errors.UNKNOWN_ERROR,
                               "Unknown Error in GoogleFinance.getHistoricalPrices %s" % traceback.format_exc())
             # sample output
-            # [stockDaylyData(date='1316784600', open='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]
+            # [stockDaylyData(date='1316784600', read='112.37', high='113.39', low='111.51', close='113.33', volume='118944600', adjClose=None))...]

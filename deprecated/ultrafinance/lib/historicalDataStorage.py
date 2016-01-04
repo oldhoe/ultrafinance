@@ -68,11 +68,11 @@ class HistoricalDataStorage():
             # get data
             yahooFinance = YahooFinance()
             allData = yahooFinance.getHistoricalPrices(stock, self.__startDate, self.__endDate)
-            for col, field in enumerate(['date', 'open', 'high', 'low', 'close', 'volume', 'adjClose']):
+            for col, field in enumerate(['date', 'read', 'high', 'low', 'close', 'volume', 'adjClose']):
                 ws.write(0, col, field)
 
             for row, data in enumerate(allData):
-                for col, field in enumerate(['date', 'open', 'high', 'low', 'close', 'volume', 'adjClose']):
+                for col, field in enumerate(['date', 'read', 'high', 'low', 'close', 'volume', 'adjClose']):
                     ws.write(row + 1, col, getattr(data, field))
 
         except UfException as excp:

@@ -70,7 +70,7 @@ class ChinaReturn():
 
             for sheetName in sheetNames:
                 with ExcelLib(excelFile) as excel:
-                    excel.open(sheetName=sheetName)
+                    excel.read(sheetName=sheetName)
 
                     contry = sheetName.split('.')[-1] if len(sheetName.split('.')) != 1 else 'DEFAULT'
                     benchmark = benchmarks[contry]

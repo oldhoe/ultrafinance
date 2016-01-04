@@ -41,7 +41,7 @@ class ExcelLib(object):
         return
 
     def openSheet(self, name):
-        ''' open a sheet by name '''
+        ''' read a sheet by name '''
         self.__operation.openSheet(name)
 
     def readRow(self, row, startCol=0, endCol=-1):
@@ -74,7 +74,7 @@ class ExcelOpertion(object):
     DEFAULT_SHEET = "sheet0"
 
     def openSheet(self, name):
-        ''' open sheet '''
+        ''' read sheet '''
         raise UfException(Errors.UNDEFINED_METHOD, "openSheet function is not defined")
 
     def readRow(self, row, startCol=0, endCol=-1):

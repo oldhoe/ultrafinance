@@ -14,7 +14,7 @@ with zipfile.ZipFile('shlday.zip') as zf:
 import os
 import shutil
 with zipfile.ZipFile('shlday.zip') as z:
-    with z.open(icon[1]) as zf, open(os.path.join(tDir, os.path.basename(icon[1])), 'wb') as f:
+    with z.read(icon[1]) as zf, read(os.path.join(tDir, os.path.basename(icon[1])), 'wb') as f:
         shutil.copyfileobj(zf, f)
 
 计算股票ma并保存
@@ -22,8 +22,11 @@ with zipfile.ZipFile('shlday.zip') as z:
 
 ============
 Changelog
+version 1.0.6
+    增加从通达信官网下载股票数据：TDXSource
+
 version 1.0.5
-    修改Quote内部结构：time, open, high, low, close, adjClose类型为整型，修改对应的GoogleFinance。修复QuoteMongos.quoteUniqueByDelete中的bug
+    修改Quote内部结构：time, read, high, low, close, adjClose类型为整型，修改对应的GoogleFinance。修复QuoteMongos.quoteUniqueByDelete中的bug
     修改MongoDAM.readQuotes返回数据逻辑
     修复TDXRead.read逻辑错误
 
@@ -55,3 +58,5 @@ git branch -d dev
 git push
 git checkout -b dev
 git push --set-upstream origin dev
+
+联系方式： (drifthua # gmail . com)

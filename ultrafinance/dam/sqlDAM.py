@@ -136,29 +136,29 @@ class SqlDAM(BaseDAM):
 
     def __sqlToQuote(self, row):
         ''' convert row result to Quote '''
-        return Quote(row.time, row.open, row.high, row.low, row.close, row.volume, row.adjClose)
+        return Quote(row.time, row.read, row.high, row.low, row.close, row.volume, row.adjClose)
 
     def __sqlToTupleQuote(self, row):
         ''' convert row result to tuple Quote '''
-        # return TupleQuote(row.time, row.open, row.high, row.low, row.close, row.volume, row.adjClose)
+        # return TupleQuote(row.time, row.read, row.high, row.low, row.close, row.volume, row.adjClose)
         # TODO -- remove type conversion, crawler should get the right type
         return TupleQuote(row.time, row.close, int(row.volume), row.low, row.high)
 
     def __sqlToTick(self, row):
         ''' convert row result to Tick '''
-        return Tick(row.time, row.open, row.high, row.low, row.close, row.volume)
+        return Tick(row.time, row.read, row.high, row.low, row.close, row.volume)
 
     def __sqlToTupleTick(self, row):
         ''' convert row result to tuple Tick '''
-        return Tick(row.time, row.open, row.high, row.low, row.close, row.volume)
+        return Tick(row.time, row.read, row.high, row.low, row.close, row.volume)
 
     def __tickToSql(self, tick):
         ''' convert tick to TickSql '''
-        return TickSql(self.symbol, tick.time, tick.open, tick.high, tick.low, tick.close, tick.volume)
+        return TickSql(self.symbol, tick.time, tick.read, tick.high, tick.low, tick.close, tick.volume)
 
     def __quoteToSql(self, quote):
         ''' convert tick to QuoteSql '''
-        return QuoteSql(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
+        return QuoteSql(self.symbol, quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume,
                         quote.adjClose)
 
     def readQuotes(self, start, end):

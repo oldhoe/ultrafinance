@@ -137,7 +137,7 @@ class QuoteMongo(object):
         return json.dumps({
             "symbol": self.symbol,
             "time": self.time,
-            "open": self.open,
+            "read": self.open,
             "high": self.high,
             "low": self.low,
             "close": self.close,

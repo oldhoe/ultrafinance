@@ -48,34 +48,34 @@ class MongoDAM(BaseDAM):
 
     def __sqlToQuote(self, row):
         ''' convert row result to Quote '''
-        return Quote(row.time, row.open, row.high, row.low, row.close, row.volume, row.adjClose)
+        return Quote(row.time, row.read, row.high, row.low, row.close, row.volume, row.adjClose)
 
     def __sqlToTupleQuote(self, row):
         ''' convert row result to tuple Quote '''
-        # return TupleQuote(row.time, row.open, row.high, row.low, row.close, row.volume, row.adjClose)
+        # return TupleQuote(row.time, row.read, row.high, row.low, row.close, row.volume, row.adjClose)
         # TODO -- remove type conversion, crawler should get the right type
         return TupleQuote(row.time, row.close, int(row.volume), row.low, row.high)
 
     def __sqlToTick(self, row):
         ''' convert row result to Tick '''
-        return Tick(row.time, row.open, row.high, row.low, row.close, row.volume)
+        return Tick(row.time, row.read, row.high, row.low, row.close, row.volume)
 
     def __sqlToTupleTick(self, row):
         ''' convert row result to tuple Tick '''
-        return Tick(row.time, row.open, row.high, row.low, row.close, row.volume)
+        return Tick(row.time, row.read, row.high, row.low, row.close, row.volume)
 
     def __tickToSql(self, tick):
         ''' convert tick to TickSql '''
-        return TickSql(self.symbol, tick.time, tick.open, tick.high, tick.low, tick.close, tick.volume)
+        return TickSql(self.symbol, tick.time, tick.read, tick.high, tick.low, tick.close, tick.volume)
 
     def __quoteToMongo(self, quote):
         ''' convert tick to QuoteSql '''
-        return QuoteMongo(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
+        return QuoteMongo(self.symbol, quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume,
                           quote.adjClose)
 
     def __quoteToMongos(self, quote):
         ''' convert tick to QuoteSql '''
-        return QuoteMongo(self.symbol, quote.time, quote.open, quote.high, quote.low, quote.close, quote.volume,
+        return QuoteMongo(self.symbol, quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume,
                           quote.adjClose)
 
     def readQuotes(self, start = None, end = None):
@@ -123,13 +123,13 @@ class MongoDAM(BaseDAM):
         将数据列表转换为Quote列表
         :param quoteList: 数据列表
         :return: 转换成Quote列表
-           [time, open, high, low, close, volume, adjClose]\
+           [time, read, high, low, close, volume, adjClose]\
         '''
         end, start = self.__chkTime(end, start)
         quotes = []
         for q in quoteList:
             if start <= q['time'] <= end:
-                quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
+                quotes.append(Quote(q['time'], q['read'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
         sortQuotes = sorted(quotes, key=lambda x: x.time)
         return sortQuotes
 

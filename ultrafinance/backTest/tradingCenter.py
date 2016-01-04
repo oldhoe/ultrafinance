@@ -102,25 +102,25 @@ class TradingCenter(object):
     def cancelOrder(self, symbol, orderId):
         ''' cancel an order '''
         if symbol not in self.__openOrders:
-            LOG.warn("Can't cancel order %s because there is no open orders for symbol %s" % (orderId, symbol))
+            LOG.warn("Can't cancel order %s because there is no read orders for symbol %s" % (orderId, symbol))
             return
 
         if orderId not in self.__openOrders[symbol]:
-            LOG.warn("Can't cancel order %s because there is no open orders for order id %s with symbol %s" % (
+            LOG.warn("Can't cancel order %s because there is no read orders for order id %s with symbol %s" % (
                 orderId, orderId, symbol))
             return
 
         # TODO cancel the order and update history
         del self.__openOrders[symbol][orderId]
 
-        # if no open orders left for that symbol, remove it
+        # if no read orders left for that symbol, remove it
         if not len(self.__openOrders[symbol]):
             del self.__openOrders[symbol]
 
         LOG.debug("Order canceled: %s" % orderId)
 
     def cancelAllOpenOrders(self):
-        ''' cancel all open order '''
+        ''' cancel all read order '''
         for symbol, orderIdAndOrderDict in self.__openOrders.items():
             for orderId, order in orderIdAndOrderDict.values():
                 order.status = Order.CANCELED  # change order state
@@ -134,12 +134,12 @@ class TradingCenter(object):
         self.accountManager.updateAccountsPosition(tickDict)
 
     def _checkAndExecuteOrders(self, tickDict):
-        ''' check and execute open order '''
+        ''' check and execute read order '''
         self.__lastTickDict = tickDict
         for symbol, tick in tickDict.iteritems():
             LOG.debug("_checkAndExecuteOrders symbol %s with tick %s, price %s" % (symbol, tick.time, tick.close))
             if symbol not in self.__openOrders:
-                LOG.debug("_checkAndExecuteOrders no open orders for symbol %s with tick %s, price %s" % (
+                LOG.debug("_checkAndExecuteOrders no read orders for symbol %s with tick %s, price %s" % (
                     symbol, tick.time, tick.close))
                 continue
 
@@ -151,7 +151,7 @@ class TradingCenter(object):
         ''' check and execute one order '''
         tick = self.__lastTickDict.get(order.symbol)
         if tick is None:
-            LOG.debug("_checkAndExecuteOrder no open orders for symbol %s with tick %s, price %s" % (
+            LOG.debug("_checkAndExecuteOrder no read orders for symbol %s with tick %s, price %s" % (
                 order.symbol, tick.time, tick.close))
             return
 

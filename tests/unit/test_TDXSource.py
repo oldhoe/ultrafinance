@@ -11,8 +11,10 @@ from unittest import TestCase
 from ultrafinance.dam.TDXLib import TDXSource
 
 import logging
+
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
+
 
 class TestTDXSource(TestCase):
     def setUp(self):
@@ -25,7 +27,6 @@ class TestTDXSource(TestCase):
         forgetAllSingletons()
 
         self.tdxSource = None
-        self.testPath = None
 
     def test_getUrl(self):
         self.downloadName = 'sz5fz'
@@ -108,17 +109,20 @@ class TestTDXSource(TestCase):
         symbol = 'sh600401'
         ktype = 'd'
         filename = self.tdxSource.extract(symbol, ktype)
-        self.tdxSource.delays(5)
+        # 延迟秒数
+        delaySeconds = 5
+        self.tdxSource.delays(delaySeconds)
         symbol = 'sh600705'
         ktype = 'd'
         filename = self.tdxSource.extract(symbol, ktype)
-        filePath , f = os.path.split(filename)
+        filePath, f = os.path.split(filename)
         dirlist = len(os.listdir(filePath))
-        self.tdxSource.deleteFileOfACertainAge(filePath, 5)
+        self.tdxSource.deleteFileOfACertainAge(filePath, delaySeconds)
         dirlist1 = len(os.listdir(filePath))
         self.assertTrue(dirlist1 < dirlist, '{0}文件没删除！'.format(filePath))
+
 
 # '''
 if __name__ == "__main__":
     unittest.main()
-# '''
+    # '''

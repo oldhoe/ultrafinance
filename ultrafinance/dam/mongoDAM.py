@@ -80,7 +80,7 @@ class MongoDAM(BaseDAM):
 
     def readQuotes(self, start = None, end = None):
         '''
-        read quotes
+        read symbols
         :param start: 开始日期，例如： 20151201
         :param end: 截至日期，例如： 20151231
         :return: 返回股票价格列表
@@ -95,7 +95,7 @@ class MongoDAM(BaseDAM):
         if mg is None:
             return None
         else:
-            return self.__listToQuotes(mg['quotes'], start, end)
+            return self.__listToQuotes(mg['symbols'], start, end)
 
     def __chkTime(self, end, start):
         if type(start) == str:
@@ -134,7 +134,7 @@ class MongoDAM(BaseDAM):
         return sortQuotes
 
     def readTupleQuotes(self, start, end):
-        ''' read quotes as tuple '''
+        ''' read symbols as tuple '''
         if end is None:
             end = sys.maxint
 
@@ -150,7 +150,7 @@ class MongoDAM(BaseDAM):
 
     def readBatchTupleQuotes(self, symbols, start, end):
         '''
-        read batch quotes as tuple to save memory
+        read batch symbols as tuple to save memory
         '''
         if end is None:
             end = sys.maxint
@@ -207,9 +207,9 @@ class MongoDAM(BaseDAM):
 
     def writeQuotes(self, quotes):
         '''
-        write quotes
+        write symbols
         '''
-        # self.saveQuotesToMongo([self.__quoteToMongo(quote) for quote in quotes])
+        # self.saveQuotesToMongo([self.__quoteToMongo(quote) for quote in symbols])
         collection = self.getTable(quotes[0])
         qm = QuoteMongos(self.symbol)
         qm.extend(quotes)
@@ -325,7 +325,7 @@ class MongoDAM(BaseDAM):
         return result
 
     def _updateQuoteMongoCollection(self, collection, mg, quoteMongos, result):
-        ql = self.__listToQuotes(mg['quotes'])
+        ql = self.__listToQuotes(mg['symbols'])
         quoteMongos.append(ql)
         qmj = self._to_json(quoteMongos)
         result = self.updateMongoTable(collection, qmj)

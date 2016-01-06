@@ -42,7 +42,7 @@ class FmSql(Base):
 
 
 class QuoteSql(Base):
-    __tablename__ = 'quotes'
+    __tablename__ = 'symbols'
 
     id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
     symbol = Column(String(12))
@@ -162,7 +162,7 @@ class SqlDAM(BaseDAM):
                         quote.adjClose)
 
     def readQuotes(self, start, end):
-        ''' read quotes '''
+        ''' read symbols '''
         if end is None:
             end = sys.maxint
 
@@ -177,7 +177,7 @@ class SqlDAM(BaseDAM):
         return [self.__sqlToQuote(row) for row in rows]
 
     def readTupleQuotes(self, start, end):
-        ''' read quotes as tuple '''
+        ''' read symbols as tuple '''
         if end is None:
             end = sys.maxint
 
@@ -193,7 +193,7 @@ class SqlDAM(BaseDAM):
 
     def readBatchTupleQuotes(self, symbols, start, end):
         '''
-        read batch quotes as tuple to save memory
+        read batch symbols as tuple to save memory
         '''
         if end is None:
             end = sys.maxint
@@ -249,7 +249,7 @@ class SqlDAM(BaseDAM):
         return [self.__sqlToTick(row) for row in rows]
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        ''' write symbols '''
         if self.first:
             Base.metadata.create_all(self.engine, checkfirst=True)
             self.first = False

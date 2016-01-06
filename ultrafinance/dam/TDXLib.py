@@ -12,6 +12,7 @@ import threading
 import zipfile
 from os import path
 from os.path import sep
+import numpy as np
 
 import time
 
@@ -59,6 +60,7 @@ class TDXLib(object):
 
     def read(self, start, end):
         return self.__operation.read(start, end)
+
 
 class TDXOpertion(object):
     ''' TDX operation '''
@@ -124,11 +126,21 @@ class TDXRead(TDXOpertion):
         pt = None
         if symbol[0] == '6':
             pt = os.path.join(basePath, self.sh_path)
-            fileName = 'sh{0}.day'.format(symbol)
+            symbol = 'sh{0}'.format(symbol)
         else:
             pt = os.path.join(basePath, self.sz_path)
-            fileName = 'sz{0}.day'.format(symbol)
-        return os.path.join(pt, fileName)
+            symbol = 'sz{0}'.format(symbol)
+        if basePath == tempfile.gettempdir():
+            '''
+            根目录为临时目录
+            '''
+            tdxSource = TDXSource.getInstance()
+            ktype = 'D'  # 日线
+            filename = tdxSource.extract(symbol, ktype)
+            return filename
+        else:
+            fileName = '{0}.day'.format(symbol)
+            return os.path.join(pt, fileName)
 
     def change_path(self, pval, pname='tdxpath'):
         global tdxpath
@@ -220,12 +232,14 @@ class TDXRead(TDXOpertion):
             startpos = 0
             total_length = len(text)
             while startpos < total_length:
-                mydate, open_price, high, low, close, amount, vol, reservation = struct.unpack("iiiiifii", text[startpos:startpos + 32])
+                mydate, open_price, high, low, close, amount, vol, reservation = struct.unpack("iiiiifii", text[
+                                                                                                           startpos:startpos + 32])
                 if start <= mydate <= end:
                     # todo Quote对象内部使用的是浮点数，改成整数
                     datalist.append(Quote(mydate, open_price, high, low, close, vol, None))
                 startpos += 32
         return datalist
+
 
 class TDXSource(Singleton):
     '''
@@ -233,11 +247,11 @@ class TDXSource(Singleton):
     从http://www.tdx.com.cn/list_66_69.html下载相应的数据：
     上证常见指数日线、深证常见指数日线、上证所有证券日线、深证所有证券日线、上证所有证券5分钟线、深证所有证券5分钟线
     '''
-    sourceList = [{'name':'shlday','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/shlday.zip'} # 上证所有证券日线
-                ,{'name':'szlday','url':'http://www.tdx.com.cn/products/data/data/vipdoc/szlday.zip'} # 深证所有证券日线
-                ,{'name':'sh5fz','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sh5fz.zip'} #上证所有证券5分钟线
-                ,{'name':'sz5fz','url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sz5fz.zip'} # 深证所有证券5分钟线
-                ]
+    sourceList = [{'name': 'shlday', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/shlday.zip'}  # 上证所有证券日线
+        , {'name': 'szlday', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/szlday.zip'}  # 深证所有证券日线
+        , {'name': 'sh5fz', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sh5fz.zip'}  # 上证所有证券5分钟线
+        , {'name': 'sz5fz', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sz5fz.zip'}  # 深证所有证券5分钟线
+                  ]
 
     sh_path = "sh" + sep + "lday" + sep
     sh_min5_path = "sh" + sep + "fzline" + sep
@@ -245,16 +259,16 @@ class TDXSource(Singleton):
     sz_path = "sz" + sep + "lday" + sep
     sz_min5_path = "sz" + sep + "fzline" + sep
 
-    def runShell(self, command, timeout = 5):
+    def runShell(self, command, timeout=5):
         # proz http://www.tdx.com.cn/products/data/data/shzsday.zip -P /tmp/
         with open(os.devnull, 'w') as fnull:
-            result=subprocess.call(command, shell=True,stdout=fnull,stderr=fnull, timeout= timeout)
+            result = subprocess.call(command, shell=True, stdout=fnull, stderr=fnull, timeout=timeout)
             if result:
                 return False
             else:
                 return True
 
-    def download(self, name = 'shlday', timeout = 500):
+    def download(self, name='shlday', timeout=500):
         '''
         使用shell下载数据
         :param name: 要下载的名称
@@ -293,7 +307,7 @@ class TDXSource(Singleton):
             LOG.info('downloadName: {0} not found url.'.format(downloadName))
         return url
 
-    def extract(self, symbol= '', ktype = 'D', targetPath = ''):
+    def extract(self, symbol='', ktype='D', targetPath=''):
         '''
         获取股票代码、周期对应的文件
         :param symbol: 股票代码 例如: 'sh000001', 'sz000001'
@@ -311,7 +325,7 @@ class TDXSource(Singleton):
         symbol = symbol.lower()
         downloadName = self.getDownloadnameBySymbol(symbol, ktype)
         result, downloadZipName = self.download(downloadName)
-        fileNameResult  = None
+        fileNameResult = None
         if result:
             # 已下载数据包
             fileName = self.getTargetFileName(symbol, ktype, targetPath)
@@ -326,11 +340,11 @@ class TDXSource(Singleton):
         self.deleteFileOfACertainAge(filePath)
         return fileNameResult
 
-    def getTargetFileName(self, symbol, ktype, targetPath = ''):
+    def getTargetFileName(self, symbol, ktype, targetPath=''):
         ktype = ktype.upper()
         fileSuffix = ''
         if ktype in 'DWM':
-            #日线数据
+            # 日线数据
             fileSuffix = '.day'
         else:
             # 五分钟数据
@@ -372,30 +386,36 @@ class TDXSource(Singleton):
             pass
         ktype = ktype.upper()
         if ktype in 'DWM':
-            #日线数据
+            # 日线数据
             downloadName += 'lday'
         else:
             # 五分钟数据
             downloadName += '5fz'
         return downloadName
 
-    def beeps(self, times = 1, freq = 1600):
+    def beeps(self, times=1, freq=1600):
         if sys.platform == 'linux':
             command = '( speaker-test -t sine -f {0} )& pid=$! ; sleep 0.1s ; kill -9 $pid'.format(freq)
             i = 0
             while i < times:
-                i +=1
+                i += 1
                 self.runShell(command)
-                if i +1 < times:
+                if i + 1 < times:
                     time.sleep(0.025)
 
-    def delays(self, times =1, yesOrNo = True):
+    def delays(self, times=1, yesOrNo=True):
+        '''
+        延迟times秒
+        :param times: 秒数
+        :param yesOrNo: 是否延迟
+        :return:
+        '''
         delaySec = 1
         if yesOrNo:
             time.sleep(delaySec * times)
 
     # @staticmethod
-    def deleteFileOfACertainAge(self, filePath, seconds= 300):
+    def deleteFileOfACertainAge(self, filePath, seconds=300):
         '''
         删除目录filePath中seconds秒前的文件
         :param filePath: 目录
@@ -405,14 +425,15 @@ class TDXSource(Singleton):
         ago = time.time() - seconds
         for somefile in os.listdir(filePath):
             filename = os.path.join(filePath, somefile)
-            st=os.stat(filename)
-            mtime=st.st_mtime
+            st = os.stat(filename)
+            mtime = st.st_mtime
             if mtime < ago:
                 os.remove(filename)
 
 
 class Command(object):
     '''
+    超时关闭运行中的命令行
     command = Command("echo 'Process started'; sleep 2; echo 'Process finished'")
     command.run(timeout=3)
     command.run(timeout=1)
@@ -429,6 +450,7 @@ class Command(object):
         Thread finished
         -15
     '''
+
     def __init__(self, cmd):
         self.cmd = cmd
         self.process = None
@@ -449,3 +471,33 @@ class Command(object):
             self.process.terminate()
             thread.join()
         LOG.info(self.process.returncode)
+
+
+class TDXZXG(object):
+    '''
+    通达信自选股
+    '''
+    def __init__(self):
+        super(TDXZXG, self).__init__()
+        self.name = None
+        # symbols is numpy array
+        self.symbols = None
+
+    def read(self, fileName):
+        '''
+        读取
+        :param fileName:
+        :return: 返回
+        '''
+        with open(fileName) as f:
+            lines = f.read().splitlines()
+            q = []
+            for s in lines:
+                q.append([int(s[0]), s[1:]])
+            if len(lines) > 0:
+                self.symbols = np.asarray(q)
+
+        filepath, self.name = os.path.split(fileName)
+        self.name, filepath = self.name.split('.')
+        return {'name': self.name,
+                'symbols': self.symbols}

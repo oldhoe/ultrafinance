@@ -17,7 +17,7 @@ class MongoNumpyLib(object):
         # if symbol is None:
         #     raise Exception("symbol can't be Null.")
         self.symbol = None
-        # quotes is numpy array
+        # symbols is numpy array
         self.quotes = None
 
     def setup(self, setting='', dbname='stockdb'):

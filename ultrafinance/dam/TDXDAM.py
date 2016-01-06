@@ -7,7 +7,7 @@ Created on Thu Nov  5 23:42:53 2015
 import os
 
 from ultrafinance.dam.baseDAM import BaseDAM
-from ultrafinance.dam.TDXLib import TDXLib
+from ultrafinance.dam.TDXLib import TDXLib, TDXZXG
 from ultrafinance.model import TICK_FIELDS, QUOTE_FIELDS, Quote, Tick
 from ultrafinance.lib.errors import UfException, Errors
 from os import path
@@ -58,7 +58,7 @@ class TDXDAM(BaseDAM):
             LOG.error("Target file doesn't exist: %s" % path.abspath(basePath))
             return ret
         with TDXLib(basePath, self.__symbol, TDXLib.READ_MODE) as TDX:
-           ret = TDX.read(start, end)
+            ret = TDX.read(start, end)
         return ret
 
     def __writeData(self, targetPath, fields, rows):
@@ -73,7 +73,7 @@ class TDXDAM(BaseDAM):
                 excel.writeRow(index + 1, row)
 
     def readQuotes(self, start, end):
-        ''' read quotes '''
+        ''' read symbols '''
         if type(start) == str:
             startInt = int(start)
             endInt = int(end)
@@ -84,7 +84,7 @@ class TDXDAM(BaseDAM):
         return quotes
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        ''' write symbols '''
         self.__writeData(self.targetPath(TDXDAM.QUOTE),
                          QUOTE_FIELDS,
                          [[getattr(quote, field) for field in QUOTE_FIELDS] for quote in quotes])
@@ -95,7 +95,7 @@ class TDXDAM(BaseDAM):
         return [Tick(*tick) for tick in ticks]
 
     def writeTicks(self, ticks):
-        ''' read quotes '''
+        ''' read symbols '''
         self.__writeData(self.targetPath(TDXDAM.TICK),
                          TICK_FIELDS,
                          [[getattr(tick, field) for field in TICK_FIELDS] for tick in ticks])
@@ -107,7 +107,20 @@ class TDXDAM(BaseDAM):
         else:
             raise UfException(Errors.INVALID_TDX_PATH, "通达信路径错误！\n{0}".format(path))
 
-
     def setSymbol(self, symbol):
         ''' set symbol '''
         self.__symbol = symbol
+
+    def readZXG(self, fileName):
+        '''
+        读取通达信自选股
+        :param fileName: 文件名
+        :return:
+        '''
+        if os.path.exists(fileName):
+            # 自选股文件存在
+            tdxZXG = TDXZXG()
+            symbols = tdxZXG.read(fileName)
+            return symbols
+        else:
+            raise UfException(Errors.INVALID_TDX_PATH, "通达信自选股路径错误！\n{0}".format(path))

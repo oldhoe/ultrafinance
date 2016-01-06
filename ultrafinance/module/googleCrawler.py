@@ -25,7 +25,7 @@ MAX_TRY = 3
 
 
 class GoogleCrawler(object):
-    ''' collect quotes/ticks for a list of symbol '''
+    ''' collect symbols/ticks for a list of symbol '''
 
     def __init__(self, symbols, start, poolsize=5):
         ''' constructor '''

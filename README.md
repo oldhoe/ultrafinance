@@ -4,21 +4,29 @@ Python project for real-time financial data collection, analyzing && backtesting
 
 ============
 todolist:
-解压缩单独通达信日线 五日线文件，倒入mongoDB
-数据地址： http://www.tdx.com.cn/list_66_69.html
-import zipfile,os.path
-with zipfile.ZipFile('shlday.zip') as zf:
-    for member in zf.infolist():
-        words = member.filename.split('/')
-        print(words)
-import os
-import shutil
-with zipfile.ZipFile('shlday.zip') as z:
-    with z.read(icon[1]) as zf, read(os.path.join(tDir, os.path.basename(icon[1])), 'wb') as f:
-        shutil.copyfileobj(zf, f)
+    解压缩单独通达信日线 五日线文件，倒入mongoDB
 
-计算股票ma并保存
-自选股从通达信中读取，保存到mongoDB
+    计算股票ma并保存
+    import numpy
+    import talib
+
+    close = numpy.random.random(100)
+    output = talib.SMA(close, 5)
+
+    from talib import abstract
+
+    # directly
+    sma = abstract.SMA
+    inputs = {
+        'open': np.random.random(100),
+        'high': np.random.random(100),
+        'low': np.random.random(100),
+        'close': np.random.random(100),
+        'volume': np.random.random(100)
+    }
+    output = sma(inputs, timeperiod=25, price='close')
+
+    自选股从通达信中读取，保存到mongoDB
 
 ============
 Changelog

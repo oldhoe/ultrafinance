@@ -30,39 +30,39 @@ from ultrafinance.dam.mongoDAM import MongoDAM
 from ultrafinance.dam.mongoDAM import MongoDAM
 client = MongoClient()
 db = client.stockdb
-collection = db.quotes
-quotes = [Quote(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
+collection = db.symbols
+symbols = [Quote(*['1320676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
      Quote(*['1320676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
 
 dam = MongoDAM()
 
-quotes
-quotes[0]
-for quote in quotes:
+symbols
+symbols[0]
+for quote in symbols:
 print(quote)
 
-mq =[QuoteMongo('testsymbol', quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume, quote.adjClose) for quote in quotes]
+mq =[QuoteMongo('testsymbol', quote.time, quote.read, quote.high, quote.low, quote.close, quote.volume, quote.adjClose) for quote in symbols]
 mq
 
 a = mq[0]
 
 a= QuoteMongos('test')
-a.append(quotes)
+a.append(symbols)
 b = json.dumps(a, default=lambda o: o.__dict__)
 b
 c= json.loads(b)
 collection.insert(c)
 a= QuoteMongos('test1')
-quotes = [Quote(*['1340676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
+symbols = [Quote(*['1340676200', '32.59', '32.59', '32.58', '32.58', '65213', None]),
      Quote(*['1340676201', '32.60', '32.60', '32.59', '32.59', '65214', None])]
-a.append(quotes)
+a.append(symbols)
 b = json.dumps(a, default=lambda o: o.__dict__)
 c= json.loads(b)
 v.insert(c)
 a= QuoteMongos('test')
-quotes = [Quote(*['1340676200', '3.59', '3.59', '3.58', '3.58', '65211', None]),
+symbols = [Quote(*['1340676200', '3.59', '3.59', '3.58', '3.58', '65211', None]),
      Quote(*['1340676201', '32.0', '3.60', '32.9', '3.59', '65210', None])]
-a.append(quotes)
+a.append(symbols)
 b = json.dumps(a, default=lambda o: o.__dict__)
 c= json.loads(b)
 collection.insert(c)
@@ -157,11 +157,15 @@ for d in tb:
     def test_saveToMongo(self):
         self.fail()
 
-    def test_dropMongo(self):
+    def test_dropCollection(self):
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol("test")
+        dam.dropCollection('symbols')
+        dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.dropCollection('quotes')
+        # dam.setup('mongodb://127.0.0.1')
+        # dam.dropCollection('quotes')
 
     def test_ReadQuotesFromGoogleAndWriteQuotes(self):
         damGoogle = GoogleDAM()
@@ -183,5 +187,5 @@ for d in tb:
         data = damGoogle.readQuotes(start, end)
         quotes = data
         dam.writeQuotes(quotes)
-        # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
+        # print([str(symbols) for symbol, symbols in dam.readBatchTupleQuotes(["test"], 0, None).items()])
         print([str(quote) for quote in dam.readQuotes(0, None)])

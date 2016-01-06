@@ -17,7 +17,7 @@ MAX_TRY = 3
 
 
 class StockCrawler(object):
-    ''' collect quotes/ticks for a list of symbol '''
+    ''' collect symbols/ticks for a list of symbol '''
 
     def __init__(self):
         ''' constructor '''
@@ -59,10 +59,10 @@ class StockCrawler(object):
         else:
             self.start = (datetime.datetime.now() + relativedelta(months=-1)).strftime("%Y%m%d")
         self.end = datetime.datetime.now().strftime("%Y%m%d")
-        print("Retrieving quotes start from %s" % self.start)
+        print("Retrieving symbols start from %s" % self.start)
 
     def retrieveQuotes(self):
-        ''' retrieve quotes '''
+        ''' retrieve symbols '''
         googleCrawler = GoogleCrawler(self.symbols, self.start)
         googleCrawler.getAndSaveSymbols()
         print("Sqlite location: %s" % googleCrawler.sqlLocation)

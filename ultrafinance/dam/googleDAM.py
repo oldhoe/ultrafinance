@@ -20,7 +20,7 @@ class GoogleDAM(BaseDAM):
         self.__gf = GoogleFinance()
 
     def readQuotes(self, start, end):
-        ''' read quotes from google Financial'''
+        ''' read symbols from google Financial'''
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []

@@ -20,7 +20,7 @@ class YahooDAM(BaseDAM):
         self.__yf = YahooFinance()
 
     def readQuotes(self, start, end):
-        ''' read quotes from Yahoo Financial'''
+        ''' read symbols from Yahoo Financial'''
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []

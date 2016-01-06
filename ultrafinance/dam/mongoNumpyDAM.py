@@ -59,7 +59,7 @@ class MongoNumpyDAM(BaseDAM):
                           quote.adjClose)
 
     def readQuotes(self, start = None, end = None):
-        ''' read quotes '''
+        ''' read symbols '''
         if self.symbol is None:
             LOG.debug('Symbol is None')
             return []
@@ -71,7 +71,7 @@ class MongoNumpyDAM(BaseDAM):
         if mg is None:
             return None
         else:
-            return self.__listToQuotes(mg['quotes'], start, end)
+            return self.__listToQuotes(mg['symbols'], start, end)
 
     def __findBySymbol(self):
         '''
@@ -101,9 +101,9 @@ class MongoNumpyDAM(BaseDAM):
 
     def writeQuotes(self, quotes):
         '''
-        write quotes
+        write symbols
         '''
-        # self.saveQuotesToMongo([self.__quoteToMongo(quote) for quote in quotes])
+        # self.saveQuotesToMongo([self.__quoteToMongo(quote) for quote in symbols])
         collection = self.getTable(quotes[0])
         qm = QuoteMongos(self.symbol)
         qm.extend(quotes)
@@ -169,7 +169,7 @@ class MongoNumpyDAM(BaseDAM):
         return result
 
     def _updateQuoteMongoCollection(self, collection, mg, quoteMongos, result):
-        ql = self.__listToQuotes(mg['quotes'])
+        ql = self.__listToQuotes(mg['symbols'])
         quoteMongos.append(ql)
         qmj = self._to_json(quoteMongos)
         result = self.updateMongoTable(collection, qmj)

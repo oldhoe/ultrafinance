@@ -66,7 +66,7 @@ class TestTDXDAM(TestCase):
         dam.setSymbol(symbol)
         quotes = data
         dam.writeQuotes(quotes)
-        # print([str(quotes) for symbol, quotes in dam.readBatchTupleQuotes(["test"], 0, None).items()])
+        # print([str(symbols) for symbol, symbols in dam.readBatchTupleQuotes(["test"], 0, None).items()])
         print([str(quote) for quote in dam.readQuotes(0, None)])
         return data
 

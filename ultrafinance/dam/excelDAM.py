@@ -74,12 +74,12 @@ class ExcelDAM(BaseDAM):
                 excel.writeRow(index + 1, row)
 
     def readQuotes(self, start, end):
-        ''' read quotes '''
+        ''' read symbols '''
         quotes = self.__readData(self.targetPath(ExcelDAM.QUOTE), start, end)
         return [Quote(*quote) for quote in quotes]
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        ''' write symbols '''
         self.__writeData(self.targetPath(ExcelDAM.QUOTE),
                          QUOTE_FIELDS,
                          [[getattr(quote, field) for field in QUOTE_FIELDS] for quote in quotes])
@@ -90,7 +90,7 @@ class ExcelDAM(BaseDAM):
         return [Tick(*tick) for tick in ticks]
 
     def writeTicks(self, ticks):
-        ''' read quotes '''
+        ''' read symbols '''
         self.__writeData(self.targetPath(ExcelDAM.TICK),
                          TICK_FIELDS,
                          [[getattr(tick, field) for field in TICK_FIELDS] for tick in ticks])

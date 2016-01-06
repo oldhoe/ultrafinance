@@ -44,13 +44,13 @@ class HBaseDAM(BaseDAM):
         return Tick(*[keyValues["%s:%s" % (HBaseDAM.TICK, field)].value for field in TICK_FIELDS])
 
     def readQuotes(self, start, end):
-        ''' read quotes '''
+        ''' read symbols '''
         rows = self.__hbase.scanTable(self.tableName(HBaseDAM.QUOTE), [HBaseDAM.QUOTE], start, end)
 
         return [self.__rowResultToQuote(row) for row in rows]
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        ''' write symbols '''
         tName = self.tableName(HBaseDAM.QUOTE)
         if tName not in self.__hbase.getTableNames():
             self.__hbase.createTable(tName, [ColumnDescriptor(name=HBaseDAM.QUOTE, maxVersions=5)])
@@ -67,7 +67,7 @@ class HBaseDAM(BaseDAM):
         return [self.__rowResultToTick(row) for row in rows]
 
     def writeTicks(self, ticks):
-        ''' read quotes '''
+        ''' read symbols '''
         tName = self.tableName(HBaseDAM.TICK)
         if tName not in self.__hbase.getTableNames():
             self.__hbase.createTable(tName, [ColumnDescriptor(name=HBaseDAM.TICK, maxVersions=5)])

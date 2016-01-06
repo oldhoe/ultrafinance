@@ -17,22 +17,22 @@ class BaseDAM(object):
         self.__symbol = None
 
     def readQuotes(self, start, end):
-        ''' read quotes '''
+        ''' read symbols '''
         raise UfException(Errors.UNDEFINED_METHOD, "readQuotes method is not defined")
 
     def readTupleQuotes(self, start, end):
-        ''' read quotes as tuple to save memory '''
+        ''' read symbols as tuple to save memory '''
         raise UfException(Errors.UNDEFINED_METHOD, "readTupleQuotes method is not defined")
 
     def readBatchTupleQuotes(self, symbols, start, end):
         '''
         TODO: revisit API for batch and single symbol operation
-        read batch quotes as tuple to save memory
+        read batch symbols as tuple to save memory
         '''
         raise UfException(Errors.UNDEFINED_METHOD, "readBatchTupleQuotes method is not defined")
 
     def writeQuotes(self, quotes):
-        ''' write quotes '''
+        ''' write symbols '''
         raise UfException(Errors.UNDEFINED_METHOD, "writeQuotes method is not defined")
 
     def readTicks(self, start, end):
@@ -40,7 +40,7 @@ class BaseDAM(object):
         raise UfException(Errors.UNDEFINED_METHOD, "readTicks method is not defined")
 
     def writeTicks(self, ticks):
-        ''' read quotes '''
+        ''' read symbols '''
         raise UfException(Errors.UNDEFINED_METHOD, "writeTicks method is not defined")
 
     def readFundamental(self):

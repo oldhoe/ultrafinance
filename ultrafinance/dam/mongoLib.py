@@ -19,7 +19,7 @@ class QuoteMongos(object):
     QuoteMongo集合
     todo 返回排序的quotes list
     '''
-    __tablename__ = 'quotes'
+    __tablename__ = 'symbols'
 
     def __init__(self, symbol):
         super(QuoteMongos, self).__init__()
@@ -35,7 +35,7 @@ class QuoteMongos(object):
 
         Returns a nested list.
         '''
-        # quotes = self.__read(start, end)
+        # symbols = self.__read(start, end)
         return self.quotes
 
     def getAll(self, symbol):
@@ -119,7 +119,7 @@ class QuoteMongos(object):
                 seen[marker] -= 1
 
 class QuoteMongo(object):
-    __tablename__ = 'quotes'
+    __tablename__ = 'symbols'
 
     def __init__(self, symbol, time, open, high, low, close, volume, adjClose):
         ''' constructor '''

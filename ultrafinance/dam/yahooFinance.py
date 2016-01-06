@@ -22,7 +22,7 @@ LOG = logging.getLogger()
 class YahooFinance(object):
     def __request(self, symbol, stat):
         try:
-            url = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=%s' % (symbol, stat)
+            url = 'http://finance.yahoo.com/d/symbols.csv?s=%s&f=%s' % (symbol, stat)
             return urllib.urlopen(url).read().strip().strip('"')
         except IOError:
             raise UfException(Errors.NETWORK_ERROR, "Can't connect to Yahoo server")

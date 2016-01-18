@@ -19,7 +19,7 @@ class QuoteMongos(object):
     QuoteMongo集合
     todo 返回排序的quotes list
     '''
-    __tablename__ = 'symbols'
+    __tablename__ = 'quotes'
 
     def __init__(self, symbol):
         super(QuoteMongos, self).__init__()

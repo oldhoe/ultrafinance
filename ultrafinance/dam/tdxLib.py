@@ -6,6 +6,7 @@ Created on Sat Nov  7 11:25:43 2015
 """
 import logging
 import os
+import re
 import struct
 import tempfile
 import threading
@@ -14,13 +15,14 @@ from os import path
 from os.path import sep
 import numpy as np
 
-import time
+import time as tm
 
 import sys
 
 import subprocess
 from xlrd import open_workbook
 
+from ultrafinance.dam.symbolLib import Market
 from ultrafinance.model import Quote, Tick, TupleQuote
 from ultrafinance.lib.errors import UfException, Errors
 from ultrafinance.designPattern.singleton import Singleton
@@ -160,16 +162,16 @@ class TDXRead(TDXOpertion):
         s = ft
         s = (s + 10956) * 86400
         s -= 1000 * 60 * 60 * 6
-        s = time.gmtime(s)
-        s = time.strftime('%Y%m%d', s)
+        s = tm.gmtime(s)
+        s = tm.strftime('%Y%m%d', s)
         s = int(s)
         return s
 
     def parse_time(self, ft):
         # 20101007 turn into 418x
         s = str(ft)
-        s = time.strptime(s, '%Y%m%d')
-        s = time.mktime(s)
+        s = tm.strptime(s, '%Y%m%d')
+        s = tm.mktime(s)
         s += 1000 * 60 * 60 * 6
         s = s / 86400 - 10956
         s = int(s)
@@ -246,12 +248,13 @@ class TDXSource(Singleton):
     通达信数据源
     从http://www.tdx.com.cn/list_66_69.html下载相应的数据：
     上证常见指数日线、深证常见指数日线、上证所有证券日线、深证所有证券日线、上证所有证券5分钟线、深证所有证券5分钟线
+
     '''
-    sourceList = [{'name': 'shlday', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/shlday.zip'}  # 上证所有证券日线
+    tdxSourceList = [{'name': 'shlday', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/shlday.zip'}  # 上证所有证券日线
         , {'name': 'szlday', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/szlday.zip'}  # 深证所有证券日线
         , {'name': 'sh5fz', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sh5fz.zip'}  # 上证所有证券5分钟线
         , {'name': 'sz5fz', 'url': 'http://www.tdx.com.cn/products/data/data/vipdoc/sz5fz.zip'}  # 深证所有证券5分钟线
-                  ]
+                     ]
 
     sh_path = "sh" + sep + "lday" + sep
     sh_min5_path = "sh" + sep + "fzline" + sep
@@ -272,6 +275,10 @@ class TDXSource(Singleton):
         '''
         使用shell下载数据
         :param name: 要下载的名称
+            shlday: 上证所有证券日线
+            szlday: 深证所有证券日线
+            sh5fz: 上证所有证券5分钟线
+            sz5fz:  深证所有证券5分钟线
         :param timeout:超时秒数
         :return: True下载成功, Fasle 下载失败
             fileName 下载文件名
@@ -292,14 +299,67 @@ class TDXSource(Singleton):
             # url 为空
             return False, fileName
 
+    def __getStockSymbols(self, name='shlday', timeout=500):
+        '''
+        返回name对应的压缩包内的股票代码列表
+        :param name: 要下载的名称
+            shlday: 上证所有证券日线
+            szlday: 深证所有证券日线
+        :param timeout: 下载超时秒数
+        :return:
+        '''
+        result, downloadZipName = self.download(name, timeout)
+        symbolList = []
+        if result:
+            # 对下载后的压缩文件文件名整理
+            archive = zipfile.ZipFile(downloadZipName)
+            for x in archive.namelist():
+                if len(x) == len(archive.namelist()[0]):
+                    symbolList.append(x.split('.')[0])
+        return symbolList
+
+    def getSHStockSymbols(self, timeout=500):
+        '''
+        通达信上海证券代码
+        :param timeout: 下载超时秒数
+        :return:
+        '''
+        name='shlday'
+        symbolList = self.__getStockSymbols(name, timeout)
+        symbolDict = self.__symbolListToDict(symbolList)
+        return symbolDict
+
+    def getSZStockSymbols(self, timeout=500):
+        '''
+        通达信深圳证券代码
+        :param timeout: 下载超时秒数
+        :return:
+        '''
+        name='szlday'
+        symbolList = self.__getStockSymbols(name, timeout)
+        symbolDict = self.__symbolListToDict(symbolList)
+        return symbolDict
+
+    def __symbolListToDict(self, symbolList):
+        '''
+        symbol List to Dict
+        :param symbolList:
+        :return:
+        '''
+        symbolDict = {}
+        if len(symbolList) > 0:
+            symbolDict =  dict((k, str(Market[k[0:2].upper()].value) + k[2:]) for k in symbolList)
+            # symbolDict = [dict('{0}{1}'.format(str(Market.SH.value), k[2:]), [Market.SZ)] for k in symbolList)]
+        return symbolDict
+
     def getUrl(self, downloadName):
         '''
-        根据name属性返回url地址
+        根据name属性返回对应的通达信url地址
         :param downloadName:
         :return: name对应的url，没有对应则返回None
         '''
         url = None
-        for item in self.sourceList:
+        for item in self.tdxSourceList:
             if item['name'] == downloadName:
                 url = item['url']
                 break
@@ -373,7 +433,7 @@ class TDXSource(Singleton):
         '''
         根据股票代码、周期返回对应的要下载的名称
         :param symbol:
-        :param ktype:
+        :param ktype: 默认为日线数据
         :return:
         '''
         downloadName = ''
@@ -401,7 +461,7 @@ class TDXSource(Singleton):
                 i += 1
                 self.runShell(command)
                 if i + 1 < times:
-                    time.sleep(0.025)
+                    tm.sleep(0.025)
 
     def delays(self, times=1, yesOrNo=True):
         '''
@@ -412,7 +472,7 @@ class TDXSource(Singleton):
         '''
         delaySec = 1
         if yesOrNo:
-            time.sleep(delaySec * times)
+            tm.sleep(delaySec * times)
 
     # @staticmethod
     def deleteFileOfACertainAge(self, filePath, seconds=300):
@@ -422,7 +482,7 @@ class TDXSource(Singleton):
         :param seconds: 秒
         :return:
         '''
-        ago = time.time() - seconds
+        ago = tm.time() - seconds
         for somefile in os.listdir(filePath):
             filename = os.path.join(filePath, somefile)
             st = os.stat(filename)
@@ -489,13 +549,18 @@ class TDXZXG(object):
         :param fileName:
         :return: 返回
         '''
+        #  x = np.zeros(3, dtype={'col1':('i1',0,'title 1'), 'col2':('f4',1,'title 2')})
         with open(fileName) as f:
             lines = f.read().splitlines()
             q = []
+            pattern = re.compile(r'0|1')
             for s in lines:
-                q.append([int(s[0]), s[1:]])
+                match = pattern.match(s)
+                if match is not None:
+                    q.append((int(s[0]), s[1:]))
             if len(lines) > 0:
-                self.symbols = np.asarray(q)
+                dtype=([('market', 'i4'), ('symbol',  'U20')])
+                self.symbols = np.asarray(q, dtype)
 
         filepath, self.name = os.path.split(fileName)
         self.name, filepath = self.name.split('.')

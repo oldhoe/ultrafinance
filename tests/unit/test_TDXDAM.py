@@ -8,8 +8,8 @@ import logging
 import unittest
 from unittest import TestCase
 
-import dam
-from ultrafinance.dam.TDXDAM import TDXDAM
+from ultrafinance.dam.symbolLib import SymbolLib
+from ultrafinance.dam.tdxDAM import TDXDAM
 from ultrafinance.dam.mongoDAM import MongoDAM
 
 LOG = logging.getLogger(__name__)
@@ -83,6 +83,21 @@ class TestTDXDAM(TestCase):
         self.dam.setDir(self.testPath)
         self.assertTrue(1 == 1)
 
+    def test_ZXG_SymbolLib(self):
+        '''
+        检测自选股代码深证or上证
+        '''
+        damTDX = TDXDAM()
+        zxgName = 'ZXG'
+        zxgName = 'TAOLI'
+        zxgName = 'YGYG'
+        zxg = damTDX.readZXG('./data/{0}.blk'.format(zxgName))
+        sl = SymbolLib.getInstance()
+        for a in zxg['symbols']:
+            self.assertTrue(sl.checkSHSymbol(a['symbol']) or sl.checkSZSymbol(a['symbol']), '{0} not checked.'.format(a['symbol']))
+        symbol = '000998'
+        self.assertTrue(sl.checkSZSymbol(symbol))
+        self.assertTrue(not sl.checkSHSymbol(symbol))
 
 if __name__ == "__main__":
     unittest.main()

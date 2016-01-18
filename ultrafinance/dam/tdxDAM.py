@@ -7,7 +7,7 @@ Created on Thu Nov  5 23:42:53 2015
 import os
 
 from ultrafinance.dam.baseDAM import BaseDAM
-from ultrafinance.dam.TDXLib import TDXLib, TDXZXG
+from ultrafinance.dam.tdxLib import TDXLib, TDXZXG
 from ultrafinance.model import TICK_FIELDS, QUOTE_FIELDS, Quote, Tick
 from ultrafinance.lib.errors import UfException, Errors
 from os import path
@@ -72,7 +72,7 @@ class TDXDAM(BaseDAM):
             for index, row in enumerate(rows):
                 excel.writeRow(index + 1, row)
 
-    def readQuotes(self, start, end):
+    def readQuotes(self, start = None, end = None):
         ''' read symbols '''
         if type(start) == str:
             startInt = int(start)
@@ -120,7 +120,7 @@ class TDXDAM(BaseDAM):
         if os.path.exists(fileName):
             # 自选股文件存在
             tdxZXG = TDXZXG()
-            symbols = tdxZXG.read(fileName)
-            return symbols
+            zxg = tdxZXG.read(fileName)
+            return zxg
         else:
             raise UfException(Errors.INVALID_TDX_PATH, "通达信自选股路径错误！\n{0}".format(path))

@@ -7,7 +7,7 @@
 import os
 import tempfile
 from unittest import TestCase
-from ultrafinance.dam.TDXLib import TDXLib, TDXOpertion, TDXRead, TDXZXG
+from ultrafinance.dam.tdxLib import TDXLib, TDXOpertion, TDXRead, TDXZXG
 
 
 class TestTDXLib(TestCase):
@@ -30,7 +30,9 @@ class TestTDXLib(TestCase):
         self.assertTrue(os.path.exists(filename), '文件未找到！ {0}'.format(filename))
 
     def test_TDXZXGread(self):
-        name = './data/ZXG.blk'
+        name = 'ZXG'
+        filename = './data/{0}.blk'.format(name)
         tdxZXG = TDXZXG()
-        symbols = tdxZXG.read(name)
-        self.assertTrue(len(symbols) > 0, '没有读取出自选股')
+        zxg = tdxZXG.read(filename)
+        self.assertTrue(len(zxg) > 0, '没有读取出自选股')
+        self.assertEquals(zxg['name'], name, '读取文件名称不匹配：{0} {1}'.format(zxg['name'], name))

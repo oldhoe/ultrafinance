@@ -95,7 +95,7 @@ class MongoDAM(BaseDAM):
         if mg is None:
             return None
         else:
-            return self.__listToQuotes(mg['symbols'], start, end)
+            return self.__listToQuotes(mg['quotes'], start, end)
 
     def __chkTime(self, end, start):
         if type(start) == str:
@@ -129,7 +129,7 @@ class MongoDAM(BaseDAM):
         quotes = []
         for q in quoteList:
             if start <= q['time'] <= end:
-                quotes.append(Quote(q['time'], q['read'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
+                quotes.append(Quote(q['time'], q['open'], q['high'], q['low'], q['close'], q['volume'], q['adjClose']))
         sortQuotes = sorted(quotes, key=lambda x: x.time)
         return sortQuotes
 
@@ -325,7 +325,7 @@ class MongoDAM(BaseDAM):
         return result
 
     def _updateQuoteMongoCollection(self, collection, mg, quoteMongos, result):
-        ql = self.__listToQuotes(mg['symbols'])
+        ql = self.__listToQuotes(mg['quotes'])
         quoteMongos.append(ql)
         qmj = self._to_json(quoteMongos)
         result = self.updateMongoTable(collection, qmj)

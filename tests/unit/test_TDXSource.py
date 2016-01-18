@@ -8,7 +8,8 @@ import os
 import unittest
 
 from unittest import TestCase
-from ultrafinance.dam.TDXLib import TDXSource
+from ultrafinance.dam.tdxLib import TDXSource
+import numpy as np
 
 import logging
 
@@ -110,7 +111,7 @@ class TestTDXSource(TestCase):
         ktype = 'd'
         filename = self.tdxSource.extract(symbol, ktype)
         # 延迟秒数
-        delaySeconds = 5
+        delaySeconds = 4
         self.tdxSource.delays(delaySeconds)
         symbol = 'sh600705'
         ktype = 'd'
@@ -121,8 +122,23 @@ class TestTDXSource(TestCase):
         dirlist1 = len(os.listdir(filePath))
         self.assertTrue(dirlist1 < dirlist, '{0}文件没删除！'.format(filePath))
 
+    def test_getSymbolList(self):
+        symbolDict = self.tdxSource.getSZStockSymbols()
+        LOG.debug("sz symbol:{0}".format(symbolDict))
+        sizeOfList = len(symbolDict)
+        self.assertTrue(sizeOfList > 3000, '证券代码数量不足:{0}'.format(sizeOfList))
+        fileName = './data/szSymbols.npy'
+        np.save(fileName, symbolDict)
+        read_dictionary = np.load(fileName).item()
+        self.assertEquals(symbolDict, read_dictionary, '读取和保存不匹配')
+        symbolDict = self.tdxSource.getSHStockSymbols()
+        LOG.debug("sh symbol:{0}".format(symbolDict))
+        sizeOfList = len(symbolDict)
+        self.assertTrue(sizeOfList > 3000, '证券代码数量不足:{0}'.format(sizeOfList))
+        np.save(fileName, symbolDict)
+        read_dictionary = np.load(fileName).item()
+        self.assertEquals(symbolDict, read_dictionary, '读取和保存不匹配')
 
-# '''
 if __name__ == "__main__":
     unittest.main()
     # '''

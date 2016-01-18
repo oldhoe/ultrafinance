@@ -5,7 +5,10 @@ Created on %(date)s
 @author: pchaosgit
 """
 import os
+import tempfile
 from unittest import TestCase
+
+from ultrafinance.dam.tdxDAM import TDXDAM
 from ultrafinance.dam.mongoDAM import MongoDAM
 from ultrafinance.model import Tick, Quote
 from ultrafinance.dam.googleDAM import GoogleDAM
@@ -19,6 +22,9 @@ LOG.setLevel(logging.DEBUG)
 class TestMongoDAM(TestCase):
     '''
     MongoDAM测试类
+import os
+import tempfile
+from ultrafinance.dam.tdxDAM import TDXDAM
 from ultrafinance.model import Tick, Quote
 from pymongo import MongoClient
 from pymongo import IndexModel
@@ -109,7 +115,6 @@ for d in tb:
         data = dam.readQuotes(20131101)
         self.assertTrue(len(data) > len1)
 
-
     def test_readTupleQuotes(self):
         self.fail()
 
@@ -167,7 +172,7 @@ for d in tb:
         # dam.setup('mongodb://127.0.0.1')
         # dam.dropCollection('quotes')
 
-    def test_ReadQuotesFromGoogleAndWriteQuotes(self):
+    def test_ReadQuotesFromGoogle_WriteQuotes(self):
         damGoogle = GoogleDAM()
         symbol = 'NASDAQ:EBAY'
         # symbol = 'SHA:600000'
@@ -176,12 +181,12 @@ for d in tb:
         end = '20141211'
         data = damGoogle.readQuotes(start, end)
         len1 = len(data)
+        quotes = data
         self.assertNotEqual(0, len1, 'read equal to 0')
         dam = MongoDAM()
         dam.setup('mongodb://127.0.0.1', 'testdb')
         dam.setSymbol(symbol)
 
-        quotes = data
         dam.writeQuotes(quotes)
         end = '20141231'
         data = damGoogle.readQuotes(start, end)
@@ -189,3 +194,27 @@ for d in tb:
         dam.writeQuotes(quotes)
         # print([str(symbols) for symbol, symbols in dam.readBatchTupleQuotes(["test"], 0, None).items()])
         print([str(quote) for quote in dam.readQuotes(0, None)])
+
+    def test_readZXG_WriteQuotes(self):
+        '''
+        从通达信下载日线数据包，根据自选股列表保存到mongoDB
+        :return:
+        todo 150210?
+        '''
+        damTDX = TDXDAM()
+        dam = MongoDAM()
+        damTDX.setDir(tempfile.gettempdir())
+        dam.setup('mongodb://127.0.0.1', 'testdb')
+        zxgName = 'ZXG'
+        zxg = damTDX.readZXG('./data/{0}.blk'.format(zxgName))
+        from numpy import array
+        zxg = {'name': 'ZXG', 'symbols': array([(0, '150228'),
+                                                (0, '150210'), (1, '510900'), (1, '600401'), (0, '000998')],
+                                               dtype=[('market', 'i1'), ('symbol', '<U20')])}
+        for a in zxg['symbols']:
+            dam.setSymbol(a['symbol'])
+            damTDX.setSymbol(a['symbol'])
+            data = damTDX.readQuotes()
+            self.assertTrue(len(data) > 0, '未取得数据')
+            dam.writeQuotes(data)
+            LOG.info('Writed {0}'.format(a['symbol']))

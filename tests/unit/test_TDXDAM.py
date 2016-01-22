@@ -90,7 +90,7 @@ class TestTDXDAM(TestCase):
         damTDX = TDXDAM()
         zxgName = 'ZXG'
         zxgName = 'TAOLI'
-        zxgName = 'YGYG'
+        # zxgName = 'YGYG'
         zxg = damTDX.readZXG('./data/{0}.blk'.format(zxgName))
         sl = SymbolLib.getInstance()
         for a in zxg['symbols']:

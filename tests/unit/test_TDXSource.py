@@ -8,6 +8,8 @@ import os
 import unittest
 
 from unittest import TestCase
+
+from ultrafinance.dam.symbolLib import SymbolLib
 from ultrafinance.dam.tdxLib import TDXSource
 import numpy as np
 
@@ -15,6 +17,25 @@ import logging
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
+
+
+def saveSZSymbol(fileName, symbolDict, market = 0):
+    sl = SymbolLib.getInstance()
+    symbolList = []
+    if market == 0 :
+        # 深证
+        chk = sl.checkSZSymbol
+    elif market == 1:
+        # 上证
+        chk = sl.checkSHSymbol
+    else:
+        # 其他证券市场
+        chk = None
+    for sm in symbolDict.keys():
+            if chk(sm[2:]):
+                symbolList.append(sm)
+    with open(fileName, 'w') as f:
+        f.writelines( "%s\n" % item for item in symbolList )
 
 
 class TestTDXSource(TestCase):
@@ -131,6 +152,10 @@ class TestTDXSource(TestCase):
         np.save(fileName, symbolDict)
         read_dictionary = np.load(fileName).item()
         self.assertEquals(symbolDict, read_dictionary, '读取和保存不匹配')
+
+        SZSymbolfileName = './data/szSymbols.txt'
+        saveSZSymbol(SZSymbolfileName, symbolDict)
+
         symbolDict = self.tdxSource.getSHStockSymbols()
         LOG.debug("sh symbol:{0}".format(symbolDict))
         sizeOfList = len(symbolDict)

@@ -38,7 +38,6 @@ class ListedCompany(object):
         self.remark = None
 
 
-
 class SymbolLib(Singleton):
     '''
 股票编码规则
@@ -115,15 +114,31 @@ B股买卖的代码是以200打头，如：深中冠B(4.04,-0.03,-0.74%)股，�
         :return:无
         '''
         symbol = symbol.strip()
+        smchk = self.__getChkMethod(market)
+        lc = []
         if market == Market.Unknow:
             if len(symbol) == 6 and symbol.isnuber:
                 #china Stock code
-
-                pass
+                if len(self.getSymbol(symbol, Market.SH)) > 0:
+                    # 符合上证代码规则
+                    lc.append(lc = ListedCompany(symbol, Market.SH))
+                if len(self.getSymbol(symbol, Market.SZ)) > 0:
+                    # 符合上证代码规则
+                    lc.append(lc = ListedCompany(symbol, Market.SZ))
             elif len(symbol) == 7 and symbol.isnuber:
-                # 通达信自选股格式，第一位为市场编码，后面为股票代码
-                lc = ListedCompany(symbol[1:6], Market(symbol[0]))
-                return lc
+                # symbolw长度为7个字节时，通达信自选股格式，第一位为市场编码，后面为股票代码
+                lc.append(ListedCompany(symbol[1:6], Market(symbol[0])))
+        elif market == Market.SZ:
+            # 深证
+            if len(symbol) == 6 and symbol.isnuber:
+                #china Stock code
+                if smchk(symbol):
+                    lc.append(ListedCompany(symbol, market))
+            elif len(symbol) == 7 and symbol.isnuber:
+                if smchk(symbol):
+                    # 通达信自选股格式，第一位为市场编码，后面为股票代码
+                    lc.append(ListedCompany(symbol[1:6], Market(symbol[0])))
+        return lc
 
     def checkSHSymbol(self, symbol):
         '''
@@ -131,7 +146,7 @@ B股买卖的代码是以200打头，如：深中冠B(4.04,-0.03,-0.74%)股，�
         :param symbol:
         :return: 符合上海股市代码特征返回 True, 否则 False
         '''
-        patternText = ['600', '601', '603', '500', '502', '510', '512', '518', '900', '999', '720', '730', '550', '201', '204']
+        patternText = ['600', '601', '603', '500', '502', '510', '512', '518', '900', '999', '720', '730', '550', '201', '204', '000300', '000132']
         return self.__checkSymbol(symbol, patternText)
 
     def checkSZSymbol(self, symbol):
@@ -155,3 +170,20 @@ B股买卖的代码是以200打头，如：深中冠B(4.04,-0.03,-0.74%)股，�
         match = pattern.match(symbol)
         return match
 
+    def __getChkMethod(self, market = Market.Unknow):
+        '''
+        根据市场代码返回对应市场的检测股票代码的函数
+        :param market: 市场代码
+        :return: 当深证、上证时，返回检测股票代码的函数名。
+            否则返回:None
+        '''
+        sl = SymbolLib.getInstance()
+        if market == Market.SZ :
+            # 深证
+            chk = sl.checkSZSymbol
+        elif market == Market.SH:
+            # 上证
+            chk = sl.checkSHSymbol
+        else:
+            # todo 其他证券市场
+            chk = None

@@ -33,6 +33,7 @@ Changelog
 version 1.0.6
     增加从通达信官网下载股票数据：TDXSource
     增加自选股文件读取类：TDXZXG
+    增加股票代码所属市场类:SymbolLib
 
 version 1.0.5
     修改Quote内部结构：time, read, high, low, close, adjClose类型为整型，修改对应的GoogleFinance。修复QuoteMongos.quoteUniqueByDelete中的bug

@@ -22,7 +22,7 @@ import sys
 import subprocess
 from xlrd import open_workbook
 
-from ultrafinance.dam.symbolLib import Market
+from ultrafinance.dam.symbolLib import Market, SymbolLib
 from ultrafinance.model import Quote, Tick, TupleQuote
 from ultrafinance.lib.errors import UfException, Errors
 from ultrafinance.designPattern.singleton import Singleton
@@ -126,12 +126,18 @@ class TDXRead(TDXOpertion):
         :return: 文件全路径+文件名
         '''
         pt = None
-        if symbol[0] == '6':
+        sl = SymbolLib.getInstance()
+        if sl.checkSHSymbol(symbol):
+            # 上证代码
             pt = os.path.join(basePath, self.sh_path)
             symbol = 'sh{0}'.format(symbol)
-        else:
+        elif sl.checkSZSymbol(symbol):
+            # 深证代码
             pt = os.path.join(basePath, self.sz_path)
             symbol = 'sz{0}'.format(symbol)
+        else:
+            # 其他代码
+            pass
         if basePath == tempfile.gettempdir():
             '''
             根目录为临时目录
@@ -558,6 +564,9 @@ class TDXZXG(object):
                 match = pattern.match(s)
                 if match is not None:
                     q.append((int(s[0]), s[1:]))
+                else:
+                    #todo 港股 美股。。。
+                    pass
             if len(lines) > 0:
                 dtype=([('market', 'i4'), ('symbol',  'U20')])
                 self.symbols = np.asarray(q, dtype)

@@ -206,11 +206,12 @@ for d in tb:
         damTDX.setDir(tempfile.gettempdir())
         dam.setup('mongodb://127.0.0.1', 'testdb')
         zxgName = 'ZXG'
+        zxgName = 'TAOLI'
         zxg = damTDX.readZXG('./data/{0}.blk'.format(zxgName))
         from numpy import array
-        zxg = {'name': 'ZXG', 'symbols': array([(0, '150228'),
-                                                (0, '150210'), (1, '510900'), (1, '600401'), (0, '000998')],
-                                               dtype=[('market', 'i1'), ('symbol', '<U20')])}
+        # zxg = {'name': 'ZXG', 'symbols': array([(0, '150228'),
+        #                                         (0, '150210'), (1, '510900'), (1, '600401'), (0, '000998')],
+        #                                        dtype=[('market', 'i4'), ('symbol', '<U20')])}
         for a in zxg['symbols']:
             dam.setSymbol(a['symbol'])
             damTDX.setSymbol(a['symbol'])

@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab70fbb3-392e-4bea-94b9-b213cbadfd2f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/TAOLI.blk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" afterPath="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/test_TDXSource.py" afterPath="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" afterPath="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/dam/symbolLib.py" afterPath="$PROJECT_DIR$/ultrafinance/dam/symbolLib.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" afterPath="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" />
     </list>
     <ignored path="ultrafinance.iws" />
@@ -43,6 +38,7 @@
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getTargetFileName.coverage" NAME="Nosetest TestTDXSource.test_getTargetFileName Coverage Results" MODIFIED="1452768356510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
     <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleDam_testReadQuotes.coverage" NAME="Nosetest testGoogleDam.testReadQuotes Coverage Results" MODIFIED="1449475599997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__2_.coverage" NAME="Nosetests in TestTDXDAM (2) Coverage Results" MODIFIED="1452767806962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma.coverage" NAME="Nosetest testPyTaLib.testSma Coverage Results" MODIFIED="1453710178335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__1_.coverage" NAME="Nosetests in test_TDXDAM (1) Coverage Results" MODIFIED="1450695639326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_dropMongo.coverage" NAME="Nosetest TestMongoDAM.test_dropMongo Coverage Results" MODIFIED="1450194033923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__3_.coverage" NAME="Nosetests in test_TDXDAM (3) Coverage Results" MODIFIED="1449486534366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
@@ -88,41 +84,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test_TDXDAM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="96" column="78" selection-start-line="96" selection-start-column="61" selection-end-line="96" selection-end-column="78" />
-              <folding>
-                <element signature="e#85#99#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="symbolLib.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/symbolLib.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38947368">
-              <caret line="128" column="33" selection-start-line="128" selection-start-column="33" selection-end-line="128" selection-end-column="33" />
-              <folding>
-                <element signature="e#24#73#1" expanded="false" />
-                <element signature="e#74#83#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_TDXLib.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXLib.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="baseDAM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ultrafinance/dam/baseDAM.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -139,8 +100,42 @@
         <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="214" column="21" selection-start-line="214" selection-start-column="21" selection-end-line="214" selection-end-column="21" />
+              <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_py_talib.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit/test_py_talib.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding>
+                <element signature="e#46#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="580" column="0" selection-start-line="580" selection-start-column="0" selection-end-line="580" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indicator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+              <folding>
+                <element signature="e#46#75#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,7 +154,7 @@
         <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="238" column="8" selection-start-line="238" selection-start-column="8" selection-end-line="238" selection-end-column="8" />
               <folding>
                 <element signature="e#85#99#0" expanded="true" />
               </folding>
@@ -179,21 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.34105262">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="26" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -242,12 +227,12 @@
         <option value="$PROJECT_DIR$/ultrafinance/dam/mongoLib.py" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py" />
         <option value="$PROJECT_DIR$/ultrafinance/lib/util.py" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/symbolLib.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" />
       </list>
     </option>
   </component>
@@ -317,7 +302,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -507,6 +491,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -546,29 +531,7 @@
       <recent name="$PROJECT_DIR$/tests/unit" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Nosetest TestTDXSource.test_getSymbolList">
-    <configuration default="false" name="Nosetest TestTDXSource.test_deleteFileOfACertainAge" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ultrafinances" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-      <option name="CLASS_NAME" value="TestTDXSource" />
-      <option name="METHOD_NAME" value="test_deleteFileOfACertainAge" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Nosetest testPyTaLib.testSma">
     <configuration default="false" name="Nosetest TestTDXSource.test_getTargetFileName" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -649,6 +612,28 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" />
       <option name="CLASS_NAME" value="TestMongoDAM" />
       <option name="METHOD_NAME" value="test_readZXG_WriteQuotes" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetest testPyTaLib.testSma" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ultrafinances" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_py_talib.py" />
+      <option name="CLASS_NAME" value="testPyTaLib" />
+      <option name="METHOD_NAME" value="testSma" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -893,19 +878,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Python.mongoLib" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in test_TDXDAM (1)" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_deleteFileOfACertainAge" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
-      <item index="6" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readZXG_WriteQuotes" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readZXG_WriteQuotes" />
+      <item index="6" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readZXG_WriteQuotes" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_deleteFileOfACertainAge" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readZXG_WriteQuotes" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
       </list>
     </recent_temporary>
   </component>
@@ -923,15 +908,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 21m 02s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 21m 36s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 23m 26s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
     <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 23m 30s.xml">
       <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
     </history-entry>
@@ -953,12 +929,21 @@
     <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 29m 58s.xml">
       <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
     </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 15h 29m 01s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 15h 29m 25s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 16h 24m 44s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="1" width="1892" height="1078" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24044587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24044587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.64323467" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1107,7 +1092,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py</url>
-          <line>351</line>
+          <line>357</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1125,8 +1110,13 @@
           <line>36</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/unit/test_py_talib.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="95" />
+      <option name="time" value="97" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="tests">
@@ -1151,41 +1141,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ultrafinance/lib/errors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028571429">
-          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/xlrd/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.057142857">
-          <caret line="434" column="0" selection-start-line="434" selection-start-column="0" selection-end-line="434" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/963682080/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="365" column="4" selection-start-line="365" selection-start-column="4" selection-end-line="365" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/stock.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/logging/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1285" column="0" selection-start-line="1285" selection-start-column="0" selection-end-line="1285" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1434,7 +1389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.018947368">
           <caret line="173" column="6" selection-start-line="173" selection-start-column="6" selection-end-line="173" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,12 +1412,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/symbolLib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38947368">
-          <caret line="128" column="33" selection-start-line="128" selection-start-column="33" selection-end-line="128" selection-end-column="33" />
-          <folding>
-            <element signature="e#24#73#1" expanded="false" />
-            <element signature="e#74#83#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="143" column="11" selection-start-line="143" selection-start-column="11" selection-end-line="143" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1488,23 +1438,54 @@
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="214" column="21" selection-start-line="214" selection-start-column="21" selection-end-line="214" selection-end-column="21" />
+          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
+    <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/scipy/stats/stats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.336523">
+          <caret line="2988" column="4" selection-start-line="2988" selection-start-column="4" selection-end-line="2988" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/test_py_talib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="580" column="0" selection-start-line="580" selection-start-column="0" selection-end-line="580" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/stock.list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="238" column="8" selection-start-line="238" selection-start-column="8" selection-end-line="238" selection-end-column="8" />
           <folding>
             <element signature="e#85#99#0" expanded="true" />
           </folding>
@@ -1521,18 +1502,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+          <folding>
+            <element signature="e#46#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.34105262">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="26" selection-end-column="54" />
           <folding />
         </state>
       </provider>

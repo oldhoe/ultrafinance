@@ -7,10 +7,10 @@ todolist:
     解压缩单独通达信日线 五日线文件，倒入mongoDB
 
     计算股票ma并保存
-    import numpy
+    import numpy as np
     import talib
 
-    close = numpy.random.random(100)
+    close = np.random.random(100)
     output = talib.SMA(close, 5)
 
     from talib import abstract

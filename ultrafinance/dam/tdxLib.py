@@ -230,6 +230,12 @@ class TDXRead(TDXOpertion):
         f.close()
 
     def read(self, start, end):
+        '''
+
+        :param start:
+        :param end:
+        :return:
+        '''
         datalist = []
         if start is None:
             start = 0

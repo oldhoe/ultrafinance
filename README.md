@@ -16,6 +16,7 @@ todolist:
     from talib import abstract
 
     # directly
+    ema = abstract.EMA
     sma = abstract.SMA
     inputs = {
         'open': np.random.random(100),

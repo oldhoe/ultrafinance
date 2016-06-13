@@ -303,7 +303,7 @@ class TDXSource(Singleton):
             return True, fileName
         url = self.getUrl(name)
         if url is not None:
-            # 使用proz多线程下载，也可以使用wget
+            # 使用proz多线程下载，也可以使用wget,axel 测试了三个下载，感觉wget下载最快
             command = 'proz {0} -P {1}'.format(url, tmpPath)
             LOG.info('runShell:{0}'.format(command))
             return self.runShell(command, timeout), fileName

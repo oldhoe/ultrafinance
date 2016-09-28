@@ -26,10 +26,11 @@ class TDXDAM(BaseDAM):
     def __init__(self):
         ''' constructor '''
         super(TDXDAM, self).__init__()
-        self.__dir = None
+        #通达信数据根目录
+        self.__TDXdir = None
 
     def targetPath(self, kind):
-        return path.join(self.__dir, "%s-%s.xls" % (self.symbol, kind))
+        return path.join(self.__TDXdir, "%s-%s.xls" % (self.symbol, kind))
 
     def __findRange(self, TDXLib, start, end):
         ''' return low and high as excel range '''
@@ -52,7 +53,9 @@ class TDXDAM(BaseDAM):
         return low, high
 
     def __readData(self, basePath, start, end):
-        ''' read data '''
+        '''
+        从basePath目录查找通达信文件，read data
+        '''
         ret = []
         if not path.exists(basePath):
             LOG.error("Target file doesn't exist: %s" % path.abspath(basePath))
@@ -80,7 +83,7 @@ class TDXDAM(BaseDAM):
         else:
             startInt = start
             endInt = end
-        quotes = self.__readData(self.__dir, startInt, endInt)
+        quotes = self.__readData(self.__TDXdir, startInt, endInt)
         return quotes
 
     def writeQuotes(self, quotes):
@@ -100,10 +103,16 @@ class TDXDAM(BaseDAM):
                          TICK_FIELDS,
                          [[getattr(tick, field) for field in TICK_FIELDS] for tick in ticks])
 
-    def setDir(self, path):
-        ''' set dir '''
+    def setDir(self, path, TDXDataBasePath = None):
+        '''
+        set dir
+        path 通达信数据文件相对路径
+        TDXDataBasePath 通达信数据文件根目录。例如：/home/yg/software/shared1/finacing/gtja/RichEZ/vipdoc
+        '''
+        if TDXDataBasePath is not None:
+            path = os.path.join(TDXDataBasePath, path)
         if os.path.exists(path):
-            self.__dir = path
+            self.__TDXdir = path
         else:
             raise UfException(Errors.INVALID_TDX_PATH, "通达信路径错误！\n{0}".format(path))
 

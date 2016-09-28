@@ -40,6 +40,9 @@ def sharpeRatio(array, n=252):
 
 
 class Sma(object):
+    """
+    Simple Moving Average - SMA
+    """
     def __init__(self, period):
         assert period == int(period) and period > 0, "Period must be an integer > 0"
         self.__period = period
@@ -51,9 +54,9 @@ class Sma(object):
 
     def __call__(self, n):
         self.__stream.append(n)
-        if len(self.__stream) > self.__period:
-            self.__stream.popleft()
+        if len(self.__stream) >= self.__period: # 大于改为 大于等于
             self.__value = sum(self.__stream) / float(len(self.__stream))
+            self.__stream.popleft()
             return self.__value
         else:
             return None

@@ -34,7 +34,8 @@ class TestTDXDAM(TestCase):
     def test_readQuotes(self):
         symbol= '600177'
         dam = TDXDAM()
-        dam.setDir('./data')
+        # dam.setDir('./data', )
+        dam.setDir('./', '/home/yg/software/shared1/finacing/gtja/RichEZ/vipdoc')
         dam.setSymbol(symbol)
         start = 20131101
         end = 20131115

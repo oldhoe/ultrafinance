@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ab70fbb3-392e-4bea-94b9-b213cbadfd2f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py" afterPath="$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" afterPath="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" afterPath="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/test_py_talib.py" afterPath="$PROJECT_DIR$/tests/unit/test_py_talib.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py" afterPath="$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py" afterPath="$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py" />
     </list>
     <ignored path="ultrafinance.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -17,61 +18,63 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/ultrafinance$stockCrawler.coverage" NAME="stockCrawler Coverage Results" MODIFIED="1449330366161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestGoogleDAM_test_readQuotes.coverage" NAME="Nosetest TestGoogleDAM.test_readQuotes Coverage Results" MODIFIED="1449481830967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_readQuotes.coverage" NAME="Nosetest TestMongoDAM.test_readQuotes Coverage Results" MODIFIED="1452094353213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_setup.coverage" NAME="Nosetest TestMongoDAM.test_setup Coverage Results" MODIFIED="1450194004407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_targetPath.coverage" NAME="Nosetest TestTDXDAM.test_targetPath Coverage Results" MODIFIED="1452766770903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getSymbolList__1_.coverage" NAME="Nosetest TestTDXSource.test_getSymbolList Coverage Results" MODIFIED="1452768644630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_mongoDAM__1_.coverage" NAME="Nosetests in test_mongoDAM (1) Coverage Results" MODIFIED="1451744606433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__1_.coverage" NAME="Nosetests in TestTDXDAM (1) Coverage Results" MODIFIED="1452766924217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$test_TDXSource.coverage" NAME="test_TDXSource Coverage Results" MODIFIED="1451921324963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testPyConfig_testGetSession.coverage" NAME="Nosetest testPyConfig.testGetSession Coverage Results" MODIFIED="1449312471980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleDam_testReadQuotes.coverage" NAME="Nosetest testGoogleDam.testReadQuotes Coverage Results" MODIFIED="1451748608504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_ReadQuotesFromGoogleAndWriteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_ReadQuotesFromGoogleAndWriteQuotes Coverage Results" MODIFIED="1451748688998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_writeQuotes.coverage" NAME="Nosetest TestMongoDAM.test_writeQuotes Coverage Results" MODIFIED="1452094838750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_extract.coverage" NAME="Nosetest TestTDXSource.test_extract Coverage Results" MODIFIED="1452768327402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetAll.coverage" NAME="Nosetest testGoogleFinance.testGetAll Coverage Results" MODIFIED="1449327181438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes__1_.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449325201967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleFinance_testGetAll.coverage" NAME="Nosetest testGoogleFinance.testGetAll Coverage Results" MODIFIED="1449653936242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getTargetFileName.coverage" NAME="Nosetest TestTDXSource.test_getTargetFileName Coverage Results" MODIFIED="1465809817634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleDam_testReadQuotes.coverage" NAME="Nosetest testGoogleDam.testReadQuotes Coverage Results" MODIFIED="1449475599997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__2_.coverage" NAME="Nosetests in TestTDXDAM (2) Coverage Results" MODIFIED="1452767806962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma.coverage" NAME="Nosetest testPyTaLib.testSma Coverage Results" MODIFIED="1453710178335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__1_.coverage" NAME="Nosetests in test_TDXDAM (1) Coverage Results" MODIFIED="1450695639326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_dropMongo.coverage" NAME="Nosetest TestMongoDAM.test_dropMongo Coverage Results" MODIFIED="1450194033923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__3_.coverage" NAME="Nosetests in test_TDXDAM (3) Coverage Results" MODIFIED="1449486534366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_dropCollection.coverage" NAME="Nosetest TestMongoDAM.test_dropCollection Coverage Results" MODIFIED="1452051312580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_readQuotesAndWriteQuotesToMongo.coverage" NAME="Nosetest TestTDXDAM.test_readQuotesAndWriteQuotesToMongo Coverage Results" MODIFIED="1452767874288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getSymbolList.coverage" NAME="Nosetest TestTDXSource.test_getSymbolList Coverage Results" MODIFIED="1465809828366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_TestGoogleDAM_test_readQuotes.coverage" NAME="Nosetest TestGoogleDAM.test_readQuotes Coverage Results" MODIFIED="1449466295627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_mongoDAM.coverage" NAME="Nosetests in test_mongoDAM Coverage Results" MODIFIED="1451744509336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_deleteFileOfACertainAge.coverage" NAME="Nosetest TestTDXSource.test_deleteFileOfACertainAge Coverage Results" MODIFIED="1452768335356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes__2_.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes (2) Coverage Results" MODIFIED="1449325432389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_setDir.coverage" NAME="Nosetest TestTDXDAM.test_setDir Coverage Results" MODIFIED="1449486607351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleFinance_testGetQuotes.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449653921954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_ZXG_SymbolLib.coverage" NAME="Nosetest TestTDXDAM.test_ZXG_SymbolLib Coverage Results" MODIFIED="1453282304347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetests_in_testGoogleDam.coverage" NAME="Nosetests in testGoogleDam Coverage Results" MODIFIED="1449371644621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_deleteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_deleteQuotes Coverage Results" MODIFIED="1451740325053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_TDXZXG_read.coverage" NAME="Nosetest TestTDXLib.test_TDXZXG_read Coverage Results" MODIFIED="1452006132775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM.coverage" NAME="Nosetests in TestTDXDAM Coverage Results" MODIFIED="1452767817635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_TDXZXGread.coverage" NAME="Nosetest TestTDXLib.test_TDXZXGread Coverage Results" MODIFIED="1452053797550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getUrl.coverage" NAME="Nosetest TestTDXSource.test_getUrl Coverage Results" MODIFIED="1451905162454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_ReadQuotesFromGooglewriteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_ReadQuotesFromGooglewriteQuotes Coverage Results" MODIFIED="1450347606295" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM.coverage" NAME="Nosetests in test_TDXDAM Coverage Results" MODIFIED="1449486414324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_getOperation.coverage" NAME="Nosetest TestTDXLib.test_getOperation Coverage Results" MODIFIED="1452000054009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getDownloadnameBySymbol.coverage" NAME="Nosetest TestTDXSource.test_getDownloadnameBySymbol Coverage Results" MODIFIED="1465809795168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_runShell.coverage" NAME="Nosetest TestTDXSource.test_runShell Coverage Results" MODIFIED="1451890517240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$setup.coverage" NAME="setup Coverage Results" MODIFIED="1449412057623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_readQuotes.coverage" NAME="Nosetest TestTDXDAM.test_readQuotes Coverage Results" MODIFIED="1452766796868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_readZXG_WriteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_readZXG_WriteQuotes Coverage Results" MODIFIED="1453196090429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetAll__1_.coverage" NAME="Nosetest testGoogleFinance.testGetAll (1) Coverage Results" MODIFIED="1449326509240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449411053499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma.coverage" NAME="Nosetest testPyTaLib.testSma Coverage Results" MODIFIED="1474992160362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_runShell.coverage" NAME="Nosetest TestTDXSource.test_runShell Coverage Results" MODIFIED="1451890517240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__1_.coverage" NAME="Nosetests in test_TDXDAM (1) Coverage Results" MODIFIED="1450695639326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_readQuotes.coverage" NAME="Nosetest TestTDXDAM.test_readQuotes Coverage Results" MODIFIED="1473868394759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/ultrafinance$stockCrawler.coverage" NAME="stockCrawler Coverage Results" MODIFIED="1449330366161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_targetPath.coverage" NAME="Nosetest TestTDXDAM.test_targetPath Coverage Results" MODIFIED="1452766770903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM.coverage" NAME="Nosetests in TestTDXDAM Coverage Results" MODIFIED="1473850571372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleDam_testReadTicks.coverage" NAME="Nosetest testGoogleDam.testReadTicks Coverage Results" MODIFIED="1449757636474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
-    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__2_.coverage" NAME="Nosetests in test_TDXDAM (2) Coverage Results" MODIFIED="1449486388326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_TDXZXG_read.coverage" NAME="Nosetest TestTDXLib.test_TDXZXG_read Coverage Results" MODIFIED="1452006132775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__2_.coverage" NAME="Nosetests in TestTDXDAM (2) Coverage Results" MODIFIED="1452767806962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_extract.coverage" NAME="Nosetest TestTDXSource.test_extract Coverage Results" MODIFIED="1452768327402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes__1_.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449325201967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma__2_.coverage" NAME="Nosetest testPyTaLib.testSma (2) Coverage Results" MODIFIED="1466668202528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_mongoDAM__1_.coverage" NAME="Nosetests in test_mongoDAM (1) Coverage Results" MODIFIED="1451744606433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_getOperation.coverage" NAME="Nosetest TestTDXLib.test_getOperation Coverage Results" MODIFIED="1468055450903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes__2_.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes (2) Coverage Results" MODIFIED="1449325432389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetAll__1_.coverage" NAME="Nosetest testGoogleFinance.testGetAll (1) Coverage Results" MODIFIED="1449326509240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_dropCollection.coverage" NAME="Nosetest TestMongoDAM.test_dropCollection Coverage Results" MODIFIED="1452051312580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testPyConfig_testGetSession.coverage" NAME="Nosetest testPyConfig.testGetSession Coverage Results" MODIFIED="1449312471980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleFinance_testGetAll.coverage" NAME="Nosetest testGoogleFinance.testGetAll Coverage Results" MODIFIED="1449653936242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM.coverage" NAME="Nosetests in test_TDXDAM Coverage Results" MODIFIED="1449486414324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetAll.coverage" NAME="Nosetest testGoogleFinance.testGetAll Coverage Results" MODIFIED="1449327181438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma__1_.coverage" NAME="Nosetest testPyTaLib.testSma (1) Coverage Results" MODIFIED="1466668086540" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getDownloadnameBySymbol.coverage" NAME="Nosetest TestTDXSource.test_getDownloadnameBySymbol Coverage Results" MODIFIED="1465809795168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_writeQuotes.coverage" NAME="Nosetest TestMongoDAM.test_writeQuotes Coverage Results" MODIFIED="1452094838750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$test_TDXSource.coverage" NAME="test_TDXSource Coverage Results" MODIFIED="1451921324963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleFinance_testGetQuotes.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449411053499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
     <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__3_.coverage" NAME="Nosetests in TestTDXDAM (3) Coverage Results" MODIFIED="1452767846638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__3_.coverage" NAME="Nosetests in test_TDXDAM (3) Coverage Results" MODIFIED="1449486534366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_readQuotes.coverage" NAME="Nosetest TestMongoDAM.test_readQuotes Coverage Results" MODIFIED="1474967752882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$setup.coverage" NAME="setup Coverage Results" MODIFIED="1449412057623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_ReadQuotesFromGooglewriteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_ReadQuotesFromGooglewriteQuotes Coverage Results" MODIFIED="1450347606295" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_ReadQuotesFromGoogleAndWriteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_ReadQuotesFromGoogleAndWriteQuotes Coverage Results" MODIFIED="1451748688998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_setup.coverage" NAME="Nosetest TestMongoDAM.test_setup Coverage Results" MODIFIED="1450194004407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_testGoogleDam_testReadQuotes.coverage" NAME="Nosetest testGoogleDam.testReadQuotes Coverage Results" MODIFIED="1449475599997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_TestTDXDAM__1_.coverage" NAME="Nosetests in TestTDXDAM (1) Coverage Results" MODIFIED="1473851861592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_setDir.coverage" NAME="Nosetest TestTDXDAM.test_setDir Coverage Results" MODIFIED="1449486607351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleDam_testReadQuotes.coverage" NAME="Nosetest testGoogleDam.testReadQuotes Coverage Results" MODIFIED="1451748608504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetests_in_testGoogleDam.coverage" NAME="Nosetests in testGoogleDam Coverage Results" MODIFIED="1449371644621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_mongoDAM.coverage" NAME="Nosetests in test_mongoDAM Coverage Results" MODIFIED="1451744509336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getSymbolList.coverage" NAME="Nosetest TestTDXSource.test_getSymbolList Coverage Results" MODIFIED="1465809828366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getUrl.coverage" NAME="Nosetest TestTDXSource.test_getUrl Coverage Results" MODIFIED="1451905162454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_deleteQuotes.coverage" NAME="Nosetest TestMongoDAM.test_deleteQuotes Coverage Results" MODIFIED="1451740325053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXLib_test_TDXZXGread.coverage" NAME="Nosetest TestTDXLib.test_TDXZXGread Coverage Results" MODIFIED="1468055377021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetests_in_test_TDXDAM__2_.coverage" NAME="Nosetests in test_TDXDAM (2) Coverage Results" MODIFIED="1449486388326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_ZXG_SymbolLib.coverage" NAME="Nosetest TestTDXDAM.test_ZXG_SymbolLib Coverage Results" MODIFIED="1474881758128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestMongoDAM_test_dropMongo.coverage" NAME="Nosetest TestMongoDAM.test_dropMongo Coverage Results" MODIFIED="1450194033923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_deleteFileOfACertainAge.coverage" NAME="Nosetest TestTDXSource.test_deleteFileOfACertainAge Coverage Results" MODIFIED="1452768335356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXSource_test_getTargetFileName.coverage" NAME="Nosetest TestTDXSource.test_getTargetFileName Coverage Results" MODIFIED="1465809817634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestTDXDAM_test_readQuotesAndWriteQuotesToMongo.coverage" NAME="Nosetest TestTDXDAM.test_readQuotesAndWriteQuotesToMongo Coverage Results" MODIFIED="1473868973908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testGoogleFinance_testGetQuotes.coverage" NAME="Nosetest testGoogleFinance.testGetQuotes Coverage Results" MODIFIED="1449653921954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_TestGoogleDAM_test_readQuotes.coverage" NAME="Nosetest TestGoogleDAM.test_readQuotes Coverage Results" MODIFIED="1449481830967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ultrafinance$Nosetest_TestGoogleDAM_test_readQuotes.coverage" NAME="Nosetest TestGoogleDAM.test_readQuotes Coverage Results" MODIFIED="1449466295627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
+    <SUITE FILE_PATH="coverage/ultrafinances$Nosetest_testPyTaLib_testSma__3_.coverage" NAME="Nosetest testPyTaLib.testSma (3) Coverage Results" MODIFIED="1466668954755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/unit" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -85,34 +88,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="baseDAM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/baseDAM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding>
-                <element signature="e#45#55#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mongoDAM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="407" column="36" selection-start-line="407" selection-start-column="36" selection-end-line="407" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_py_talib.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_py_talib.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/unit/test_py_talib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="486">
+              <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
+              <folding>
+                <element signature="e#46#61#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,8 +103,8 @@
       <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="580" column="0" selection-start-line="580" selection-start-column="0" selection-end-line="580" selection-end-column="0" />
+            <state relative-caret-position="10188">
+              <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -130,30 +113,40 @@
       <file leaf-file-name="indicator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
-              <folding>
-                <element signature="e#46#75#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tdxDAM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+            <state relative-caret-position="990">
+              <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tdxLib.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
+      <file leaf-file-name="test_TDXLib.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXLib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="315" column="8" selection-start-line="315" selection-start-column="8" selection-end-line="315" selection-end-column="8" />
+            <state relative-caret-position="468">
+              <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+              <folding>
+                <element signature="e#77#86#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_mongoDAM.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit/test_mongoDAM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1818">
+              <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_TDXDAM.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1206">
+              <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
               <folding>
                 <element signature="e#85#99#0" expanded="true" />
               </folding>
@@ -161,23 +154,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_TDXSource.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXSource.py">
+      <file leaf-file-name="symbolLib.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/symbolLib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="146" column="44" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
+            <state relative-caret-position="1044">
+              <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tdxDAM.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2070">
+              <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
               <folding>
-                <element signature="e#74#83#0" expanded="true" />
+                <element signature="e#85#94#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
+      <file leaf-file-name="tdxLib.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3880597">
-              <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+            <state relative-caret-position="288">
+              <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -222,29 +225,31 @@
         <option value="$PROJECT_DIR$/ultrafinance/dam/TDXLib.py" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/TDXDAM.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_TDXLib.py" />
-        <option value="$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/mongoLib.py" />
         <option value="$PROJECT_DIR$/ultrafinance/lib/util.py" />
-        <option value="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" />
         <option value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-        <option value="$PROJECT_DIR$/ultrafinance/dam/symbolLib.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py" />
+        <option value="$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py" />
         <option value="$PROJECT_DIR$/ultrafinance/dam/tdxLib.py" />
+        <option value="$USER_HOME$/.PyCharm50/pycharm64.vmoptions" />
+        <option value="$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py" />
+        <option value="$PROJECT_DIR$/ultrafinance/dam/symbolLib.py" />
+        <option value="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
+        <option value="$PROJECT_DIR$/tests/unit/test_py_talib.py" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" />
-  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="1" />
-    <option name="width" value="1892" />
-    <option name="height" value="1078" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -302,8 +307,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ultrafinances" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Python 3.4.3 (~/software/python3rd/anaconda3/bin/python3.4) &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-skeletons" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyUserSkeletonsNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="ultrafinances" />
@@ -360,10 +385,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ultrafinances" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ultrafinances" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ultrafinances" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ultrafinances" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,21 +458,43 @@
       <recent name="$PROJECT_DIR$/tests/unit" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Nosetest TestTDXSource.test_getSymbolList">
-    <configuration default="false" name="Nosetest TestTDXSource.test_getSymbolList" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Nosetest testPyTaLib.testSma">
+    <configuration default="false" name="Nosetest TestTDXDAM.test_readQuotesAndWriteQuotesToMongo" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ultrafinances" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-      <option name="CLASS_NAME" value="TestTDXSource" />
-      <option name="METHOD_NAME" value="test_getSymbolList" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
+      <option name="CLASS_NAME" value="TestTDXDAM" />
+      <option name="METHOD_NAME" value="test_readQuotesAndWriteQuotesToMongo" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetest TestTDXDAM.test_readQuotes" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ultrafinances" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXDAM.py" />
+      <option name="CLASS_NAME" value="TestTDXDAM" />
+      <option name="METHOD_NAME" value="test_readQuotes" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -448,12 +525,34 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="Nosetest TestMongoDAM.test_readQuotes" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ultrafinances" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_mongoDAM.py" />
+      <option name="CLASS_NAME" value="TestMongoDAM" />
+      <option name="METHOD_NAME" value="test_readQuotes" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
     <configuration default="false" name="Nosetest testPyTaLib.testSma" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -470,48 +569,15 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Nosetest TestTDXSource.test_getDownloadnameBySymbol" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
       <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ultrafinances" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-      <option name="CLASS_NAME" value="TestTDXSource" />
-      <option name="METHOD_NAME" value="test_getDownloadnameBySymbol" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Nosetest TestTDXSource.test_getTargetFileName" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ultrafinances" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/unit/test_TDXSource.py" />
-      <option name="CLASS_NAME" value="TestTDXSource" />
-      <option name="METHOD_NAME" value="test_getTargetFileName" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -583,7 +649,21 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="ultrafinances" />
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
@@ -594,6 +674,7 @@
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
       <command value="run-script" />
       <scripts />
+      <node-interpreter value="project" />
       <envs />
       <method />
     </configuration>
@@ -725,12 +806,12 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Nosetests in test_TDXDAM (1)" type="tests" factoryName="Nosetests" nameIsGenerated="true">
+    <configuration default="false" name="Nosetests in test_TDXDAM" type="tests" factoryName="Nosetests" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -749,24 +830,26 @@
     </configuration>
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Python.mongoLib" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in test_TDXDAM (1)" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getDownloadnameBySymbol" />
-      <item index="6" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in test_TDXDAM" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_readQuotesAndWriteQuotesToMongo" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_readQuotes" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readQuotes" />
+      <item index="6" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getSymbolList" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getTargetFileName" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXSource.test_getDownloadnameBySymbol" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetest testPyTaLib.testSma" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetest TestMongoDAM.test_readQuotes" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_ZXG_SymbolLib" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_readQuotesAndWriteQuotesToMongo" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetest TestTDXDAM.test_readQuotes" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration>$USER_HOME$/.subversion</configuration>
   </component>
@@ -775,66 +858,67 @@
       <changelist id="ab70fbb3-392e-4bea-94b9-b213cbadfd2f" name="Default" comment="" />
       <created>1449312046543</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1449312046543</updated>
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetest_TestTDXSource_test_getDownloadnameBySymbol - 2016.06.13 at 17h 23m 15s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getDownloadnameBySymbol" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 25m 19s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 25m 40s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 26m 45s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.01.20 at 18h 29m 58s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getSymbolList - 2016.06.13 at 17h 28m 30s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getSymbolList" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_TestTDXSource_test_getTargetFileName - 2016.06.13 at 17h 23m 38s.xml">
-      <configuration name="Nosetest TestTDXSource.test_getTargetFileName" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 15h 29m 01s.xml">
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 25m 00s.xml">
       <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
     </history-entry>
-    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 15h 29m 25s.xml">
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 27m 00s.xml">
       <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
     </history-entry>
-    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.01.25 at 16h 24m 44s.xml">
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 27m 33s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 28m 26s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 28m 56s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 30m 37s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 31m 04s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.27 at 23h 31m 32s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.28 at 00h 01m 51s.xml">
+      <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetest_testPyTaLib_testSma - 2016.09.28 at 00h 02m 41s.xml">
       <configuration name="Nosetest testPyTaLib.testSma" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1892" height="1078" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24021164" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23991619" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.64323467" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.49788582" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299285" sideWeight="0.35676533" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39918116" sideWeight="0.49630022" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.35676533" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.47885835" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3979487" sideWeight="0.49630022" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -873,7 +957,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py</url>
-          <line>40</line>
+          <line>41</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -883,7 +967,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py</url>
-          <line>53</line>
+          <line>54</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -923,13 +1007,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py</url>
-          <line>60</line>
+          <line>61</line>
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXSource.py</url>
@@ -940,11 +1019,6 @@
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXSource.py</url>
           <line>141</line>
           <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tests/unit/test_TDXLib.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXLib.py</url>
@@ -969,7 +1043,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py</url>
-          <line>97</line>
+          <line>98</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -983,12 +1057,22 @@
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/ultrafinance/pyTaLib/pandasImpl.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/unit/test_mongoDAM.py</url>
+          <line>111</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tests/unit/test_py_talib.py</url>
-          <line>21</line>
-          <option name="timeStamp" value="96" />
+          <line>23</line>
+          <option name="timeStamp" value="105" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="97" />
+      <option name="time" value="106" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="tests">
@@ -1013,114 +1097,73 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/nose/suite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39750445">
-          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/nose/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.031746034">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/random.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="217" column="0" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/hbaseLib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/hbaseDAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/pymongo/mongo_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06312292">
+        <state relative-caret-position="0">
           <caret line="67" column="17" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/yahooDAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_yahoo_dam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45714286">
+        <state relative-caret-position="0">
           <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_sql_dam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoNumpyDAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_observable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydev_monkey_qt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydev_monkey_qt.py" />
     <entry file="file://$PROJECT_DIR$/tests/unit/test_google_finance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/traceback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
+        <state relative-caret-position="0">
           <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/datetime.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.321429">
+        <state relative-caret-position="0">
           <caret line="1589" column="8" selection-start-line="1589" selection-start-column="8" selection-end-line="1589" selection-end-column="8" />
           <folding />
         </state>
@@ -1128,7 +1171,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_google_dam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding />
         </state>
@@ -1136,98 +1179,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/googleDAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/imp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
+        <state relative-caret-position="0">
           <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_numpyPyMongo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58551943">
+        <state relative-caret-position="0">
           <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/_bootlocale.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79904306">
+        <state relative-caret-position="0">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoNumpyLib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028708134">
+        <state relative-caret-position="0">
           <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/963682080/numpy/core/multiarray.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.06526316">
+        <state relative-caret-position="0">
           <caret line="98" column="4" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/numpy/core/numeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17052631">
+        <state relative-caret-position="0">
           <caret line="461" column="14" selection-start-line="461" selection-start-column="14" selection-end-line="461" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoLib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/genericpath.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.018947368">
+        <state relative-caret-position="0">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/963682080/time.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/lib/mongowrapper/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/lib/mongowrapper/MongoWrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.15157895">
+        <state relative-caret-position="0">
           <caret line="162" column="44" selection-start-line="162" selection-start-column="44" selection-end-line="162" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/googleFinance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="67" column="0" selection-start-line="44" selection-start-column="1" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
@@ -1235,7 +1271,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/lib/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#46#56#0" expanded="false" />
@@ -1245,156 +1281,199 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/model/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/designPattern/singleton.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.018947368">
+        <state relative-caret-position="0">
           <caret line="173" column="6" selection-start-line="173" selection-start-column="6" selection-end-line="173" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/test_mongoDAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5263158">
-          <caret line="199" column="30" selection-start-line="199" selection-start-column="30" selection-end-line="199" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="96" column="78" selection-start-line="96" selection-start-column="61" selection-end-line="96" selection-end-column="78" />
-          <folding>
-            <element signature="e#85#99#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/symbolLib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="143" column="11" selection-start-line="143" selection-start-column="11" selection-end-line="143" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXLib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/scipy/stats/stats.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.336523">
+        <state relative-caret-position="0">
           <caret line="2988" column="4" selection-start-line="2988" selection-start-column="4" selection-end-line="2988" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/stock.list">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ultrafinance/dam/baseDAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="e#45#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="580" column="0" selection-start-line="580" selection-start-column="0" selection-end-line="580" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/test_py_talib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
-          <folding>
-            <element signature="e#46#75#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/numpy/lib/npyio.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.44038156">
+        <state relative-caret-position="0">
           <caret line="357" column="4" selection-start-line="357" selection-start-column="4" selection-end-line="357" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoLib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="315" column="8" selection-start-line="315" selection-start-column="8" selection-end-line="315" selection-end-column="8" />
-          <folding>
-            <element signature="e#85#99#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="407" column="36" selection-start-line="407" selection-start-column="36" selection-end-line="407" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXSource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="146" column="44" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
+        <state relative-caret-position="0">
+          <caret line="146" column="43" selection-start-line="146" selection-start-column="43" selection-end-line="146" selection-end-column="43" />
           <folding>
-            <element signature="e#74#83#0" expanded="true" />
+            <element signature="e#74#83#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3880597">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+        <state relative-caret-position="0">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/pandas/stats/moments.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="554" column="39" selection-start-line="554" selection-start-column="39" selection-end-line="554" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/pandasImpl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="326" column="98" selection-start-line="326" selection-start-column="98" selection-end-line="326" selection-end-column="98" />
+          <folding>
+            <element signature="e#57#75#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/mongoDAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6012">
+          <caret line="345" column="37" selection-start-line="345" selection-start-column="37" selection-end-line="345" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm50/pycharm64.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm50/idea.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/site-packages/pymongo/periodic_executor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1764">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/test_py_talib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
+          <folding>
+            <element signature="e#46#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/software/python3rd/anaconda3/lib/python3.4/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10188">
+          <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/pyTaLib/indicator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXLib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+          <folding>
+            <element signature="e#77#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/test_mongoDAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1818">
+          <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/test_TDXDAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1206">
+          <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
+          <folding>
+            <element signature="e#85#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/symbolLib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxDAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
+          <folding>
+            <element signature="e#85#94#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ultrafinance/dam/tdxLib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
           <folding />
         </state>
       </provider>
